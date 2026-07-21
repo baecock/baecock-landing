@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>매칭 체험하기 | 배콕</title>
+  <meta
+    name="description"
+    content="로그인 없이 참가자 이름만 입력하면 코트별 대진을 랜덤으로 뽑아드려요. 배콕 매칭 무료 체험."
+  />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html">배콕</a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a href="index.html">소개</a>
+        <a href="match.html">매칭</a>
+        <a href="features.html">기능 소개</a>
+      </nav>
+      <div class="site-header__actions">
+        <a class="btn-primary" href="match.html">매칭 체험하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 참가자 입력 -->
+    <section class="section match-section">
+      <div class="container">
+        <h1 class="section__title">매칭 체험하기</h1>
+        <p class="match-section__desc">
+          참가자 이름을 입력하고 코트별 대진을 랜덤으로 뽑아보세요. 로그인 없이 무료로 체험할 수
+          있고, 입력한 내용은 서버에 저장되지 않아요.
+        </p>
+
+        <div class="match-input">
+          <div class="match-input__row">
+            <input
+              type="text"
+              id="participant-name"
+              class="text-input"
+              placeholder="참가자 이름 입력"
+              maxlength="20"
+            />
+            <button type="button" id="add-participant" class="btn-secondary">추가</button>
+          </div>
+          <p class="match-input__count">참가자 <span id="participant-count">0</span>명</p>
+          <ul id="participant-list" class="participant-list"></ul>
+        </div>
+
+        <p id="match-error" class="form-error" hidden></p>
+
+        <div class="match-actions">
+          <button type="button" id="generate-match" class="btn-primary">매칭하기</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 매칭 결과 (코트별 카드) -->
+    <section id="match-results" class="section" hidden>
+      <div class="container">
+        <h2 class="section__title">대진표</h2>
+        <div id="matchup-board" class="matchup-board"></div>
+        <p id="waiting-note" class="waiting-note" hidden></p>
+
+        <div class="install-card">
+          <p class="install-card__desc">
+            급수 밸런스, 성별 구분, 수동 조정은 앱에서 가능해요
+          </p>
+          <ul class="install-card__list">
+            <li>급수 밸런스 매칭</li>
+            <li>성별 구분 매칭</li>
+            <li>경기별 수동 조정</li>
+          </ul>
+          <a class="btn-secondary" href="index.html">앱 더 알아보기</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__links">
+        <a href="terms.html">이용약관</a>
+        <a href="privacy.html">개인정보처리방침</a>
+      </div>
+      <p>© 2026 배콕. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/match.js"></script>
+</body>
+</html>

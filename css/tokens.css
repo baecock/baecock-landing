@@ -1,0 +1,59 @@
+/*
+  Design Tokens
+  docs/design.md 값을 그대로 반영한다. 원본 값이 바뀌면 이 파일도 함께 갱신할 것.
+*/
+
+:root {
+  /* Colors */
+  --color-primary: #2563eb;
+  --color-secondary: #334155;
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Text (Secondary 팔레트 계열에서 파생) */
+  --color-text: var(--color-secondary);
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+
+  /* Radius */
+  --radius-card: 20px;
+  --radius-button: 16px;
+  --radius-input: 14px;
+  --radius-bottomsheet: 28px;
+  --radius-chip: 999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+
+  /* Typography */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-size-display: 32px;
+  --font-size-heading: 24px;
+  --font-size-title: 20px;
+  --font-size-body: 16px;
+  --font-size-caption: 13px;
+
+  /* Shadow */
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-dialog: 0 4px 12px rgba(15, 23, 42, 0.12), 0 2px 4px rgba(15, 23, 42, 0.08);
+  --shadow-fab: 0 8px 24px rgba(15, 23, 42, 0.16), 0 4px 8px rgba(15, 23, 42, 0.1);
+
+  /* Animation */
+  --transition-screen: 200ms ease;
+  --transition-button: transform 150ms ease;
+  --transition-card: opacity 200ms ease;
+  --transition-sheet: transform 200ms ease;
+
+  /* Responsive Breakpoints (참고용 — 미디어쿼리에는 직접 px 값 사용) */
+  --breakpoint-tablet: 600px;
+  --breakpoint-desktop: 1024px;
+}
