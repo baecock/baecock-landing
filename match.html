@@ -8,13 +8,21 @@
     name="description"
     content="로그인 없이 참가자 이름만 입력하면 코트별 대진을 랜덤으로 뽑아드려요. 배콕 매칭 무료 체험."
   />
+  <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
+  <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-logo" href="index.html">배콕</a>
+      <a class="site-logo" href="index.html">
+        <img class="site-logo__icon" src="assets/icons/web_logo.png" alt="" />
+        배콕
+      </a>
       <nav class="site-nav" aria-label="주요 메뉴">
         <a href="index.html">소개</a>
         <a href="match.html">매칭</a>
@@ -47,7 +55,7 @@
             />
             <button type="button" id="add-participant" class="btn-secondary">추가</button>
           </div>
-          <p class="match-input__count">참가자 <span id="participant-count">0</span>명</p>
+          <p class="match-input__count">참가자 <span id="participant-count" class="font-emphasis">0</span>명</p>
           <ul id="participant-list" class="participant-list"></ul>
         </div>
 
@@ -67,6 +75,7 @@
         <p id="waiting-note" class="waiting-note" hidden></p>
 
         <div class="install-card">
+          <img class="install-card__icon" src="assets/icons/app_icon_v2.png" alt="배콕 앱 아이콘" />
           <p class="install-card__desc">
             급수 밸런스, 성별 구분, 수동 조정은 앱에서 가능해요
           </p>
@@ -91,6 +100,9 @@
     </div>
   </footer>
 
+  <button type="button" id="scroll-top" class="scroll-top-btn" aria-label="맨 위로 이동">↑</button>
+
   <script src="js/match.js"></script>
+  <script src="js/scroll-top.js" defer></script>
 </body>
 </html>

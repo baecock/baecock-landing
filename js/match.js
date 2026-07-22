@@ -114,7 +114,12 @@
 
     var label = document.createElement("p");
     label.className = "matchup-card__court";
-    label.textContent = "코트 " + courtNumber;
+    label.textContent = "코트 ";
+
+    var courtNumberEl = document.createElement("span");
+    courtNumberEl.className = "font-emphasis";
+    courtNumberEl.textContent = String(courtNumber);
+    label.appendChild(courtNumberEl);
 
     var row = document.createElement("div");
     row.className = "matchup-card__row";

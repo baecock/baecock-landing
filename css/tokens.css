@@ -35,7 +35,9 @@
   --space-7: 32px;
 
   /* Typography */
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-family-base: "NEXON Lv1 Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  /* 강조용 서체 — 숫자/점수/랭킹/레벨 등 강조 표기 전용 (일반 제목에는 사용하지 않음) */
+  --font-family-emphasis: "Do Hyeon", var(--font-family-base);
   --font-size-display: 32px;
   --font-size-heading: 24px;
   --font-size-title: 20px;

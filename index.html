@@ -8,13 +8,21 @@
     name="description"
     content="밴드, 엑셀, 카카오톡, 종이로 흩어진 배드민턴 동호회 운영을 하나의 앱으로. 로그인 없이 매칭을 무료로 체험해보세요."
   />
+  <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
+  <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="has-photo-hero">
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="site-logo" href="index.html">배콕</a>
+      <a class="site-logo" href="index.html">
+        <img class="site-logo__icon" src="assets/icons/web_logo.png" alt="" />
+        배콕
+      </a>
       <nav class="site-nav" aria-label="주요 메뉴">
         <a href="index.html">소개</a>
         <a href="match.html">매칭</a>
@@ -29,11 +37,19 @@
   <main>
     <!-- Hero Section -->
     <section class="hero">
-      <div class="container">
+      <div class="hero__bg">
+        <img src="assets/images/main_bg.png" alt="배드민턴 복식 경기를 즐기는 두 사람 일러스트" />
+      </div>
+      <div class="container hero__container">
         <div class="hero__inner">
+          <p class="hero__badge">🎁 정식 출시 시 30일 동안 무료로 체험할 수 있어요</p>
           <h1 class="hero__title">
-            밴드, 엑셀, 카카오톡, 종이...<br />
-            흩어진 동호회 운영을 하나로
+            <!-- 밴드, 엑셀, 카카오톡, 종이...<br />
+            흩어진 동호회 운영을 하나로 -->
+            동호회 운영부터<br />
+            개인의 배드민턴<br />
+            성장까지<br />
+            함께하는 플랫폼
           </h1>
           <p class="hero__subtitle">
             회원 명단은 밴드에, 회비 정산은 엑셀에, 경기 소식은 카카오톡에, 출석 체크는 종이 위에
@@ -43,55 +59,120 @@
             <a class="btn-primary" href="match.html">매칭 무료로 체험하기</a>
             <span class="hero__cta-hint">로그인 없이 지금 바로 체험할 수 있어요</span>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Problem -> Solution Section -->
-    <section class="section">
-      <div class="container">
-        <p class="section__eyebrow">이런 고민, 익숙하지 않나요?</p>
-        <h2 class="section__title">여러 곳에 흩어진 동호회 운영</h2>
-        <div class="problem-solution__flow">
-          <div class="chip-group">
-            <span class="chip">밴드</span>
-            <span class="chip">엑셀</span>
-            <span class="chip">카카오톡</span>
-            <span class="chip">종이</span>
+          <div class="store-badges">
+            <span class="store-badge-img" aria-disabled="true">
+              <img src="assets/images/app_store.png" alt="App Store에서 다운로드" />
+            </span>
+            <span class="store-badge-img" aria-disabled="true">
+              <img src="assets/images/google_play.png" alt="Google Play에서 다운로드" />
+            </span>
           </div>
-          <span class="flow-arrow" aria-hidden="true">→</span>
-          <span class="solution-chip">하나의 앱</span>
+          <div class="chip-group hero__feature-tags">
+            <span class="chip chip--on-dark">회원</span>
+            <span class="chip chip--on-dark">회비</span>
+            <span class="chip chip--on-dark">경기</span>
+            <span class="chip chip--on-dark">기록</span>
+            <span class="chip chip--on-dark">알림</span>
+          </div>
         </div>
-        <p class="problem-solution__desc">
-          회원 관리부터 회비, 경기 운영, 기록까지 — 동호회에 필요한 모든 걸 앱 하나로 관리하세요.
-        </p>
       </div>
     </section>
 
-    <!-- Core Features Section -->
-    <section class="section">
+    <!-- Problem -> Solution + Core Features Overview 통합 -->
+    <section class="section section--band section--full">
       <div class="container">
-        <h2 class="section__title">핵심 기능</h2>
-        <div class="feature-grid">
+        <div class="section-intro">
+          <p class="section__eyebrow">이런 고민, 익숙하지 않나요?</p>
+          <h2 class="section__title section__title--lg">여러 곳에 흩어진 동호회 운영</h2>
+          <div class="problem-solution__flow">
+            <div class="chip-group">
+              <span class="chip">밴드</span>
+              <span class="chip">엑셀</span>
+              <span class="chip">카카오톡</span>
+              <span class="chip">종이</span>
+            </div>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <span class="solution-chip">하나의 앱</span>
+          </div>
+          <p class="problem-solution__desc">
+            회원 관리부터 회비, 경기 운영, 기록까지 — 동호회에 필요한 모든 걸 앱 하나로 관리하세요.
+          </p>
+        </div>
+
+        <h2 class="section__title section__title--lg feature-grid__heading">핵심 기능</h2>
+        <div class="feature-grid feature-grid--portrait">
           <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">👥</span>
             <h3 class="feature-card__title">회원 관리</h3>
             <p class="feature-card__desc">가입부터 등급 관리까지, 회원 정보를 한곳에서 관리해요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
           <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">💰</span>
             <h3 class="feature-card__title">회비 관리</h3>
             <p class="feature-card__desc">회비 납부 현황을 자동으로 정리하고 한눈에 확인해요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
           <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">🏸</span>
             <h3 class="feature-card__title">경기 운영</h3>
             <p class="feature-card__desc">대진 편성부터 경기 진행까지 손쉽게 운영해요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
           <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">🏆</span>
             <h3 class="feature-card__title">기록·랭킹</h3>
             <p class="feature-card__desc">경기 기록이 쌓여 자동으로 랭킹이 만들어져요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Detail (스크롤 시 하나씩 등장) -->
+    <section class="section section--band">
+      <div class="container">
+        <p class="section__eyebrow">하나씩 자세히 살펴보세요</p>
+        <div class="feature-showcase">
+          <article class="feature-showcase__item" data-reveal>
+            <div class="feature-showcase__visual" aria-hidden="true">
+              <img class="feature-showcase__icon" src="assets/images/features/member.png" alt="" />
+            </div>
+            <div class="feature-showcase__text">
+              <h3 class="feature-showcase__title">회원 관리</h3>
+              <p class="feature-showcase__desc">가입부터 등급 관리까지, 회원 정보를 한곳에서 관리해요.</p>
+              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+            </div>
+          </article>
+          <article class="feature-showcase__item" data-reveal>
+            <div class="feature-showcase__visual" aria-hidden="true">
+              <img class="feature-showcase__icon" src="assets/images/features/dues.png" alt="" />
+            </div>
+            <div class="feature-showcase__text">
+              <h3 class="feature-showcase__title">회비 관리</h3>
+              <p class="feature-showcase__desc">회비 납부 현황을 자동으로 정리하고 한눈에 확인해요.</p>
+              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+            </div>
+          </article>
+          <article class="feature-showcase__item" data-reveal>
+            <div class="feature-showcase__visual" aria-hidden="true">
+              <img class="feature-showcase__icon" src="assets/images/features/match.png" alt="" />
+            </div>
+            <div class="feature-showcase__text">
+              <h3 class="feature-showcase__title">경기 운영</h3>
+              <p class="feature-showcase__desc">대진 편성부터 경기 진행까지 손쉽게 운영해요.</p>
+              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+            </div>
+          </article>
+          <article class="feature-showcase__item" data-reveal>
+            <div class="feature-showcase__visual" aria-hidden="true">
+              <img class="feature-showcase__icon" src="assets/images/features/ranking.png" alt="" />
+            </div>
+            <div class="feature-showcase__text">
+              <h3 class="feature-showcase__title">기록·랭킹</h3>
+              <p class="feature-showcase__desc">경기 기록이 쌓여 자동으로 랭킹이 만들어져요.</p>
+              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+            </div>
           </article>
         </div>
         <p class="feature-section__footer">
@@ -99,16 +180,40 @@
         </p>
       </div>
     </section>
+
+    <!-- 앱 다운로드 액션 + Footer를 한 화면에 -->
+    <section class="section section--full closing-section">
+      <div class="container closing-section__content">
+        <p class="section__eyebrow">지금 바로 시작하세요</p>
+        <h2 class="section__title section__title--lg">배콕을 다운로드하고 더 편하게 운영하세요</h2>
+        <p class="problem-solution__desc">
+          회원 관리부터 회비, 경기 운영, 기록까지 — 앱 하나로 동호회 운영을 더 쉽게 만들어보세요.
+        </p>
+        <div class="store-badges">
+          <span class="store-badge-img" aria-disabled="true">
+            <img src="assets/images/app_store.png" alt="App Store에서 다운로드" />
+          </span>
+          <span class="store-badge-img" aria-disabled="true">
+            <img src="assets/images/google_play.png" alt="Google Play에서 다운로드" />
+          </span>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container site-footer__inner">
+          <div class="site-footer__links">
+            <a href="terms.html">이용약관</a>
+            <a href="privacy.html">개인정보처리방침</a>
+          </div>
+          <p>© 2026 배콕. All rights reserved.</p>
+        </div>
+      </footer>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <div class="site-footer__links">
-        <a href="terms.html">이용약관</a>
-        <a href="privacy.html">개인정보처리방침</a>
-      </div>
-      <p>© 2026 배콕. All rights reserved.</p>
-    </div>
-  </footer>
+  <button type="button" id="scroll-top" class="scroll-top-btn" aria-label="맨 위로 이동">↑</button>
+
+  <script src="js/reveal.js" defer></script>
+  <script src="js/scroll-top.js" defer></script>
 </body>
 </html>
