@@ -18,15 +18,15 @@
 </head>
 <body class="has-photo-hero">
   <header class="site-header">
-    <div class="container site-header__inner">
+    <div class="site-header__inner">
       <a class="site-logo" href="index.html">
         <img class="site-logo__icon" src="assets/icons/web_logo.png" alt="" />
         배콕
       </a>
       <nav class="site-nav" aria-label="주요 메뉴">
         <a href="index.html">소개</a>
-        <a href="match.html">매칭</a>
-        <a href="features.html">기능 소개</a>
+        <!-- <a href="match.html">매칭</a> -->
+        <a href="features.html">기능</a>
       </nav>
       <div class="site-header__actions">
         <a class="btn-primary" href="match.html">매칭 체험하기</a>
@@ -42,7 +42,7 @@
       </div>
       <div class="container hero__container">
         <div class="hero__inner">
-          <p class="hero__badge">🎁 정식 출시 시 30일 동안 무료로 체험할 수 있어요</p>
+          <!-- <p class="hero__badge">🎁 정식 출시 시 30일 동안 무료로 체험할 수 있어요</p> -->
           <h1 class="hero__title">
             <!-- 밴드, 엑셀, 카카오톡, 종이...<br />
             흩어진 동호회 운영을 하나로 -->
@@ -52,11 +52,13 @@
             함께하는 플랫폼
           </h1>
           <p class="hero__subtitle">
-            회원 명단은 밴드에, 회비 정산은 엑셀에, 경기 소식은 카카오톡에, 출석 체크는 종이 위에
-            흩어져 있진 않나요? 배콕은 이 모든 걸 하나의 앱에 담습니다.
+            회원 명단은 밴드에, 회비 정산은 엑셀에, 경기 소식은 카카오톡에,
+            출석 체크는 종이 위에 흩어져 있진 않나요? <br />
+            배콕은 이 모든 걸 하나의 앱에 담고, 참가자만
+            입력하면 급수 밸런스를 맞춘 대진표까지 자동으로 짜드립니다.
           </p>
           <div class="hero__cta-row">
-            <a class="btn-primary" href="match.html">매칭 무료로 체험하기</a>
+            <a class="btn-primary" href="match.html">매칭 체험하기</a>
             <span class="hero__cta-hint">로그인 없이 지금 바로 체험할 수 있어요</span>
           </div>
           <div class="store-badges">
@@ -81,7 +83,7 @@
     <!-- Problem -> Solution + Core Features Overview 통합 -->
     <section class="section section--band section--full">
       <div class="container">
-        <div class="section-intro">
+        <div class="section-intro reveal" data-reveal>
           <p class="section__eyebrow">이런 고민, 익숙하지 않나요?</p>
           <h2 class="section__title section__title--lg">여러 곳에 흩어진 동호회 운영</h2>
           <div class="problem-solution__flow">
@@ -99,30 +101,43 @@
           </p>
         </div>
 
-        <h2 class="section__title section__title--lg feature-grid__heading">핵심 기능</h2>
-        <div class="feature-grid feature-grid--portrait">
+        <h2 class="section__title section__title--lg feature-grid__heading">배콕 플랫폼의 특별한 기능</h2>
+        <p class="feature-grid__subheading">모임 운영에 필요한 모든 관리 도구를 제공합니다</p>
+        <div class="feature-grid feature-grid--portrait reveal" data-reveal>
           <article class="feature-card">
             <span class="feature-card__icon" aria-hidden="true">👥</span>
             <h3 class="feature-card__title">회원 관리</h3>
-            <p class="feature-card__desc">가입부터 등급 관리까지, 회원 정보를 한곳에서 관리해요.</p>
+            <p class="feature-card__desc">회원 등록부터 등급 관리까지, 명단 관리를 한 곳에서 끝내세요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
           <article class="feature-card">
             <span class="feature-card__icon" aria-hidden="true">💰</span>
             <h3 class="feature-card__title">회비 관리</h3>
-            <p class="feature-card__desc">회비 납부 현황을 자동으로 정리하고 한눈에 확인해요.</p>
+            <p class="feature-card__desc">누가 냈고 안 냈는지, 회비 납부 현황이 자동으로 정리돼요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
           <article class="feature-card">
             <span class="feature-card__icon" aria-hidden="true">🏸</span>
             <h3 class="feature-card__title">경기 운영</h3>
-            <p class="feature-card__desc">대진 편성부터 경기 진행까지 손쉽게 운영해요.</p>
+            <p class="feature-card__desc">참가자만 입력하면 대진표가 순식간에 완성돼요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
           <article class="feature-card">
             <span class="feature-card__icon" aria-hidden="true">🏆</span>
             <h3 class="feature-card__title">기록·랭킹</h3>
-            <p class="feature-card__desc">경기 기록이 쌓여 자동으로 랭킹이 만들어져요.</p>
+            <p class="feature-card__desc">경기 결과가 쌓일수록 랭킹이 저절로 업데이트돼요.</p>
+            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
+          </article>
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">📅</span>
+            <h3 class="feature-card__title">공지·일정</h3>
+            <p class="feature-card__desc">정모 공지와 일정을 앱 하나로 모아서 편하게 공유하세요.</p>
+            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
+          </article>
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">🔔</span>
+            <h3 class="feature-card__title">알림</h3>
+            <p class="feature-card__desc">놓치기 쉬운 공지와 경기 소식을 알림으로 바로 챙겨드려요.</p>
             <a class="feature-card__link" href="features.html">자세히 보기 →</a>
           </article>
         </div>
@@ -140,8 +155,9 @@
             </div>
             <div class="feature-showcase__text">
               <h3 class="feature-showcase__title">회원 관리</h3>
-              <p class="feature-showcase__desc">가입부터 등급 관리까지, 회원 정보를 한곳에서 관리해요.</p>
-              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+              <p class="feature-showcase__desc">
+                이름, 연락처, 급수까지 — 신규 회원 등록부터 등급 조정까지 앱 안에서 바로 처리해요.
+              </p>
             </div>
           </article>
           <article class="feature-showcase__item" data-reveal>
@@ -150,8 +166,9 @@
             </div>
             <div class="feature-showcase__text">
               <h3 class="feature-showcase__title">회비 관리</h3>
-              <p class="feature-showcase__desc">회비 납부 현황을 자동으로 정리하고 한눈에 확인해요.</p>
-              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+              <p class="feature-showcase__desc">
+                이번 달 낸 사람, 안 낸 사람이 한눈에 보여요. 미납 회원에게는 알림도 자동으로 나가요.
+              </p>
             </div>
           </article>
           <article class="feature-showcase__item" data-reveal>
@@ -160,8 +177,9 @@
             </div>
             <div class="feature-showcase__text">
               <h3 class="feature-showcase__title">경기 운영</h3>
-              <p class="feature-showcase__desc">대진 편성부터 경기 진행까지 손쉽게 운영해요.</p>
-              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+              <p class="feature-showcase__desc">
+                참가자만 입력하면 급수 밸런스를 맞춰 대진을 짜드려요. 필요할 땐 직접 수동으로 조정할 수도 있어요.
+              </p>
             </div>
           </article>
           <article class="feature-showcase__item" data-reveal>
@@ -170,8 +188,20 @@
             </div>
             <div class="feature-showcase__text">
               <h3 class="feature-showcase__title">기록·랭킹</h3>
-              <p class="feature-showcase__desc">경기 기록이 쌓여 자동으로 랭킹이 만들어져요.</p>
-              <a class="feature-showcase__link" href="features.html">자세히 보기 →</a>
+              <p class="feature-showcase__desc">
+                경기가 끝나면 승패가 자동으로 기록되고, 승률·경기 수 기준 랭킹이 바로 업데이트돼요.
+              </p>
+            </div>
+          </article>
+          <article class="feature-showcase__item" data-reveal>
+            <div class="feature-showcase__visual" aria-hidden="true">
+              <img class="feature-showcase__icon" src="assets/images/features/notice.png" alt="" />
+            </div>
+            <div class="feature-showcase__text">
+              <h3 class="feature-showcase__title">공지·일정</h3>
+              <p class="feature-showcase__desc">
+                정모 공지를 올리면 캘린더에 바로 반영되고, 경기 하루 전엔 알림으로 한 번 더 알려드려요.
+              </p>
             </div>
           </article>
         </div>
@@ -183,11 +213,11 @@
 
     <!-- 앱 다운로드 액션 + Footer를 한 화면에 -->
     <section class="section section--full closing-section">
-      <div class="container closing-section__content">
+      <div class="container closing-section__content reveal" data-reveal>
         <p class="section__eyebrow">지금 바로 시작하세요</p>
         <h2 class="section__title section__title--lg">배콕을 다운로드하고 더 편하게 운영하세요</h2>
         <p class="problem-solution__desc">
-          회원 관리부터 회비, 경기 운영, 기록까지 — 앱 하나로 동호회 운영을 더 쉽게 만들어보세요.
+          다음 정모부터, 밴드와 엑셀을 오가지 않고도 대진표까지 자동으로 짜서 운영할 수 있어요.
         </p>
         <div class="store-badges">
           <span class="store-badge-img" aria-disabled="true">
@@ -215,5 +245,6 @@
 
   <script src="js/reveal.js" defer></script>
   <script src="js/scroll-top.js" defer></script>
+  <script src="js/header-scroll.js" defer></script>
 </body>
 </html>

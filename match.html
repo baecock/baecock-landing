@@ -6,7 +6,7 @@
   <title>매칭 체험하기 | 배콕</title>
   <meta
     name="description"
-    content="로그인 없이 참가자 이름만 입력하면 코트별 대진을 랜덤으로 뽑아드려요. 배콕 매칭 무료 체험."
+    content="로그인 없이 참가자만 입력하면 급수·복식 유형까지 반영한 대진을 뽑아드려요. 배콕 매칭 무료 체험."
   />
   <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
   <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
@@ -40,9 +40,33 @@
       <div class="container">
         <h1 class="section__title">매칭 체험하기</h1>
         <p class="match-section__desc">
-          참가자 이름을 입력하고 코트별 대진을 랜덤으로 뽑아보세요. 로그인 없이 무료로 체험할 수
-          있고, 입력한 내용은 서버에 저장되지 않아요.
+          참가자를 입력하고 급수·복식 유형까지 반영한 대진을 뽑아보세요. 로그인 없이 무료로
+          체험할 수 있고, 입력한 내용은 서버에 저장되지 않아요.
         </p>
+
+        <!-- 대진 생성 방식 -->
+        <div class="generation-mode">
+          <h2 class="generation-mode__title">대진 생성 방식</h2>
+          <div class="generation-mode__options" role="radiogroup" aria-label="대진 생성 방식">
+            <label class="generation-mode__card is-selected" for="generation-mode-normal">
+              <span class="generation-mode__card-head">
+                <input type="radio" name="generation-mode" id="generation-mode-normal" value="normal" checked />
+                <span class="generation-mode__card-title">일반 자동대진</span>
+              </span>
+              <span class="generation-mode__card-desc">전체 참가자를 기준으로 랜덤 매칭해요.</span>
+            </label>
+            <label class="generation-mode__card" for="generation-mode-team">
+              <span class="generation-mode__card-head">
+                <input type="radio" name="generation-mode" id="generation-mode-team" value="team" />
+                <span class="generation-mode__card-title">팀 대항 자동대진</span>
+              </span>
+              <span class="generation-mode__card-desc">A팀 vs B팀 구도로 나누어, 그룹 내부에서만 대진을 만들어요.</span>
+            </label>
+          </div>
+          <div id="team-mode-panel" class="generation-mode__team-panel" hidden>
+            <button type="button" id="auto-group-split" class="btn-secondary btn-secondary--sm">참가자 절반씩 자동 배정</button>
+          </div>
+        </div>
 
         <div class="match-input">
           <div class="match-input__row">
@@ -53,16 +77,132 @@
               placeholder="참가자 이름 입력"
               maxlength="20"
             />
+            <select id="participant-grade" class="select-input" aria-label="급수 (선택)">
+              <option value="">급수 미설정</option>
+              <option value="S">S급</option>
+              <option value="A">A급</option>
+              <option value="B">B급</option>
+              <option value="C">C급</option>
+              <option value="D">D급</option>
+              <option value="E">E급</option>
+              <option value="F">F급</option>
+            </select>
+            <select id="participant-gender" class="select-input" aria-label="성별 (선택)">
+              <option value="">성별 미설정</option>
+              <option value="M">남</option>
+              <option value="F">여</option>
+            </select>
+            <select id="participant-age" class="select-input" aria-label="연령대 (선택)">
+              <option value="">연령대 미설정</option>
+              <option value="10">10대</option>
+              <option value="20">20대</option>
+              <option value="30">30대</option>
+              <option value="40">40대</option>
+              <option value="50">50대</option>
+              <option value="60">60대 이상</option>
+            </select>
+            <select id="participant-group" class="select-input" aria-label="그룹 (선택)" hidden>
+              <option value="">그룹 미배정</option>
+              <option value="A">A팀</option>
+              <option value="B">B팀</option>
+            </select>
             <button type="button" id="add-participant" class="btn-secondary">추가</button>
           </div>
-          <p class="match-input__count">참가자 <span id="participant-count" class="font-emphasis">0</span>명</p>
+          <p class="match-input__count">참가자 <span id="participant-count" class="font-emphasis">0</span>명<span id="group-hint" hidden> · 이름 옆 그룹 배지를 클릭하면 미배정→A팀→B팀 순으로 바뀌어요</span></p>
           <ul id="participant-list" class="participant-list"></ul>
+          <p class="form-note match-input__app-note">
+            참고: 지금은 참가자를 이렇게 직접 입력하지만, 실제 앱에서는 일정 참석 여부에 응답한 회원이 자동으로 이 목록에 들어가고 그대로 대진표가 짜여요. 회원이 아닌 게스트도 지금처럼 이름만으로 바로 추가할 수 있어요.
+          </p>
         </div>
 
         <p id="match-error" class="form-error" hidden></p>
+        <p id="match-note" class="form-note" hidden></p>
 
-        <div class="match-actions">
+        <!-- 매칭 모드 탭 -->
+        <div class="mode-tabs" role="tablist" aria-label="매칭 모드">
+          <button type="button" id="mode-tab-random" class="mode-tab is-active" role="tab" aria-selected="true">
+            랜덤 매칭
+          </button>
+          <button type="button" id="mode-tab-manual" class="mode-tab" role="tab" aria-selected="false">
+            직접 구성
+          </button>
+        </div>
+
+        <!-- 매칭 옵션 -->
+        <div class="match-options">
+          <div id="grade-mode-row" class="match-options__row">
+            <label for="grade-mode">급수 매칭 모드</label>
+            <select id="grade-mode" class="select-input">
+              <option value="ignore">급수 무시 (완전 랜덤)</option>
+              <option value="same">같은 급수끼리 매칭</option>
+              <option value="mix">급수 섞어서 매칭 (강한 사람 + 약한 사람)</option>
+            </select>
+          </div>
+          <div class="match-options__row">
+            <label for="doubles-type">복식 유형</label>
+            <select id="doubles-type" class="select-input">
+              <option value="all">전체 (성별 무관)</option>
+              <option value="male">남자복식</option>
+              <option value="female">여자복식</option>
+              <option value="mixed">혼합복식</option>
+            </select>
+          </div>
+          <div id="games-per-person-row" class="match-options__row">
+            <label for="games-per-person">최소 게임 수</label>
+            <select id="games-per-person" class="select-input">
+              <option value="1">1게임</option>
+              <option value="2">2게임</option>
+              <option value="3" selected>3게임</option>
+              <option value="4">4게임</option>
+              <option value="5">5게임</option>
+              <option value="6">6게임</option>
+            </select>
+          </div>
+          <div id="court-count-row" class="match-options__row">
+            <label for="court-count">사용 코트 수</label>
+            <select id="court-count" class="select-input">
+              <option value="auto" selected>자동 (인원에 맞게)</option>
+              <option value="1">1개</option>
+              <option value="2">2개</option>
+              <option value="3">3개</option>
+              <option value="4">4개</option>
+              <option value="5">5개</option>
+              <option value="6">6개</option>
+              <option value="7">7개</option>
+              <option value="8">8개</option>
+            </select>
+          </div>
+        </div>
+        <p id="court-count-hint" class="form-note match-options__hint">
+          코트 수를 지정하면 한 라운드에 그만큼만 동시 진행돼요. 인원이 더 많으면 나머지는 다음 라운드로 순환 배정돼요.
+        </p>
+
+        <!-- 랜덤 매칭 패널 -->
+        <div id="random-panel" class="match-actions">
           <button type="button" id="generate-match" class="btn-primary">매칭하기</button>
+        </div>
+
+        <!-- 직접 구성(수동) 패널 -->
+        <div id="manual-panel" class="manual-builder" hidden>
+          <p id="manual-error" class="form-error" hidden></p>
+
+          <div class="manual-builder__pool">
+            <div class="manual-builder__pool-header">
+              <h3 class="manual-builder__heading">참가자 풀 <span id="manual-pool-count" class="font-emphasis">0</span>명</h3>
+              <button type="button" id="manual-sort-toggle" class="btn-secondary btn-secondary--sm">급수순 정렬</button>
+            </div>
+            <p class="manual-builder__hint">참가자를 순서대로 클릭하면 빈 슬롯에 채워져요 (팀A 2명 → 팀B 2명).</p>
+            <ul id="manual-pool" class="manual-pool"></ul>
+          </div>
+
+          <div class="manual-builder__courts">
+            <div class="manual-builder__courts-header">
+              <h3 class="manual-builder__heading">구성 중인 대진</h3>
+              <button type="button" id="add-court" class="btn-secondary btn-secondary--sm">+ 코트 추가</button>
+            </div>
+            <div id="manual-courts" class="manual-courts"></div>
+            <button type="button" id="confirm-manual" class="btn-primary">대진 확정</button>
+          </div>
         </div>
       </div>
     </section>
@@ -71,18 +211,17 @@
     <section id="match-results" class="section" hidden>
       <div class="container">
         <h2 class="section__title">대진표</h2>
-        <div id="matchup-board" class="matchup-board"></div>
-        <p id="waiting-note" class="waiting-note" hidden></p>
+        <div id="matchup-board" class="matchup-board-wrap"></div>
 
         <div class="install-card">
           <img class="install-card__icon" src="assets/icons/app_icon_v2.png" alt="배콕 앱 아이콘" />
           <p class="install-card__desc">
-            급수 밸런스, 성별 구분, 수동 조정은 앱에서 가능해요
+            체험판은 여기까지! 로그인하면 이런 것까지 편해져요
           </p>
           <ul class="install-card__list">
-            <li>급수 밸런스 매칭</li>
-            <li>성별 구분 매칭</li>
-            <li>경기별 수동 조정</li>
+            <li>회원 프로필의 급수·성별이 자동으로 채워져요</li>
+            <li>매칭 결과가 저장되고 기록·랭킹에 자동 반영돼요</li>
+            <li>여러 번 만난 파트너와의 궁합 통계까지 쌓여요</li>
           </ul>
           <a class="btn-secondary" href="index.html">앱 더 알아보기</a>
         </div>
