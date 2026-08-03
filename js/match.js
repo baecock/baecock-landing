@@ -4,7 +4,7 @@
   var GRADE_ORDER = ["S", "A", "B", "C", "D", "E", "F"];
   var GROUP_CYCLE = ["", "A", "B"];
   var GRADE_MODE_LABELS = { ignore: "급수 무시", same: "동일 급수끼리", mix: "급수 섞어서" };
-  var DOUBLES_TYPE_LABELS = { all: "전체(성별 무관)", male: "남자복식", female: "여자복식", mixed: "혼합복식" };
+  var DOUBLES_TYPE_LABELS = { all: "전체(성별 무관)", samegender: "성별별 복식", mixed: "혼합복식" };
   var MIN_PARTICIPANTS = 4;
   var ARRANGEMENT_ATTEMPTS = 30;
   var MAX_ROUNDS_PER_GROUP = 40;
@@ -13,13 +13,15 @@
   var nextId = 1;
   var mode = "random"; // 'random' | 'manual'
   var manualSortByGrade = false;
+  var fixedPartners = []; // [[id, id], ...] — 매 라운드 같은 팀으로 묶을 참가자 쌍
+  var fixedPartnerPending = null; // 고정 파트너 지정 중 먼저 클릭한 참가자 id
 
   var sessionState = { pairHistory: null, opponentHistory: null, benchCounts: null };
   var manualState = { courts: [] }; // { slots: [id|null, id|null, id|null, id|null] } (0-1: 팀A, 2-3: 팀B)
 
   // currentSession.groups: [{ label: 'A팀'|null, rounds: [{courts:[{teamA:[id,id],teamB:[id,id]}], benchedIds:[id...]}] }]
   var currentSession = null;
-  var uiState = { editingKey: null, editingSlotKey: null };
+  var uiState = { editingKey: null, editingSlotKey: null, editingScoreKey: null, editingParticipantId: null, collapsedRounds: new Set() };
 
   resetSessionHistory();
 
@@ -30,7 +32,7 @@
   var ageSelect = document.getElementById("participant-age");
   var groupSelect = document.getElementById("participant-group");
   var addBtn = document.getElementById("add-participant");
-  var countEl = document.getElementById("participant-count");
+  var statsEl = document.getElementById("participant-stats");
   var groupHintEl = document.getElementById("group-hint");
   var listEl = document.getElementById("participant-list");
   var errorEl = document.getElementById("match-error");
@@ -50,6 +52,12 @@
   var genModeCards = document.querySelectorAll(".generation-mode__card");
   var teamModePanel = document.getElementById("team-mode-panel");
   var autoGroupSplitBtn = document.getElementById("auto-group-split");
+
+  var fixedPartnerPanel = document.getElementById("fixed-partner-panel");
+  var fixedPartnerHintEl = document.getElementById("fixed-partner-hint");
+  var fixedPartnerPoolEl = document.getElementById("fixed-partner-pool");
+  var fixedPartnerListEl = document.getElementById("fixed-partner-list");
+  var fixedPartnerTagsEl = document.getElementById("fixed-partner-tags");
 
   var randomPanel = document.getElementById("random-panel");
   var generateBtn = document.getElementById("generate-match");
@@ -104,6 +112,24 @@
     return age ? age + "대" : "";
   }
 
+  function gradeBadgeClass(grade) {
+    return grade ? "badge--grade-" + grade.toLowerCase() : "badge--grade";
+  }
+
+  function ageBadgeClass(age) {
+    return age ? "badge--age-" + age : "badge--age";
+  }
+
+  function ageGradeLabel(p) {
+    return (p.age || "") + (p.grade || "");
+  }
+
+  function ageGradeBadgeClass(p) {
+    if (p.grade) return gradeBadgeClass(p.grade);
+    if (p.age) return ageBadgeClass(p.age);
+    return "badge--grade";
+  }
+
   function groupLabel(group) {
     return group === "A" ? "A팀" : group === "B" ? "B팀" : "";
   }
@@ -112,9 +138,26 @@
     return genModeTeamRadio.checked;
   }
 
+  // 같은 급수 표기라도 성별·연령대에 따라 실제 체감 실력이 다르다는 피드백을 반영한 보정치.
+  // 여성은 한 단계, 40대부터는 10살마다 한 단계씩 실력을 더 낮게(=S 쪽으로 가깝게) 본다.
+  // 예: 남C=여D, 2030A=40B=50(A-2단계) — S보다 더 좋을 수는 없으니 0에서 멈춘다(clamp)
+  function gradeAgeGenderStep(p) {
+    var step = 0;
+    if (p.gender === "F") step += 1;
+    if (p.age) {
+      step += Math.max(0, Math.floor((Number(p.age) - 30) / 10));
+    }
+    return step;
+  }
+
+  function effectiveGradeRank(p) {
+    var rank = GRADE_ORDER.indexOf(p.grade) - gradeAgeGenderStep(p);
+    return Math.max(0, rank);
+  }
+
   function gradeRankForMix(p) {
     if (!p.grade) return 3.5;
-    return GRADE_ORDER.indexOf(p.grade);
+    return effectiveGradeRank(p);
   }
 
   // 급수순 "정렬 표시" 전용 — 미설정은 섞어서 매칭(중간 취급)과 달리 항상 맨 뒤로 보낸다
@@ -123,8 +166,10 @@
     return GRADE_ORDER.indexOf(p.grade);
   }
 
+  // "동일 급수" 매칭이 실제 표기가 아니라 보정된 실력 등급 기준으로 묶이도록 그룹 키도 보정치를 반영한다
   function gradeGroupKey(p) {
-    return p.grade || "__none__";
+    if (!p.grade) return "__none__";
+    return GRADE_ORDER[effectiveGradeRank(p)];
   }
 
   function showError(message) {
@@ -153,6 +198,7 @@
     currentSession = null;
     uiState.editingKey = null;
     uiState.editingSlotKey = null;
+    uiState.editingScoreKey = null;
     generateBtn.textContent = "매칭하기";
     resetSessionHistory();
     manualState.courts = [];
@@ -164,8 +210,84 @@
 
   // ---- 참가자 입력 ----
 
+  function renderParticipantStats() {
+    if (participants.length === 0) {
+      statsEl.hidden = true;
+      statsEl.textContent = "";
+      return;
+    }
+
+    var chips = [{ text: "전체 " + participants.length + "명", className: "badge--total" }];
+
+    var maleCount = participants.filter(function (p) { return p.gender === "M"; }).length;
+    var femaleCount = participants.filter(function (p) { return p.gender === "F"; }).length;
+    if (maleCount > 0) chips.push({ text: "남 " + maleCount + "명", className: "badge--gender-m" });
+    if (femaleCount > 0) chips.push({ text: "여 " + femaleCount + "명", className: "badge--gender-f" });
+
+    GRADE_ORDER.forEach(function (grade) {
+      var count = participants.filter(function (p) { return p.grade === grade; }).length;
+      if (count > 0) chips.push({ text: grade + "급 " + count + "명", className: gradeBadgeClass(grade) });
+    });
+
+    statsEl.textContent = "";
+    chips.forEach(function (chip) {
+      var chipEl = document.createElement("span");
+      chipEl.className = "badge " + chip.className;
+      chipEl.textContent = chip.text;
+      statsEl.appendChild(chipEl);
+    });
+    statsEl.hidden = false;
+  }
+
+  function isInFixedPair(id) {
+    return fixedPartners.some(function (pair) { return pair[0] === id || pair[1] === id; });
+  }
+
+  function renderFixedPartnerPanel() {
+    fixedPartnerPoolEl.textContent = "";
+    participants.forEach(function (p) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "fixed-partner__chip" + (fixedPartnerPending === p.id ? " is-picked" : "");
+      chip.dataset.id = String(p.id);
+      chip.textContent = p.name;
+      if (isInFixedPair(p.id)) chip.disabled = true;
+      fixedPartnerPoolEl.appendChild(chip);
+    });
+
+    fixedPartnerHintEl.textContent = fixedPartnerPending === null
+      ? "매 라운드 같은 팀으로 묶을 첫 번째 참가자를 클릭하세요."
+      : "파트너로 묶을 두 번째 참가자를 클릭하세요.";
+
+    fixedPartnerTagsEl.textContent = "";
+    fixedPartners.forEach(function (pair, index) {
+      var a = byId(pair[0]);
+      var b = byId(pair[1]);
+      if (!a || !b) return;
+
+      var tag = document.createElement("span");
+      tag.className = "fixed-partner__tag";
+
+      var label = document.createElement("span");
+      label.textContent = a.name + " & " + b.name;
+      tag.appendChild(label);
+
+      var removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "fixed-partner__tag-remove";
+      removeBtn.dataset.index = String(index);
+      removeBtn.setAttribute("aria-label", "고정 파트너 해제");
+      removeBtn.textContent = "×";
+      tag.appendChild(removeBtn);
+
+      fixedPartnerTagsEl.appendChild(tag);
+    });
+    fixedPartnerListEl.hidden = fixedPartners.length === 0;
+  }
+
   function renderParticipants() {
-    countEl.textContent = String(participants.length);
+    renderParticipantStats();
+    renderFixedPartnerPanel();
     listEl.textContent = "";
 
     if (participants.length === 0) {
@@ -177,6 +299,11 @@
     }
 
     participants.forEach(function (p) {
+      if (uiState.editingParticipantId === p.id) {
+        listEl.appendChild(renderParticipantEditItem(p));
+        return;
+      }
+
       var item = document.createElement("li");
       item.className = "participant-item";
 
@@ -189,7 +316,7 @@
 
       if (p.grade) {
         var gradeBadge = document.createElement("span");
-        gradeBadge.className = "badge badge--grade";
+        gradeBadge.className = "badge " + gradeBadgeClass(p.grade);
         gradeBadge.textContent = gradeLabel(p.grade);
         main.appendChild(gradeBadge);
       }
@@ -203,7 +330,7 @@
 
       if (p.age) {
         var ageBadge = document.createElement("span");
-        ageBadge.className = "badge badge--age";
+        ageBadge.className = "badge " + ageBadgeClass(p.age);
         ageBadge.textContent = ageLabel(p.age);
         main.appendChild(ageBadge);
       }
@@ -211,12 +338,21 @@
       if (isTeamMode()) {
         var groupBadge = document.createElement("button");
         groupBadge.type = "button";
-        groupBadge.className = "badge badge--group-toggle " + (p.group === "A" ? "badge--group-a" : p.group === "B" ? "badge--group-b" : "badge--grade");
+        groupBadge.className = "badge badge--group-toggle " + (p.group === "A" ? "badge--group-a" : p.group === "B" ? "badge--group-b" : "badge--group-unassigned");
         groupBadge.dataset.id = String(p.id);
         groupBadge.title = "클릭하면 그룹이 바뀌어요 (미배정→A팀→B팀)";
         groupBadge.textContent = p.group ? groupLabel(p.group) : "그룹 미배정";
         main.appendChild(groupBadge);
       }
+
+      var actions = document.createElement("div");
+      actions.className = "participant-item__actions";
+
+      var editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.className = "participant-item__edit";
+      editBtn.dataset.id = String(p.id);
+      editBtn.textContent = "수정";
 
       var removeBtn = document.createElement("button");
       removeBtn.type = "button";
@@ -224,10 +360,114 @@
       removeBtn.dataset.id = String(p.id);
       removeBtn.textContent = "삭제";
 
+      actions.appendChild(editBtn);
+      actions.appendChild(removeBtn);
+
       item.appendChild(main);
-      item.appendChild(removeBtn);
+      item.appendChild(actions);
       listEl.appendChild(item);
     });
+  }
+
+  function renderParticipantEditItem(p) {
+    var item = document.createElement("li");
+    item.className = "participant-item participant-item--editing";
+    item.dataset.id = String(p.id);
+
+    var fields = document.createElement("div");
+    fields.className = "participant-item__edit-row";
+
+    var nameField = document.createElement("input");
+    nameField.type = "text";
+    nameField.className = "text-input participant-item__edit-name";
+    nameField.maxLength = 20;
+    nameField.value = p.name;
+
+    var ageField = ageSelect.cloneNode(true);
+    ageField.removeAttribute("id");
+    ageField.className = "select-input participant-item__edit-age";
+    ageField.value = p.age || "";
+
+    var gradeField = gradeSelect.cloneNode(true);
+    gradeField.removeAttribute("id");
+    gradeField.className = "select-input participant-item__edit-grade";
+    gradeField.value = p.grade || "";
+
+    var genderField = genderSelect.cloneNode(true);
+    genderField.removeAttribute("id");
+    genderField.className = "select-input participant-item__edit-gender";
+    genderField.value = p.gender || "";
+
+    fields.appendChild(nameField);
+    fields.appendChild(ageField);
+    fields.appendChild(gradeField);
+    fields.appendChild(genderField);
+
+    if (isTeamMode()) {
+      var groupField = groupSelect.cloneNode(true);
+      groupField.removeAttribute("id");
+      groupField.removeAttribute("hidden");
+      groupField.className = "select-input participant-item__edit-group";
+      groupField.value = p.group || "";
+      fields.appendChild(groupField);
+    }
+
+    var actions = document.createElement("div");
+    actions.className = "participant-item__edit-actions";
+
+    var saveBtn = document.createElement("button");
+    saveBtn.type = "button";
+    saveBtn.className = "btn-secondary btn-secondary--sm participant-item__save";
+    saveBtn.dataset.id = String(p.id);
+    saveBtn.textContent = "저장";
+
+    var cancelBtn = document.createElement("button");
+    cancelBtn.type = "button";
+    cancelBtn.className = "btn-secondary btn-secondary--sm participant-item__cancel";
+    cancelBtn.textContent = "취소";
+
+    actions.appendChild(saveBtn);
+    actions.appendChild(cancelBtn);
+
+    item.appendChild(fields);
+    item.appendChild(actions);
+
+    nameField.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") saveEditParticipant(p.id, item);
+    });
+
+    return item;
+  }
+
+  function startEditParticipant(id) {
+    uiState.editingParticipantId = id;
+    renderParticipants();
+  }
+
+  function cancelEditParticipant() {
+    uiState.editingParticipantId = null;
+    renderParticipants();
+  }
+
+  function saveEditParticipant(id, item) {
+    var p = byId(id);
+    if (!p) return;
+
+    var name = item.querySelector(".participant-item__edit-name").value.trim();
+    if (!name) return;
+
+    p.name = name;
+    p.age = item.querySelector(".participant-item__edit-age").value || null;
+    p.grade = item.querySelector(".participant-item__edit-grade").value || null;
+    p.gender = item.querySelector(".participant-item__edit-gender").value || null;
+    var groupField = item.querySelector(".participant-item__edit-group");
+    if (groupField) p.group = groupField.value || null;
+
+    uiState.editingParticipantId = null;
+    clearError();
+    clearNote();
+    hideResults();
+    renderParticipants();
   }
 
   function addParticipant() {
@@ -257,6 +497,8 @@
 
   function removeParticipant(id) {
     participants = participants.filter(function (p) { return p.id !== id; });
+    fixedPartners = fixedPartners.filter(function (pair) { return pair[0] !== id && pair[1] !== id; });
+    if (fixedPartnerPending === id) fixedPartnerPending = null;
     clearError();
     clearNote();
     hideResults();
@@ -300,6 +542,7 @@
     gradeModeRow.hidden = mode !== "random";
     gamesPerPersonRow.hidden = mode !== "random";
     courtCountRow.hidden = mode !== "random";
+    fixedPartnerPanel.hidden = mode !== "random";
     randomPanel.hidden = mode !== "random";
     manualPanel.hidden = mode !== "manual";
 
@@ -403,12 +646,41 @@
     return result;
   }
 
+  // 이번 라운드 풀 안에 고정 파트너 쌍이 둘 다 있으면 팀으로 확정하고, 나머지 인원만 반환한다
+  function extractFixedTeams(pool) {
+    var byIdMap = {};
+    pool.forEach(function (p) { byIdMap[p.id] = p; });
+
+    var forced = [];
+    var used = {};
+    fixedPartners.forEach(function (pair) {
+      var a = byIdMap[pair[0]];
+      var b = byIdMap[pair[1]];
+      if (a && b && !used[a.id] && !used[b.id]) {
+        forced.push([a, b]);
+        used[a.id] = true;
+        used[b.id] = true;
+      }
+    });
+
+    var remainder = pool.filter(function (p) { return !used[p.id]; });
+    return { forced: forced, remainder: remainder };
+  }
+
   function formTeams(activePool, gradeMode) {
     if (activePool.length === 0) return [];
-    if (gradeMode === "ignore") return generateArrangement(activePool);
-    var ordered = gradeMode === "same" ? groupByGradeConcat(activePool) : orderForMixedGrade(activePool);
-    var teams = buildTeams(ordered);
-    return arrangeCourts(teams);
+
+    var extracted = extractFixedTeams(activePool);
+    var remainderTeams = [];
+    if (extracted.remainder.length > 0) {
+      if (gradeMode === "ignore") {
+        remainderTeams = generateArrangement(extracted.remainder);
+      } else {
+        var ordered = gradeMode === "same" ? groupByGradeConcat(extracted.remainder) : orderForMixedGrade(extracted.remainder);
+        remainderTeams = buildTeams(ordered);
+      }
+    }
+    return arrangeCourts(extracted.forced.concat(remainderTeams));
   }
 
   function generateArrangementMixed(males, females) {
@@ -435,22 +707,52 @@
     });
   }
 
+  // 혼합복식 풀에서 고정 파트너 쌍(남1+여1) 확정 후 나머지 남/여만 반환한다
+  function extractFixedTeamsMixed(males, females) {
+    var maleById = {};
+    males.forEach(function (p) { maleById[p.id] = p; });
+    var femaleById = {};
+    females.forEach(function (p) { femaleById[p.id] = p; });
+
+    var forced = [];
+    var usedM = {};
+    var usedF = {};
+    fixedPartners.forEach(function (pair) {
+      var mId = maleById[pair[0]] ? pair[0] : (maleById[pair[1]] ? pair[1] : null);
+      var fId = femaleById[pair[0]] ? pair[0] : (femaleById[pair[1]] ? pair[1] : null);
+      if (mId !== null && fId !== null && mId !== fId && !usedM[mId] && !usedF[fId]) {
+        forced.push([maleById[mId], femaleById[fId]]);
+        usedM[mId] = true;
+        usedF[fId] = true;
+      }
+    });
+
+    var remainderM = males.filter(function (p) { return !usedM[p.id]; });
+    var remainderF = females.filter(function (p) { return !usedF[p.id]; });
+    return { forced: forced, remainderM: remainderM, remainderF: remainderF };
+  }
+
   function formTeamsMixed(activeM, activeF, gradeMode) {
     if (activeM.length === 0) return [];
-    if (gradeMode === "ignore") return generateArrangementMixed(activeM, activeF);
 
-    var orderedM, orderedF;
-    if (gradeMode === "same") {
-      orderedM = groupByGradeConcat(activeM);
-      orderedF = groupByGradeConcat(activeF);
-    } else {
-      orderedM = orderByGrade(activeM, false);
-      orderedF = orderByGrade(activeF, true);
+    var extracted = extractFixedTeamsMixed(activeM, activeF);
+    var remainderTeams = [];
+    if (extracted.remainderM.length > 0) {
+      if (gradeMode === "ignore") {
+        remainderTeams = generateArrangementMixed(extracted.remainderM, extracted.remainderF);
+      } else {
+        var orderedM, orderedF;
+        if (gradeMode === "same") {
+          orderedM = groupByGradeConcat(extracted.remainderM);
+          orderedF = groupByGradeConcat(extracted.remainderF);
+        } else {
+          orderedM = orderByGrade(extracted.remainderM, false);
+          orderedF = orderByGrade(extracted.remainderF, true);
+        }
+        for (var i = 0; i < orderedM.length; i++) remainderTeams.push([orderedM[i], orderedF[i]]);
+      }
     }
-
-    var teams = [];
-    for (var i = 0; i < orderedM.length; i++) teams.push([orderedM[i], orderedF[i]]);
-    return arrangeCourts(teams);
+    return arrangeCourts(extracted.forced.concat(remainderTeams));
   }
 
   function buildCourts(teams) {
@@ -486,7 +788,11 @@
 
   function toIdCourts(courts) {
     return courts.map(function (court) {
-      return { teamA: [court[0][0].id, court[0][1].id], teamB: [court[1][0].id, court[1][1].id] };
+      return {
+        teamA: [court[0][0].id, court[0][1].id],
+        teamB: [court[1][0].id, court[1][1].id],
+        score: { a: null, b: null }
+      };
     });
   }
 
@@ -505,18 +811,6 @@
     if (doublesType === "all") {
       if (!validateCount(pool.length, prefix + "매칭")) return null;
       return { kind: "single", pool: pool };
-    }
-
-    if (doublesType === "male" || doublesType === "female") {
-      var wantGender = doublesType === "male" ? "M" : "F";
-      var label = doublesType === "male" ? "남자복식" : "여자복식";
-      var genderPool = pool.filter(function (p) { return p.gender === wantGender; });
-      var excludedUnset = pool.filter(function (p) { return !p.gender; }).length;
-      if (!validateCount(genderPool.length, prefix + label)) return null;
-      if (excludedUnset > 0) {
-        showNote(prefix + "성별 미설정 참가자 " + excludedUnset + "명은 이번 " + label + " 매칭 대상에서 제외됐어요.");
-      }
-      return { kind: "single", pool: genderPool };
     }
 
     var males = pool.filter(function (p) { return p.gender === "M"; });
@@ -663,10 +957,44 @@
       groupsToRun.push({ label: null, pool: participants.slice() });
     }
 
+    var resolveType = doublesType;
+    if (doublesType === "samegender") {
+      var splitGroups = [];
+      for (var s = 0; s < groupsToRun.length; s++) {
+        var base = groupsToRun[s];
+        var prefix = base.label ? base.label + ": " : "";
+        var malePool = base.pool.filter(function (p) { return p.gender === "M"; });
+        var femalePool = base.pool.filter(function (p) { return p.gender === "F"; });
+        var unsetCount = base.pool.filter(function (p) { return !p.gender; }).length;
+        var maleOk = malePool.length >= MIN_PARTICIPANTS;
+        var femaleOk = femalePool.length >= MIN_PARTICIPANTS;
+
+        if (!maleOk && !femaleOk) {
+          showError(prefix + "성별별 복식을 하려면 남자와 여자가 각각 최소 " + MIN_PARTICIPANTS + "명씩 있어야 해요 (현재 남 " + malePool.length + "명 / 여 " + femalePool.length + "명)");
+          return;
+        }
+        if (!maleOk) {
+          showNote(prefix + "남자 참가자가 " + malePool.length + "명이라 최소 " + MIN_PARTICIPANTS + "명에 못 미쳐요. 이번엔 남자복식을 진행하지 않아요.");
+        }
+        if (!femaleOk) {
+          showNote(prefix + "여자 참가자가 " + femalePool.length + "명이라 최소 " + MIN_PARTICIPANTS + "명에 못 미쳐요. 이번엔 여자복식을 진행하지 않아요.");
+        }
+        if (unsetCount > 0) {
+          showNote(prefix + "성별 미설정 참가자 " + unsetCount + "명은 이번 성별별 복식 매칭 대상에서 제외됐어요.");
+        }
+
+        var subPrefix = base.label ? base.label + " · " : "";
+        if (maleOk) splitGroups.push({ label: subPrefix + "남자부", pool: malePool });
+        if (femaleOk) splitGroups.push({ label: subPrefix + "여자부", pool: femalePool });
+      }
+      groupsToRun = splitGroups;
+      resolveType = "all";
+    }
+
     var sessionGroups = [];
     for (var i = 0; i < groupsToRun.length; i++) {
       var g = groupsToRun[i];
-      var resolved = resolveDoublesPools(doublesType, g.pool, g.label);
+      var resolved = resolveDoublesPools(resolveType, g.pool, g.label);
       if (!resolved) return;
       var rounds = generateSessionForPool(resolved, gradeMode, gamesPerPerson, g.pool.map(function (p) { return p.id; }), courtLimit);
       sessionGroups.push({ label: g.label, rounds: rounds });
@@ -675,8 +1003,14 @@
     currentSession = {
       groups: sessionGroups,
       editable: true,
-      settings: { gradeMode: gradeMode, doublesType: doublesType, gamesPerPerson: gamesPerPerson, courtLimit: courtLimit, grouped: grouped }
+      settings: { gradeMode: gradeMode, doublesType: doublesType, gamesPerPerson: gamesPerPerson, courtLimit: courtLimit, grouped: grouped, fixedPartnerCount: fixedPartners.length }
     };
+    uiState.collapsedRounds = new Set();
+    sessionGroups.forEach(function (g, groupIndex) {
+      for (var r = 1; r < g.rounds.length; r++) {
+        uiState.collapsedRounds.add(groupIndex + "-" + r);
+      }
+    });
     resultsSection.hidden = false;
     generateBtn.textContent = "다시 뽑기";
     renderBoard();
@@ -699,19 +1033,49 @@
       }
 
       group.rounds.forEach(function (round, roundIndex) {
-        if (group.rounds.length > 1) {
-          var roundTitle = document.createElement("p");
-          roundTitle.className = "session-round__title";
-          roundTitle.textContent = (roundIndex + 1) + "라운드";
-          boardEl.appendChild(roundTitle);
-        }
+        var roundKey = groupIndex + "-" + roundIndex;
+        var collapsed = uiState.collapsedRounds.has(roundKey);
+
+        var roundBlock = document.createElement("div");
+        roundBlock.className = "session-round";
+
+        var roundHeader = document.createElement("button");
+        roundHeader.type = "button";
+        roundHeader.className = "session-round__header" + (collapsed ? " is-collapsed" : "");
+        roundHeader.dataset.roundKey = roundKey;
+
+        var roundTitle = document.createElement("span");
+        roundTitle.className = "session-round__title";
+        roundTitle.textContent = (roundIndex + 1) + "라운드";
+        roundHeader.appendChild(roundTitle);
+
+        var roundHeaderRight = document.createElement("span");
+        roundHeaderRight.className = "session-round__header-right";
+
+        var roundCount = document.createElement("span");
+        roundCount.className = "session-round__count";
+        roundCount.textContent = round.courts.length + "경기";
+        roundHeaderRight.appendChild(roundCount);
+
+        var roundChevron = document.createElement("span");
+        roundChevron.className = "session-round__chevron";
+        roundChevron.textContent = "▾";
+        roundChevron.setAttribute("aria-hidden", "true");
+        roundHeaderRight.appendChild(roundChevron);
+
+        roundHeader.appendChild(roundHeaderRight);
+        roundBlock.appendChild(roundHeader);
+
+        var body = document.createElement("div");
+        body.className = "session-round__body";
+        body.hidden = collapsed;
 
         var grid = document.createElement("div");
         grid.className = "matchup-board";
         round.courts.forEach(function (court, courtIndex) {
           grid.appendChild(renderMatchupCard(court, courtIndex + 1, groupIndex, roundIndex, courtIndex));
         });
-        boardEl.appendChild(grid);
+        body.appendChild(grid);
 
         if (round.benchedIds.length > 0) {
           var names = round.benchedIds.map(function (id) {
@@ -723,8 +1087,11 @@
           note.textContent = currentSession.editable
             ? "이번 라운드 휴식: " + names.join(" · ") + " (게임 수가 고르게 배분되도록 순환 배정돼요)"
             : "이번 대진에 포함되지 않음: " + names.join(" · ");
-          boardEl.appendChild(note);
+          body.appendChild(note);
         }
+
+        roundBlock.appendChild(body);
+        boardEl.appendChild(roundBlock);
       });
     });
   }
@@ -873,7 +1240,8 @@
       DOUBLES_TYPE_LABELS[settings.doublesType],
       "최소 " + settings.gamesPerPerson + "게임",
       settings.courtLimit ? "코트 " + settings.courtLimit + "개" : "코트 자동",
-      settings.grouped ? "A/B 그룹 나누기" : null
+      settings.grouped ? "A/B 그룹 나누기" : null,
+      settings.fixedPartnerCount ? "고정 파트너 " + settings.fixedPartnerCount + "쌍" : null
     ].filter(Boolean);
   }
 
@@ -893,21 +1261,49 @@
     return null;
   }
 
-  function renderTeamBlock(players, isTeamB) {
+  function isFixedPair(idA, idB) {
+    return fixedPartners.some(function (pair) {
+      return (pair[0] === idA && pair[1] === idB) || (pair[0] === idB && pair[1] === idA);
+    });
+  }
+
+  // teamKey/court가 있으면(=수정 가능한 랜덤 매칭 결과) 참가자 한 명 한 명이 클릭 가능한 슬롯이 된다.
+  // 같은 코트 안의 다른 참가자를 클릭하면 바로 자리를 맞바꾸고, 선택된 참가자는 다른 색으로 표시한다.
+  function renderTeamBlock(players, isTeamB, isWinner, key, teamKey, isFixed) {
     var team = document.createElement("div");
-    team.className = "matchup-card__team" + (isTeamB ? " matchup-card__team--b" : "");
-    players.forEach(function (p) {
+    team.className = "matchup-card__team"
+      + (isTeamB ? " matchup-card__team--b" : "")
+      + (isWinner ? " matchup-card__team--winner" : "");
+
+    if (isFixed) {
+      var fixedBadge = document.createElement("span");
+      fixedBadge.className = "matchup-card__fixed-badge";
+      fixedBadge.textContent = "고정 파트너";
+      team.appendChild(fixedBadge);
+    }
+
+    players.forEach(function (p, index) {
+      var slotKey = teamKey + "-" + index;
       var playerRow = document.createElement("div");
       playerRow.className = "matchup-card__player";
+
+      if (currentSession.editable) {
+        playerRow.classList.add("matchup-card__player--clickable");
+        playerRow.dataset.key = key;
+        playerRow.dataset.slotKey = slotKey;
+        if (uiState.editingKey === key && uiState.editingSlotKey === slotKey) {
+          playerRow.classList.add("matchup-card__player--selected");
+        }
+      }
 
       var nameEl = document.createElement("span");
       nameEl.textContent = p.name;
       playerRow.appendChild(nameEl);
 
-      if (p.grade) {
+      if (p.grade || p.age) {
         var gradeBadge = document.createElement("span");
-        gradeBadge.className = "badge badge--grade";
-        gradeBadge.textContent = gradeLabel(p.grade);
+        gradeBadge.className = "badge " + ageGradeBadgeClass(p);
+        gradeBadge.textContent = ageGradeLabel(p);
         playerRow.appendChild(gradeBadge);
       }
 
@@ -956,17 +1352,12 @@
     }
 
     header.appendChild(headerLeft);
-
-    if (currentSession.editable) {
-      var editBtn = document.createElement("button");
-      editBtn.type = "button";
-      editBtn.className = "matchup-card__edit-btn";
-      editBtn.dataset.key = key;
-      editBtn.textContent = uiState.editingKey === key ? "닫기" : "수정";
-      header.appendChild(editBtn);
-    }
-
     card.appendChild(header);
+
+    if (!court.score) court.score = { a: null, b: null };
+    var hasScore = court.score.a !== null && court.score.b !== null;
+    var aWins = hasScore && court.score.a > court.score.b;
+    var bWins = hasScore && court.score.b > court.score.a;
 
     var row = document.createElement("div");
     row.className = "matchup-card__row";
@@ -975,63 +1366,107 @@
     vsBadge.className = "matchup-card__vs-badge";
     vsBadge.textContent = "VS";
 
-    row.appendChild(renderTeamBlock(teamA, false));
+    var teamAFixed = teamA.length === 2 && isFixedPair(teamA[0].id, teamA[1].id);
+    var teamBFixed = teamB.length === 2 && isFixedPair(teamB[0].id, teamB[1].id);
+
+    row.appendChild(renderTeamBlock(teamA, false, aWins, key, "teamA", teamAFixed));
     row.appendChild(vsBadge);
-    row.appendChild(renderTeamBlock(teamB, true));
+    row.appendChild(renderTeamBlock(teamB, true, bWins, key, "teamB", teamBFixed));
     card.appendChild(row);
 
-    if (currentSession.editable && uiState.editingKey === key) {
-      card.appendChild(renderSlotEditor(court, key, getRoundData(groupIndex, roundIndex)));
+    card.appendChild(renderScoreArea(court, key));
+
+    if (currentSession.editable && uiState.editingKey === key && uiState.editingSlotKey) {
+      card.appendChild(renderSwapPanel(key, getRoundData(groupIndex, roundIndex)));
     }
 
     return card;
+  }
+
+  // 스코어는 서버에 저장하지 않는 로컬 상태다 (court 객체에 직접 보관, 새로고침 시 초기화)
+  // "점수" 버튼/텍스트를 누르면 입력 칸으로 바뀌고, 저장하면 다시 텍스트로 바뀌는 토글형 UI
+  function renderScoreArea(court, key) {
+    var wrap = document.createElement("div");
+    wrap.className = "matchup-card__score-row";
+
+    if (uiState.editingScoreKey === key) {
+      var inputA = document.createElement("input");
+      inputA.type = "text";
+      inputA.inputMode = "numeric";
+      inputA.className = "matchup-card__score-input";
+      inputA.placeholder = "0";
+      inputA.dataset.team = "a";
+      inputA.setAttribute("aria-label", "팀 A 점수");
+      if (court.score.a !== null) inputA.value = String(court.score.a);
+
+      var sep = document.createElement("span");
+      sep.className = "matchup-card__score-sep";
+      sep.textContent = ":";
+
+      var inputB = document.createElement("input");
+      inputB.type = "text";
+      inputB.inputMode = "numeric";
+      inputB.className = "matchup-card__score-input";
+      inputB.placeholder = "0";
+      inputB.dataset.team = "b";
+      inputB.setAttribute("aria-label", "팀 B 점수");
+      if (court.score.b !== null) inputB.value = String(court.score.b);
+
+      var saveBtn = document.createElement("button");
+      saveBtn.type = "button";
+      saveBtn.className = "matchup-card__score-save";
+      saveBtn.dataset.key = key;
+      saveBtn.textContent = "저장";
+
+      var cancelBtn = document.createElement("button");
+      cancelBtn.type = "button";
+      cancelBtn.className = "matchup-card__score-cancel";
+      cancelBtn.dataset.key = key;
+      cancelBtn.textContent = "취소";
+
+      wrap.appendChild(inputA);
+      wrap.appendChild(sep);
+      wrap.appendChild(inputB);
+      wrap.appendChild(saveBtn);
+      wrap.appendChild(cancelBtn);
+    } else {
+      var hasScore = court.score.a !== null && court.score.b !== null;
+      var toggleBtn = document.createElement("button");
+      toggleBtn.type = "button";
+      toggleBtn.className = "matchup-card__score-toggle" + (hasScore ? " matchup-card__score-toggle--filled" : "");
+      toggleBtn.dataset.key = key;
+      toggleBtn.textContent = hasScore ? "점수 " + court.score.a + " : " + court.score.b : "점수";
+      wrap.appendChild(toggleBtn);
+    }
+
+    return wrap;
   }
 
   function getRoundData(groupIndex, roundIndex) {
     return currentSession.groups[groupIndex].rounds[roundIndex];
   }
 
-  function renderSlotEditor(court, key, roundData) {
+  function getCourtByKey(key) {
+    var parts = key.split("-");
+    return getRoundData(Number(parts[0]), Number(parts[1])).courts[Number(parts[2])];
+  }
+
+  // 참가자를 클릭해 슬롯 하나를 선택한 상태에서 카드 아래에 노출되는 패널.
+  // 휴식 인원과 교체하거나(기존과 동일), 위쪽에서 같은 코트의 다른 참가자를 클릭해 자리를 맞바꿀 수 있다.
+  function renderSwapPanel(key, roundData) {
     var wrap = document.createElement("div");
     wrap.className = "matchup-card__slots";
 
-    var slots = [
-      { key: "teamA-0", label: "팀A", id: court.teamA[0] },
-      { key: "teamA-1", label: "팀A", id: court.teamA[1] },
-      { key: "teamB-0", label: "팀B", id: court.teamB[0] },
-      { key: "teamB-1", label: "팀B", id: court.teamB[1] }
-    ];
+    var hint = document.createElement("p");
+    hint.className = "matchup-card__slot-hint";
+    hint.textContent = roundData.benchedIds.length > 0
+      ? "휴식 인원과 교체하거나, 위에서 같은 코트의 다른 참가자를 클릭해 자리를 바꾸세요."
+      : "교체 가능한 휴식 인원은 없어요. 위에서 같은 코트의 다른 참가자를 클릭하면 자리를 바꿀 수 있어요.";
+    wrap.appendChild(hint);
 
-    slots.forEach(function (slot) {
-      var p = byId(slot.id);
-      var row = document.createElement("div");
-      row.className = "matchup-card__slot-row";
-
-      var text = document.createElement("span");
-      text.textContent = slot.label + " · " + (p ? p.name : "");
-      row.appendChild(text);
-
-      if (roundData.benchedIds.length > 0) {
-        var swapBtn = document.createElement("button");
-        swapBtn.type = "button";
-        swapBtn.className = "matchup-card__slot-swap";
-        swapBtn.dataset.key = key;
-        swapBtn.dataset.slotKey = slot.key;
-        swapBtn.textContent = uiState.editingSlotKey === slot.key ? "취소" : "교체";
-        row.appendChild(swapBtn);
-      } else {
-        var noneText = document.createElement("span");
-        noneText.className = "bench-picker__empty";
-        noneText.textContent = "교체 가능 인원 없음";
-        row.appendChild(noneText);
-      }
-
-      wrap.appendChild(row);
-
-      if (uiState.editingSlotKey === slot.key) {
-        wrap.appendChild(renderBenchPicker(key, slot.key, roundData));
-      }
-    });
+    if (roundData.benchedIds.length > 0) {
+      wrap.appendChild(renderBenchPicker(key, uiState.editingSlotKey, roundData));
+    }
 
     return wrap;
   }
@@ -1082,20 +1517,53 @@
     renderBoard();
   }
 
+  // 같은 코트 안에서 이미 배정된 두 참가자끼리 자리를 맞바꾼다 (휴식 인원 경유 없이 직접 교환)
+  function swapWithinCourt(key, slotKeyA, slotKeyB) {
+    var court = getCourtByKey(key);
+
+    var a = slotKeyA.split("-");
+    var b = slotKeyB.split("-");
+    var teamAKey = a[0], idxA = Number(a[1]);
+    var teamBKey = b[0], idxB = Number(b[1]);
+
+    var temp = court[teamAKey][idxA];
+    court[teamAKey][idxA] = court[teamBKey][idxB];
+    court[teamBKey][idxB] = temp;
+
+    recordHistoryForCourt(court);
+
+    uiState.editingKey = null;
+    uiState.editingSlotKey = null;
+    renderBoard();
+  }
+
   boardEl.addEventListener("click", function (event) {
-    var editBtn = event.target.closest(".matchup-card__edit-btn");
-    if (editBtn) {
-      var key = editBtn.dataset.key;
-      uiState.editingKey = uiState.editingKey === key ? null : key;
-      uiState.editingSlotKey = null;
+    var roundHeaderBtn = event.target.closest(".session-round__header");
+    if (roundHeaderBtn) {
+      var roundKey = roundHeaderBtn.dataset.roundKey;
+      if (uiState.collapsedRounds.has(roundKey)) {
+        uiState.collapsedRounds.delete(roundKey);
+      } else {
+        uiState.collapsedRounds.add(roundKey);
+      }
       renderBoard();
       return;
     }
 
-    var swapBtn = event.target.closest(".matchup-card__slot-swap");
-    if (swapBtn) {
-      var slotKey = swapBtn.dataset.slotKey;
-      uiState.editingSlotKey = uiState.editingSlotKey === slotKey ? null : slotKey;
+    var playerTarget = event.target.closest(".matchup-card__player--clickable");
+    if (playerTarget) {
+      var pKey = playerTarget.dataset.key;
+      var pSlotKey = playerTarget.dataset.slotKey;
+      if (uiState.editingKey === pKey && uiState.editingSlotKey === pSlotKey) {
+        uiState.editingKey = null;
+        uiState.editingSlotKey = null;
+      } else if (uiState.editingKey === pKey && uiState.editingSlotKey) {
+        swapWithinCourt(pKey, uiState.editingSlotKey, pSlotKey);
+        return;
+      } else {
+        uiState.editingKey = pKey;
+        uiState.editingSlotKey = pSlotKey;
+      }
       renderBoard();
       return;
     }
@@ -1103,6 +1571,37 @@
     var benchOption = event.target.closest(".bench-picker__option");
     if (benchOption) {
       swapSlot(benchOption.dataset.key, benchOption.dataset.slotKey, Number(benchOption.dataset.benchId));
+      return;
+    }
+
+    var scoreToggle = event.target.closest(".matchup-card__score-toggle");
+    if (scoreToggle) {
+      uiState.editingScoreKey = scoreToggle.dataset.key;
+      renderBoard();
+      return;
+    }
+
+    var scoreCancel = event.target.closest(".matchup-card__score-cancel");
+    if (scoreCancel) {
+      uiState.editingScoreKey = null;
+      renderBoard();
+      return;
+    }
+
+    var scoreSave = event.target.closest(".matchup-card__score-save");
+    if (scoreSave) {
+      var scoreKey = scoreSave.dataset.key;
+      var scoreRow = scoreSave.closest(".matchup-card__score-row");
+      var inputA = scoreRow.querySelector('[data-team="a"]');
+      var inputB = scoreRow.querySelector('[data-team="b"]');
+      var numA = inputA.value === "" ? null : Number(inputA.value);
+      var numB = inputB.value === "" ? null : Number(inputB.value);
+      getCourtByKey(scoreKey).score = {
+        a: numA !== null && !isNaN(numA) ? numA : null,
+        b: numB !== null && !isNaN(numB) ? numB : null
+      };
+      uiState.editingScoreKey = null;
+      renderBoard();
       return;
     }
   });
@@ -1119,8 +1618,6 @@
 
   function filterByDoublesTypeForDisplay(pool) {
     var doublesType = doublesTypeSelect.value;
-    if (doublesType === "male") return pool.filter(function (p) { return p.gender === "M"; });
-    if (doublesType === "female") return pool.filter(function (p) { return p.gender === "F"; });
     if (doublesType === "mixed") return pool.filter(function (p) { return p.gender === "M" || p.gender === "F"; });
     return pool;
   }
@@ -1302,7 +1799,11 @@
     manualErrorEl.hidden = incompleteCount === 0;
 
     var idCourts = completeCourts.map(function (court) {
-      return { teamA: [court.slots[0], court.slots[1]], teamB: [court.slots[2], court.slots[3]] };
+      return {
+        teamA: [court.slots[0], court.slots[1]],
+        teamB: [court.slots[2], court.slots[3]],
+        score: { a: null, b: null }
+      };
     });
 
     var assignedIds = [];
@@ -1315,6 +1816,7 @@
       groups: [{ label: null, rounds: [{ courts: idCourts, benchedIds: leftoverIds }] }],
       editable: false
     };
+    uiState.collapsedRounds = new Set();
     resultsSection.hidden = false;
     renderBoard();
   });
@@ -1341,6 +1843,21 @@
       cycleGroup(Number(groupTarget.dataset.id));
       return;
     }
+    var editTarget = event.target.closest(".participant-item__edit");
+    if (editTarget) {
+      startEditParticipant(Number(editTarget.dataset.id));
+      return;
+    }
+    var saveTarget = event.target.closest(".participant-item__save");
+    if (saveTarget) {
+      saveEditParticipant(Number(saveTarget.dataset.id), saveTarget.closest(".participant-item"));
+      return;
+    }
+    var cancelTarget = event.target.closest(".participant-item__cancel");
+    if (cancelTarget) {
+      cancelEditParticipant();
+      return;
+    }
   });
 
   modeTabRandom.addEventListener("click", function () { switchMode("random"); });
@@ -1351,6 +1868,31 @@
   });
 
   autoGroupSplitBtn.addEventListener("click", autoSplitGroups);
+
+  fixedPartnerPoolEl.addEventListener("click", function (event) {
+    var chip = event.target.closest(".fixed-partner__chip");
+    if (!chip || chip.disabled) return;
+    var id = Number(chip.dataset.id);
+
+    if (fixedPartnerPending === null) {
+      fixedPartnerPending = id;
+    } else if (fixedPartnerPending === id) {
+      fixedPartnerPending = null;
+    } else {
+      fixedPartners.push([fixedPartnerPending, id]);
+      fixedPartnerPending = null;
+      hideResults();
+    }
+    renderFixedPartnerPanel();
+  });
+
+  fixedPartnerTagsEl.addEventListener("click", function (event) {
+    var removeBtn = event.target.closest(".fixed-partner__tag-remove");
+    if (!removeBtn) return;
+    fixedPartners.splice(Number(removeBtn.dataset.index), 1);
+    hideResults();
+    renderFixedPartnerPanel();
+  });
 
   function onGenerationModeChange() {
     var team = isTeamMode();
@@ -1367,6 +1909,70 @@
   genModeTeamRadio.addEventListener("change", onGenerationModeChange);
 
   generateBtn.addEventListener("click", generateMatches);
+
+  // ---- 테스트 편의용 붙여넣기 일괄 추가 (여기서 })(); 직전까지 통째로 지우면 제거됨, match.html의 같은 주석 구간도 함께 지울 것) ----
+  var AGE_VALUES = ["10", "20", "30", "40", "45", "50", "55", "60"];
+  var pasteToggleBtn = document.getElementById("paste-import-toggle");
+  var pastePanel = document.getElementById("paste-import-panel");
+  var pasteInputEl = document.getElementById("paste-import-input");
+  var pasteRunBtn = document.getElementById("paste-import-run");
+
+  function normalizeGenderPaste(raw) {
+    var v = (raw || "").trim();
+    if (v === "남" || v === "남자" || v.toUpperCase() === "M") return "M";
+    if (v === "여" || v === "여자" || v.toUpperCase() === "F") return "F";
+    return null;
+  }
+
+  function normalizeGradePaste(raw) {
+    var v = (raw || "").trim().toUpperCase().replace(/급$/, "");
+    return GRADE_ORDER.indexOf(v) !== -1 ? v : null;
+  }
+
+  function normalizeAgePaste(raw) {
+    var v = (raw || "").trim().replace(/\s*이상$/, "").replace(/(대|세)$/, "");
+    return AGE_VALUES.indexOf(v) !== -1 ? v : null;
+  }
+
+  function runPasteImport() {
+    var lines = pasteInputEl.value.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean);
+    var added = 0;
+    var skipped = 0;
+
+    lines.forEach(function (line) {
+      var cols = line.split("\t");
+      var name = (cols[0] || "").trim();
+      if (!name) { skipped++; return; }
+
+      participants.push({
+        id: nextId++,
+        name: name,
+        age: normalizeAgePaste(cols[1]),
+        grade: normalizeGradePaste(cols[2]),
+        gender: normalizeGenderPaste(cols[3]),
+        group: null
+      });
+      added++;
+    });
+
+    pasteInputEl.value = "";
+    clearError();
+    clearNote();
+    hideResults();
+    renderParticipants();
+
+    if (added > 0) {
+      showNote(added + "명을 붙여넣기로 추가했어요." + (skipped > 0 ? " (" + skipped + "줄은 이름이 없어 건너뜀)" : ""));
+    } else {
+      showError("추가된 참가자가 없어요. 각 줄 첫 번째 칸에 이름이 있는지 확인해주세요.");
+    }
+  }
+
+  pasteToggleBtn.addEventListener("click", function () {
+    pastePanel.hidden = !pastePanel.hidden;
+  });
+  pasteRunBtn.addEventListener("click", runPasteImport);
+  // ---- 붙여넣기 일괄 추가 끝 ----
 
   renderParticipants();
 })();

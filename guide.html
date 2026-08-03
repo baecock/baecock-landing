@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이용 가이드 | 배콕</title>
+  <meta
+    name="description"
+    content="배콕의 기능과 이용 방법을 카테고리별로 찾아보세요 — 회원 관리, 회비 관리, 경기 운영, 기록·랭킹, 공지·일정, 사진첩, 알림, 자주 묻는 질문까지."
+  />
+  <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
+  <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <script src="js/site-header.js" data-page="guide"></script>
+
+  <main>
+    <!-- 페이지 헤더 -->
+    <section class="section">
+      <div class="container container--narrow">
+        <h1 class="section__title">이용 가이드</h1>
+        <p class="match-section__desc">
+          배콕의 기능과 이용 방법을 카테고리별로 찾아보세요. 궁금한 항목을
+          사이드바에서 골라 바로 이동할 수 있어요.
+        </p>
+      </div>
+    </section>
+
+    <!-- 가이드 본문 -->
+    <section class="section">
+      <div class="container container--narrow guide-layout">
+        <nav class="guide-sidebar" aria-label="가이드 목차">
+          <a class="guide-sidebar__link" href="#start">시작하기</a>
+          <a class="guide-sidebar__link" href="#members">회원 관리</a>
+          <a class="guide-sidebar__link" href="#dues">회비 관리</a>
+          <a class="guide-sidebar__link" href="#matches">경기 운영</a>
+          <a class="guide-sidebar__link" href="#records">기록·랭킹</a>
+          <a class="guide-sidebar__link" href="#notices">공지·일정</a>
+          <a class="guide-sidebar__link" href="#photos">사진첩</a>
+          <a class="guide-sidebar__link" href="#alerts">알림</a>
+          <a class="guide-sidebar__link" href="#faq">FAQ</a>
+        </nav>
+
+        <div class="guide-content">
+          <section id="start" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">🚀</span>
+              <h2 class="guide-section__title">시작하기</h2>
+            </div>
+            <p class="guide-section__desc">
+              배콕은 배드민턴 동호회 운영에 필요한 기능을 하나의 앱에 담은
+              플랫폼이에요. 회원 명단은 밴드에, 회비 정산은 엑셀에, 경기
+              소식은 카카오톡에 흩어져 있던 것들을 한 곳에서 관리할 수
+              있어요.
+            </p>
+            <p class="guide-section__desc">
+              지금 이 웹사이트에서는 로그인 없이 매칭 기능을 먼저 체험해볼
+              수 있어요.
+            </p>
+            <ol class="guide-steps">
+              <li>참가자 이름(선택적으로 급수·성별)을 입력해요</li>
+              <li>랜덤 매칭을 돌리거나 직접 팀을 구성해요</li>
+              <li>코트별 대진 카드로 결과를 확인해요</li>
+            </ol>
+            <p class="guide-section__desc">
+              <a class="feature-card__link" href="match.html">지금 로그인 없이 체험해보기 →</a>
+            </p>
+
+            <div class="guide-compare-wrap">
+              <table class="guide-compare">
+                <thead>
+                  <tr>
+                    <th scope="col">항목</th>
+                    <th scope="col">기존 방식</th>
+                    <th scope="col">배콕</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>회원 명단 관리</td>
+                    <td>밴드 게시글·엑셀 파일로 따로 관리</td>
+                    <td class="is-highlight">앱 하나에서 프로필로 관리</td>
+                  </tr>
+                  <tr>
+                    <td>회비 정산</td>
+                    <td>엑셀로 수기 정리, 미납자 확인 어려움</td>
+                    <td class="is-highlight">납부 체크와 미납 알림 자동화</td>
+                  </tr>
+                  <tr>
+                    <td>경기 대진 짜기</td>
+                    <td>수기로 순서를 정하거나 즉석에서 결정</td>
+                    <td class="is-highlight">급수 밸런스를 맞춘 자동 매칭</td>
+                  </tr>
+                  <tr>
+                    <td>경기 소식·일정 공유</td>
+                    <td>카카오톡 단체방에 흩어짐</td>
+                    <td class="is-highlight">캘린더 + 알림으로 한 곳에 정리</td>
+                  </tr>
+                  <tr>
+                    <td>사진 모으기</td>
+                    <td>단체방에서 유실되기 쉬움</td>
+                    <td class="is-highlight">이벤트별 앨범으로 보관</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="members" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">👥</span>
+              <h2 class="guide-section__title">회원 관리</h2>
+            </div>
+            <p class="guide-section__desc">
+              회원 명단을 앱 하나로 관리할 수 있어요. 초대 링크로 신규
+              회원을 받고, 이름·급수·연락처 같은 정보를 프로필 카드로
+              확인하며, 운영진 권한을 역할별로 나눠줄 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>회원 초대</li>
+              <li>프로필 관리</li>
+              <li>급수 등급 설정</li>
+              <li>운영진 권한 관리</li>
+            </ul>
+          </section>
+
+          <section id="dues" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">💰</span>
+              <h2 class="guide-section__title">회비 관리</h2>
+            </div>
+            <p class="guide-section__desc">
+              회비 납부 여부를 월별·회차별로 체크하고, 미납 회원에게는
+              알림이 자동으로 나가요. 수입·지출 내역은 장부로 정리되어
+              투명하게 공개되고, 회원도 본인의 납부 이력을 앱에서 바로
+              확인할 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>납부 체크</li>
+              <li>미납 자동 알림</li>
+              <li>수입·지출 장부</li>
+              <li>본인 납부 현황 조회</li>
+            </ul>
+          </section>
+
+          <section id="matches" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">🏸</span>
+              <h2 class="guide-section__title">경기 운영</h2>
+            </div>
+            <p class="guide-section__desc">
+              참가자만 입력하면 급수 밸런스를 맞춰 자동으로 대진을 짜거나,
+              직접 조정할 수 있어요. 대기 순번이 자동으로 정리되고, 경기가
+              끝나면 그 자리에서 바로 결과를 기록해요.
+            </p>
+            <ul class="guide-section__list">
+              <li>자동·수동 매칭</li>
+              <li>경기 순서 관리</li>
+              <li>경기 결과 입력</li>
+              <li>파트너 궁합 통계</li>
+            </ul>
+          </section>
+
+          <section id="records" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">🏆</span>
+              <h2 class="guide-section__title">기록·랭킹</h2>
+            </div>
+            <p class="guide-section__desc">
+              경기 결과가 쌓이면 개인 승패 기록과 승률 랭킹이 자동으로
+              집계돼요. 많이 뛴 만큼 반영되는 경기 수 랭킹도 함께
+              제공돼요.
+            </p>
+            <ul class="guide-section__list">
+              <li>개인 승패 기록</li>
+              <li>승률 랭킹</li>
+              <li>경기 수 랭킹</li>
+            </ul>
+          </section>
+
+          <section id="notices" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">📅</span>
+              <h2 class="guide-section__title">공지·일정</h2>
+            </div>
+            <p class="guide-section__desc">
+              정모나 경기 일정을 공지로 올리면 캘린더에 바로 반영되고,
+              경기 하루 전과 당일 알림으로 한 번 더 안내해요. 갑자기 잡힌
+              번개 모임도 즉시 알림으로 공유할 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>공지 작성·조회</li>
+              <li>일정 캘린더</li>
+              <li>경기 알림</li>
+              <li>번개 일정 알림</li>
+            </ul>
+          </section>
+
+          <section id="photos" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">📷</span>
+              <h2 class="guide-section__title">사진첩</h2>
+            </div>
+            <p class="guide-section__desc">
+              정모·대회마다 앨범을 따로 만들어 사진을 정리할 수 있어요.
+              그날 찍은 사진을 바로 올리고 회원들과 함께 볼 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>이벤트별 앨범</li>
+              <li>사진 업로드·조회</li>
+            </ul>
+          </section>
+
+          <section id="alerts" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">🔔</span>
+              <h2 class="guide-section__title">알림</h2>
+            </div>
+            <p class="guide-section__desc">
+              새 공지, 미납 알림, 운영진이 직접 보내는 메시지까지 앱
+              알림으로 놓치지 않고 챙길 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>공지 푸시 알림</li>
+              <li>미납 알림 예약 발송</li>
+              <li>운영진 커스텀 알림</li>
+            </ul>
+          </section>
+
+          <section id="faq" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">❓</span>
+              <h2 class="guide-section__title">자주 묻는 질문</h2>
+            </div>
+            <div class="guide-faq">
+              <details class="guide-faq__item">
+                <summary>로그인이 꼭 필요한가요?</summary>
+                <p class="guide-faq__answer">
+                  아니요. 매칭 체험은 로그인 없이 게스트로 바로 사용할 수
+                  있어요. 로그인은 회원 프로필 자동 연동, 결과 저장·기록·랭킹
+                  반영이 필요할 때 도움이 돼요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>매칭 결과가 저장되나요?</summary>
+                <p class="guide-faq__answer">
+                  아니요. 이 웹사이트에서 체험하는 매칭 결과는 서버에
+                  저장되지 않고, 새로고침하거나 페이지를 벗어나면 사라져요.
+                  참가자 명단, 급수, 성별 같은 입력값도 마찬가지로 저장되지
+                  않아요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>급수나 성별 정보는 어디서 가져오나요?</summary>
+                <p class="guide-faq__answer">
+                  이 웹사이트에서는 참가자를 추가할 때 직접 선택해서
+                  입력해요(모두 선택 사항). 앱에서는 회원 프로필에 저장된
+                  급수·성별 정보를 자동으로 가져와요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>이용 요금이 있나요?</summary>
+                <p class="guide-faq__answer">
+                  아니요. 기능 소개 페이지에 나온 모든 기능은 무료로
+                  제공돼요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>어떤 기기에서 쓸 수 있나요?</summary>
+                <p class="guide-faq__answer">
+                  모바일, 태블릿, 데스크톱 어디서든 브라우저로 접속하면 화면
+                  크기에 맞춰 자동으로 레이아웃이 조정돼요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>커뮤니티 게시판이나 블로그도 있나요?</summary>
+                <p class="guide-faq__answer">
+                  아직은 없어요. 방문자가 많지 않은 지금 단계에서는 빈
+                  게시판 문제가 생길 수 있어 제외했고, 앱 출시 이후 상황을
+                  보고 다시 검토할 계획이에요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>앱은 언제 출시되나요?</summary>
+                <p class="guide-faq__answer">
+                  정식 출시일은 아직 확정되지 않았어요. 출시 준비가 진행
+                  중이며, 일정이 확정되면 이 웹사이트를 통해 안내할
+                  예정이에요.
+                </p>
+              </details>
+              <details class="guide-faq__item">
+                <summary>회비나 회원 관리도 지금 이 웹사이트에서 해볼 수 있나요?</summary>
+                <p class="guide-faq__answer">
+                  아니요. 이 웹사이트에서 직접 체험할 수 있는 기능은
+                  매칭뿐이에요. 회원 관리, 회비 관리 등 나머지 기능은 곧
+                  출시될 앱에서 제공될 예정이에요.
+                </p>
+              </details>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/site-footer.js"></script>
+
+  <button type="button" id="scroll-top" class="scroll-top-btn" aria-label="맨 위로 이동">↑</button>
+
+  <script src="js/scroll-top.js" defer></script>
+  <script src="js/guide-nav.js" defer></script>
+</body>
+</html>
