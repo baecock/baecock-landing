@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.baecock.app",
+      "sha256_cert_fingerprints": [
+        "E9:56:88:48:3A:FD:F5:4E:3E:C0:1D:F9:F0:05:17:33:F9:60:2D:81:E6:5F:72:BD:21:AE:32:96:7F:FE:42:04"
+      ]
+    }
+  }
+]

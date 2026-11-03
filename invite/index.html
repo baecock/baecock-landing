@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 하위 폴더 페이지라 공용 헤더·푸터·이미지의 상대 경로를 사이트 루트 기준으로 맞춘다 -->
+  <base href="/" />
+  <title>동호회 초대 | 배콕</title>
+  <meta name="description" content="초대받은 동호회를 배콕 앱에서 확인하고 가입해 보세요." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
+  <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="배콕" />
+  <meta property="og:title" content="배콕 동호회에 초대받았어요" />
+  <meta property="og:description" content="초대받은 동호회를 배콕 앱에서 확인하고 가입해 보세요." />
+  <meta property="og:url" content="https://baekok.cloud/invite/" />
+  <meta property="og:image" content="https://baekok.cloud/assets/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-link-kind="invite" data-link-param="code">
+  <script src="js/site-header.js" data-page="invite"></script>
+
+  <main>
+    <section class="section link-landing">
+      <div class="container link-landing__card">
+        <img
+          class="link-landing__image"
+          src="assets/images/hero_mascot_pair.webp"
+          alt="라켓을 들고 배드민턴을 치는 배콕 캐릭터 두 명"
+          width="1000"
+          height="887"
+        />
+        <p class="section__eyebrow">동호회 초대</p>
+        <h1 class="link-landing__title">배콕 동호회에 초대받았어요</h1>
+        <p class="link-landing__desc">
+          배콕 앱에서 동호회 소개를 확인하고 바로 가입할 수 있어요.
+        </p>
+
+        <div class="link-landing__code" data-code-box hidden>
+          <span class="link-landing__code-label">초대 코드</span>
+          <strong class="link-landing__code-value font-emphasis" data-code-text></strong>
+          <button type="button" class="btn-outline" data-copy-code>코드 복사</button>
+        </div>
+
+        <div class="link-landing__actions">
+          <a class="btn-primary btn-primary--lg" href="#" data-open-app>앱에서 열기</a>
+          <a class="btn-outline" href="index.html#download" data-launch-alert>출시 알림 받기</a>
+        </div>
+
+        <ul class="link-landing__help">
+          <li>앱에서 열기가 안 되면 배콕 앱 홈의 <strong>동호회 가입 → 코드로 입장하기</strong>에 위 코드를 넣어 주세요.</li>
+          <li>아직 앱이 없나요? 배콕은 출시를 준비하고 있어요. 출시 알림을 신청하면 가장 먼저 알려드릴게요.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/site-footer.js"></script>
+
+  <script src="js/app-link-page.js" defer></script>
+  <script src="js/launch-alert.js" defer></script>
+</body>
+</html>

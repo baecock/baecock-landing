@@ -6,10 +6,19 @@
   <title>기능 소개 | 배콕</title>
   <meta
     name="description"
-    content="회원 관리, 회비 관리, 경기 운영, 기록·랭킹, 공지·일정, 사진첩, 알림까지 — 배콕의 기능을 소개합니다."
+    content="배콕의 기능을 동호회 관리와 개인의 성장 스토리, 두 축으로 소개합니다. 회원·일정·회비·경기 운영부터 경기 기록·대회 기록·레슨·운동 기록까지 확인해보세요."
   />
   <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
   <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="배콕" />
+  <meta property="og:title" content="배콕 기능 소개" />
+  <meta property="og:description" content="동호회 관리와 개인의 성장 스토리, 배콕의 기능을 두 축으로 소개합니다." />
+  <meta property="og:url" content="https://baekok.cloud/features.html" />
+  <meta property="og:image" content="https://baekok.cloud/assets/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet" />
@@ -25,144 +34,84 @@
       <div class="container features-hero__container">
         <p class="features-hero__eyebrow">핵심 기능</p>
         <h1 class="features-hero__title">
-          배콕이 제공하는<br />
-          모든 기능
+          동호회 관리와<br />
+          개인의 성장 스토리
         </h1>
         <p class="features-hero__subtitle">
-          배드민턴 동호회 운영에 필요한 24가지 이상의 기능을<br />
-          무료로 제공합니다
+          배콕은 두 축으로 나뉘어요. 동호회 운영에 필요한 기능과, 나의 배드민턴 활동을<br />
+          기록하는 기능을 함께 제공합니다.
         </p>
         <div class="features-hero__stats">
           <div class="features-hero__stat">
-            <span class="features-hero__stat-value font-emphasis">7</span>
+            <span class="features-hero__stat-value font-emphasis">2</span>
+            <span class="features-hero__stat-label">핵심 축</span>
+          </div>
+          <span class="features-hero__stat-divider" aria-hidden="true"></span>
+          <div class="features-hero__stat">
+            <span class="features-hero__stat-value font-emphasis">11</span>
             <span class="features-hero__stat-label">카테고리</span>
           </div>
           <span class="features-hero__stat-divider" aria-hidden="true"></span>
           <div class="features-hero__stat">
-            <span class="features-hero__stat-value font-emphasis">24+</span>
+            <span class="features-hero__stat-value font-emphasis">44</span>
             <span class="features-hero__stat-label">기능</span>
-          </div>
-          <span class="features-hero__stat-divider" aria-hidden="true"></span>
-          <div class="features-hero__stat">
-            <span class="features-hero__stat-value font-emphasis">100%</span>
-            <span class="features-hero__stat-label">무료 제공</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 기능 목록 (카테고리별) -->
-    <section class="section">
+    <!-- 축 1: 동호회 관리 -->
+    <section class="section" id="club">
       <div class="container container--narrow">
+        <div class="section-intro">
+          <p class="section__eyebrow">🏸 축 1</p>
+          <h2 class="section__title section__title--lg">동호회 관리</h2>
+          <p class="feature-grid__subheading">
+            회원 관리, 게시판과 일정, 출석, 회비, 경기 운영까지 — 여러 도구에 나눠서 하던
+            동호회 운영을 배콕 안에서 연결합니다.
+          </p>
+        </div>
+
         <div class="feature-category">
           <div class="feature-category__header">
             <span class="feature-category__icon" aria-hidden="true">👥</span>
-            <h2 class="feature-category__title">회원 관리</h2>
-            <span class="feature-category__count">4개</span>
+            <h3 class="feature-category__title">회원 관리</h3>
+            <span class="feature-category__count">5개</span>
           </div>
           <div class="feature-subgrid">
             <article class="feature-subcard">
               <span class="feature-subcard__icon" aria-hidden="true">🔗</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">회원 초대</h3>
-                <p class="feature-subcard__desc">초대 링크 하나로 신규 회원을 간편하게 가입시켜요.</p>
+                <h4 class="feature-subcard__title">회원 초대</h4>
+                <p class="feature-subcard__desc">초대 코드나 링크를 카카오톡·문자로 보내면 받은 사람이 바로 가입해요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🪪</span>
+              <span class="feature-subcard__icon" aria-hidden="true">🚪</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">프로필 관리</h3>
-                <p class="feature-subcard__desc">이름, 급수, 연락처 등 회원 정보를 카드 형태로 한눈에 확인해요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🎖️</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">급수 등급 설정</h3>
-                <p class="feature-subcard__desc">회원별 급수를 등록하고 필요할 때마다 조정해요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🛡️</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">운영진 권한 관리</h3>
-                <p class="feature-subcard__desc">회원 강퇴, 정보 수정 등 운영 권한을 역할별로 나눠서 부여해요.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="feature-category">
-          <div class="feature-category__header">
-            <span class="feature-category__icon" aria-hidden="true">💰</span>
-            <h2 class="feature-category__title">회비 관리</h2>
-            <span class="feature-category__count">4개</span>
-          </div>
-          <div class="feature-subgrid">
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">✅</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">납부 체크</h3>
-                <p class="feature-subcard__desc">회원별 납부 여부를 월별·회차별로 토글 한 번에 관리해요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">⏰</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">미납 자동 알림</h3>
-                <p class="feature-subcard__desc">납부하지 않은 회원에게 예약된 알림이 자동으로 발송돼요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">📒</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">수입·지출 장부</h3>
-                <p class="feature-subcard__desc">회비 수입과 지출 내역을 월별로 정리해서 투명하게 공개해요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🔍</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">본인 납부 현황 조회</h3>
-                <p class="feature-subcard__desc">회원도 본인의 납부 이력을 앱에서 직접 확인할 수 있어요.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="feature-category">
-          <div class="feature-category__header">
-            <span class="feature-category__icon" aria-hidden="true">🏸</span>
-            <h2 class="feature-category__title">경기 운영</h2>
-            <span class="feature-category__count">4개</span>
-          </div>
-          <div class="feature-subgrid">
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🔀</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">자동·수동 매칭</h3>
-                <p class="feature-subcard__desc">급수 밸런스를 맞춰 자동으로 짜거나, 직접 대진을 조정해요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🔢</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">경기 순서 관리</h3>
-                <p class="feature-subcard__desc">대기 순번을 자동으로 정리해서 다음 차례가 헷갈리지 않아요.</p>
+                <h4 class="feature-subcard__title">가입 승인</h4>
+                <p class="feature-subcard__desc">검색으로 들어온 가입 신청은 운영진이 승인할지 직접 정할 수 있어요.</p>
               </div>
             </article>
             <article class="feature-subcard">
               <span class="feature-subcard__icon" aria-hidden="true">📝</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">경기 결과 입력</h3>
-                <p class="feature-subcard__desc">경기가 끝나면 그 자리에서 바로 승패를 기록해요.</p>
+                <h4 class="feature-subcard__title">미가입 회원 등록</h4>
+                <p class="feature-subcard__desc">아직 앱을 쓰지 않는 회원도 운영진이 명단에 먼저 올려둘 수 있어요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🤝</span>
+              <span class="feature-subcard__icon" aria-hidden="true">🛡️</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">파트너 궁합 통계</h3>
-                <p class="feature-subcard__desc">누구와 뛰었을 때 승률이 높은지 통계로 보여드려요.</p>
+                <h4 class="feature-subcard__title">운영진 권한 관리</h4>
+                <p class="feature-subcard__desc">운영진을 지정하거나 해제하고, 회원 관리 권한을 역할별로 나눠요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">📋</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">회원 활동 현황</h4>
+                <p class="feature-subcard__desc">출석·글·댓글·받은 공감·마지막 참석일로 꾸준한 회원과 쉬고 있는 회원을 운영진이 확인해요.</p>
               </div>
             </article>
           </div>
@@ -170,30 +119,30 @@
 
         <div class="feature-category">
           <div class="feature-category__header">
-            <span class="feature-category__icon" aria-hidden="true">🏆</span>
-            <h2 class="feature-category__title">기록·랭킹</h2>
+            <span class="feature-category__icon" aria-hidden="true">📣</span>
+            <h3 class="feature-category__title">게시판 · 공지</h3>
             <span class="feature-category__count">3개</span>
           </div>
           <div class="feature-subgrid">
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">📊</span>
+              <span class="feature-subcard__icon" aria-hidden="true">📌</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">개인 승패 기록</h3>
-                <p class="feature-subcard__desc">나의 전적과 경기 히스토리를 한눈에 확인해요.</p>
+                <h4 class="feature-subcard__title">공지 · 게시글</h4>
+                <p class="feature-subcard__desc">운영진 공지와 회원들의 글을 동호회 게시판 한 곳에 모아요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">📈</span>
+              <span class="feature-subcard__icon" aria-hidden="true">💬</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">승률 랭킹</h3>
-                <p class="feature-subcard__desc">동호회 내 승률 순위가 자동으로 집계돼요.</p>
+                <h4 class="feature-subcard__title">댓글 · 공감</h4>
+                <p class="feature-subcard__desc">댓글과 답글, 표정 공감으로 글마다 바로 이야기를 나눠요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🥇</span>
+              <span class="feature-subcard__icon" aria-hidden="true">📷</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">경기 수 랭킹</h3>
-                <p class="feature-subcard__desc">많이 뛴 만큼 순위에 반영되는 활동량 랭킹도 있어요.</p>
+                <h4 class="feature-subcard__title">사진 첨부</h4>
+                <p class="feature-subcard__desc">그날 찍은 사진을 게시글에 함께 올려 회원들과 나눠요.</p>
               </div>
             </article>
           </div>
@@ -202,36 +151,29 @@
         <div class="feature-category">
           <div class="feature-category__header">
             <span class="feature-category__icon" aria-hidden="true">📅</span>
-            <h2 class="feature-category__title">공지·일정</h2>
-            <span class="feature-category__count">4개</span>
+            <h3 class="feature-category__title">일정</h3>
+            <span class="feature-category__count">3개</span>
           </div>
           <div class="feature-subgrid">
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">📣</span>
+              <span class="feature-subcard__icon" aria-hidden="true">🔁</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">공지 작성·조회</h3>
-                <p class="feature-subcard__desc">운영진이 올린 공지를 회원 모두가 앱에서 바로 확인해요.</p>
+                <h4 class="feature-subcard__title">정기 일정 자동 등록</h4>
+                <p class="feature-subcard__desc">정기모임 요일과 시간만 정해두면 매주 일정이 캘린더에 자동으로 들어가요.</p>
               </div>
             </article>
             <article class="feature-subcard">
               <span class="feature-subcard__icon" aria-hidden="true">🗓️</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">일정 캘린더</h3>
-                <p class="feature-subcard__desc">정모, 경기 일정을 캘린더 뷰로 한눈에 확인해요.</p>
+                <h4 class="feature-subcard__title">통합 캘린더</h4>
+                <p class="feature-subcard__desc">가입한 모든 동호회 일정과 레슨, 정산 마감까지 캘린더 하나에서 동호회별 색으로 봐요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">⏱️</span>
+              <span class="feature-subcard__icon" aria-hidden="true">✏️</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">경기 알림</h3>
-                <p class="feature-subcard__desc">경기 하루 전, 당일 자동으로 알림을 보내드려요.</p>
-              </div>
-            </article>
-            <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">⚡</span>
-              <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">번개 일정 알림</h3>
-                <p class="feature-subcard__desc">갑자기 잡힌 번개 모임도 즉시 알림으로 공유돼요.</p>
+                <h4 class="feature-subcard__title">개인 일정</h4>
+                <p class="feature-subcard__desc">개인 운동이나 약속도 같은 캘린더에 직접 추가할 수 있어요.</p>
               </div>
             </article>
           </div>
@@ -239,23 +181,158 @@
 
         <div class="feature-category">
           <div class="feature-category__header">
-            <span class="feature-category__icon" aria-hidden="true">📷</span>
-            <h2 class="feature-category__title">사진첩</h2>
+            <span class="feature-category__icon" aria-hidden="true">✅</span>
+            <h3 class="feature-category__title">출석</h3>
             <span class="feature-category__count">2개</span>
           </div>
           <div class="feature-subgrid">
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">🖼️</span>
+              <span class="feature-subcard__icon" aria-hidden="true">🙋</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">이벤트별 앨범</h3>
-                <p class="feature-subcard__desc">정모, 대회마다 앨범을 따로 만들어 사진을 정리해요.</p>
+                <h4 class="feature-subcard__title">참석 투표</h4>
+                <p class="feature-subcard__desc">경기마다 참석·불참을 투표로 남기고, 마감 1시간 전에 알림으로 한 번 더 알려줘요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">📸</span>
+              <span class="feature-subcard__icon" aria-hidden="true">👀</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">사진 업로드·조회</h3>
-                <p class="feature-subcard__desc">그날 찍은 사진을 바로 올리고 함께 봐요.</p>
+                <h4 class="feature-subcard__title">투표 현황 확인</h4>
+                <p class="feature-subcard__desc">누가 참석하고 누가 아직 투표하지 않았는지 한눈에 확인해요.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="feature-category">
+          <div class="feature-category__header">
+            <span class="feature-category__icon" aria-hidden="true">💰</span>
+            <h3 class="feature-category__title">회비 관리</h3>
+            <span class="feature-category__count">6개</span>
+          </div>
+          <div class="feature-subgrid">
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">✅</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">회비 현황표</h4>
+                <p class="feature-subcard__desc">회원별·월별 납부 여부를 표 한 장으로 보고 바로 체크해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">⏰</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">미납 자동 표시</h4>
+                <p class="feature-subcard__desc">납부 기록이 없는 달은 자동으로 미납으로 표시돼요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">📒</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">수입 · 지출 장부</h4>
+                <p class="feature-subcard__desc">회비 외 수입과 지출을 영수증과 함께 기록하고 목록·달력으로 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🧾</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">모임 정산</h4>
+                <p class="feature-subcard__desc">뒤풀이처럼 따로 걷는 비용을 참가자별로 나누고 누가 냈는지 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">📈</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">회비 통계</h4>
+                <p class="feature-subcard__desc">연간 수입·지출 흐름과 남은 잔액을 그래프로 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🔍</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">회비 안내 상시 공개</h4>
+                <p class="feature-subcard__desc">입금 계좌, 가입비, 월회비 안내를 회원 누구나 동호회 정보 탭에서 확인해요.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="feature-category">
+          <div class="feature-category__header">
+            <span class="feature-category__icon" aria-hidden="true">🏸</span>
+            <h3 class="feature-category__title">경기 운영</h3>
+            <span class="feature-category__count">6개</span>
+          </div>
+          <div class="feature-subgrid">
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🔀</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">랜덤 대진</h4>
+                <p class="feature-subcard__desc">참석한 인원으로 급수와 복식 유형(남복·여복·혼복)을 맞춰 대진을 자동으로 짜고, 경기별로 고칠 수도 있어요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🤝</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">팀전</h4>
+                <p class="feature-subcard__desc">팀을 나눠 팀 안에서 경기하거나 팀 대항전으로 승부를 가려요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🧭</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">코트 현황판</h4>
+                <p class="feature-subcard__desc">대진표 없이 코트가 빌 때마다 다음 사람을 바로 배정해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🏁</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">결과 입력 · 순위표</h4>
+                <p class="feature-subcard__desc">경기가 끝나면 점수를 바로 입력하고, 그날의 순위를 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🔑</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">매치룸</h4>
+                <p class="feature-subcard__desc">동호회가 없어도 코드 하나로 모여 경기하고, 토너먼트까지 진행할 수 있어요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🎲</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">랜덤 추첨 도구</h4>
+                <p class="feature-subcard__desc">동전 던지기, 제비뽑기, 팀 나누기, 룰렛, 사다리타기로 당번이나 순서를 정해요.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="feature-category">
+          <div class="feature-category__header">
+            <span class="feature-category__icon" aria-hidden="true">🏆</span>
+            <h3 class="feature-category__title">동호회 기록 · 랭킹</h3>
+            <span class="feature-category__count">3개</span>
+          </div>
+          <div class="feature-subgrid">
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">📊</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">내 기록</h4>
+                <p class="feature-subcard__desc">동호회 안에서의 승패, 최근 5경기 흐름, 경기 히스토리를 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🥇</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">시즌 승률 랭킹</h4>
+                <p class="feature-subcard__desc">한 해를 한 시즌으로, 동호회 안 승률 랭킹을 보여줘요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">📆</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">클럽 활동 달력</h4>
+                <p class="feature-subcard__desc">경기가 열린 날을 달력으로 보고, 그날의 대진을 다시 볼 수 있어요.</p>
               </div>
             </article>
           </div>
@@ -264,33 +341,181 @@
         <div class="feature-category">
           <div class="feature-category__header">
             <span class="feature-category__icon" aria-hidden="true">🔔</span>
-            <h2 class="feature-category__title">알림</h2>
+            <h3 class="feature-category__title">알림</h3>
             <span class="feature-category__count">3개</span>
           </div>
           <div class="feature-subgrid">
             <article class="feature-subcard">
               <span class="feature-subcard__icon" aria-hidden="true">📮</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">공지 푸시 알림</h3>
-                <p class="feature-subcard__desc">새 공지가 올라오면 놓치지 않도록 바로 알려드려요.</p>
+                <h4 class="feature-subcard__title">동호회 · 경기 알림</h4>
+                <p class="feature-subcard__desc">새 공지와 글, 경기 생성과 대진표, 경기 하루 전·당일 소식을 알려드려요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">⏳</span>
+              <span class="feature-subcard__icon" aria-hidden="true">💸</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">미납 알림 예약 발송</h3>
-                <p class="feature-subcard__desc">회비 미납자에게 정해진 날짜에 자동으로 알림이 나가요.</p>
+                <h4 class="feature-subcard__title">회비 · 정산 알림</h4>
+                <p class="feature-subcard__desc">회비 납부 안내와 미납, 정산 요청과 완료 소식을 알려드려요.</p>
               </div>
             </article>
             <article class="feature-subcard">
-              <span class="feature-subcard__icon" aria-hidden="true">💬</span>
+              <span class="feature-subcard__icon" aria-hidden="true">⚙️</span>
               <div class="feature-subcard__body">
-                <h3 class="feature-subcard__title">운영진 커스텀 알림</h3>
-                <p class="feature-subcard__desc">운영진이 원하는 대상에게 원하는 메시지를 직접 보낼 수 있어요.</p>
+                <h4 class="feature-subcard__title">알림 직접 설정</h4>
+                <p class="feature-subcard__desc">종류별·동호회별로 받을 알림을 고르고, 밤 시간 예약 알림은 아침에 받아요.</p>
               </div>
             </article>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- 축 2: 개인의 성장 스토리 -->
+    <section class="section section--band" id="personal">
+      <div class="container container--narrow">
+        <div class="section-intro">
+          <p class="section__eyebrow">📈 축 2</p>
+          <h2 class="section__title section__title--lg">개인의 성장 스토리</h2>
+          <p class="feature-grid__subheading">
+            배콕은 동호회 운영 도구에 머무르지 않아요. 내가 배드민턴을 얼마나 하고
+            어떻게 성장하고 있는지, 나만의 기록으로 남깁니다.
+          </p>
+        </div>
+
+        <div class="feature-category">
+          <div class="feature-category__header">
+            <span class="feature-category__icon" aria-hidden="true">📊</span>
+            <h3 class="feature-category__title">경기 기록</h3>
+            <span class="feature-category__count">4개</span>
+          </div>
+          <div class="feature-subgrid">
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🗂️</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">나의 전체 기록</h4>
+                <p class="feature-subcard__desc">여러 동호회와 매치룸에서 뛴 경기를 모두 합쳐 승률과 최근 6개월 흐름으로 보여줘요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🤝</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">경기 궁합</h4>
+                <p class="feature-subcard__desc">함께하면 잘 이기는 베스트 파트너와 나를 자주 이긴 상대를 알려줘요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🏅</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">대회 기록</h4>
+                <p class="feature-subcard__desc">동호회 밖에서 나간 대회 결과를 직접 기록하고, 우승·입상만 모아볼 수 있어요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🃏</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">시즌 카드</h4>
+                <p class="feature-subcard__desc">한 시즌의 기록을 카드로 만들어 이미지로 저장하고 공유해요.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="feature-category">
+          <div class="feature-category__header">
+            <span class="feature-category__icon" aria-hidden="true">📘</span>
+            <h3 class="feature-category__title">레슨</h3>
+            <span class="feature-category__count">6개</span>
+          </div>
+          <div class="feature-subgrid">
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🏫</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">레슨방</h4>
+                <p class="feature-subcard__desc">코치와 레슨생이 한 방에서 수업 요일·시간·인원을 정하고 남은 레슨 횟수를 함께 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🙋</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">수업 신청 · 대기</h4>
+                <p class="feature-subcard__desc">날짜별로 수업을 신청하고, 마감 전 빈자리가 생기면 대기 순번대로 자리를 제안받아요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">✍️</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">레슨 일지</h4>
+                <p class="feature-subcard__desc">오늘 배운 기술과 스스로 매긴 평가, 짧은 메모를 1분 안에 남겨요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🗒️</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">코치 노트</h4>
+                <p class="feature-subcard__desc">코치가 레슨생마다 따로 남기는 노트를 받아볼 수 있어요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🎯</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">다음 레슨 추천</h4>
+                <p class="feature-subcard__desc">일지가 쌓이면 기술별 변화를 보고 다음에 연습할 기술을 이유와 함께 추천해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🧑</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">개인 레슨방</h4>
+                <p class="feature-subcard__desc">코치가 배콕을 쓰지 않아도 혼자 레슨 일정과 횟수를 기록할 수 있어요.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="feature-category">
+          <div class="feature-category__header">
+            <span class="feature-category__icon" aria-hidden="true">❤️</span>
+            <h3 class="feature-category__title">운동 · 건강 기록</h3>
+            <span class="feature-category__count">3개</span>
+          </div>
+          <div class="feature-subgrid">
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🔗</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">건강 앱 연동</h4>
+                <p class="feature-subcard__desc">Apple 건강(iPhone)과 Health Connect(Android)에서 배드민턴 운동 기록을 가져와요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🚶</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">오늘의 활동</h4>
+                <p class="feature-subcard__desc">홈 화면에서 오늘의 운동 시간·칼로리·심박수나 걸음 수를 확인해요.</p>
+              </div>
+            </article>
+            <article class="feature-subcard">
+              <span class="feature-subcard__icon" aria-hidden="true">🗓️</span>
+              <div class="feature-subcard__body">
+                <h4 class="feature-subcard__title">월간 운동 캘린더</h4>
+                <p class="feature-subcard__desc">운동한 날을 캘린더로 보고, 날짜를 누르면 그날의 심박수 변화를 확인해요.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 출시 알림 CTA -->
+    <section class="section section-cta">
+      <div class="container">
+        <p class="section__eyebrow">두 축을 모두 담은 앱</p>
+        <h2 class="section__title section__title--lg">동호회 관리와 나의 성장, 배콕에서 시작하세요</h2>
+        <p class="problem-solution__desc">
+          지금 소개한 기능은 배콕 앱에서 만나볼 수 있어요. 출시 알림을 신청하면 앱이
+          나오는 날 가장 먼저 알려드릴게요.
+        </p>
+        <a class="btn-primary" href="index.html#download" data-launch-alert>출시 알림 받기 →</a>
       </div>
     </section>
   </main>
@@ -300,5 +525,6 @@
   <button type="button" id="scroll-top" class="scroll-top-btn" aria-label="맨 위로 이동">↑</button>
 
   <script src="js/scroll-top.js" defer></script>
+  <script src="js/launch-alert.js" defer></script>
 </body>
 </html>

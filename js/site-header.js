@@ -4,7 +4,6 @@
 
   var navLinks = [
     { page: "index", href: "index.html", label: "소개" },
-    // { page: "match", href: "match.html", label: "매칭" },
     { page: "features", href: "features.html", label: "기능" },
     { page: "guide", href: "guide.html", label: "가이드" },
   ];
@@ -26,7 +25,7 @@
         "</a>" +
         '<nav class="site-nav" aria-label="주요 메뉴">' + navHtml + "</nav>" +
         '<div class="site-header__actions">' +
-          '<a class="btn-primary" href="match.html">매칭 체험하기</a>' +
+          '<a class="btn-primary" href="index.html#download" data-launch-alert>출시 알림 받기</a>' +
         "</div>" +
       "</div>" +
     "</header>"

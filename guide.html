@@ -3,13 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>이용 가이드 | 배콕</title>
+  <title>배드민턴 동호회 관리 가이드 | 배콕</title>
   <meta
     name="description"
-    content="배콕의 기능과 이용 방법을 카테고리별로 찾아보세요 — 회원 관리, 회비 관리, 경기 운영, 기록·랭킹, 공지·일정, 사진첩, 알림, 자주 묻는 질문까지."
+    content="배드민턴 동호회 회원 관리, 회비 관리, 출석 관리, 경기 운영부터 나의 경기 기록·대회 기록·레슨 기록까지 — 배콕의 기능과 이용 방법을 카테고리별로 찾아보세요."
   />
   <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
   <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="배콕" />
+  <meta property="og:title" content="배드민턴 동호회 관리 가이드 | 배콕" />
+  <meta property="og:description" content="배드민턴 동호회 운영과 개인 기록, 배콕으로 이렇게 관리해요." />
+  <meta property="og:url" content="https://baekok.cloud/guide.html" />
+  <meta property="og:image" content="https://baekok.cloud/assets/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -20,10 +29,10 @@
     <!-- 페이지 헤더 -->
     <section class="section">
       <div class="container container--narrow">
-        <h1 class="section__title">이용 가이드</h1>
-        <p class="match-section__desc">
-          배콕의 기능과 이용 방법을 카테고리별로 찾아보세요. 궁금한 항목을
-          사이드바에서 골라 바로 이동할 수 있어요.
+        <h1 class="section__title">배드민턴 동호회 관리 가이드</h1>
+        <p class="page-lede">
+          배드민턴 동호회 운영과 나의 배드민턴 활동 기록, 배콕으로 어떻게 관리하는지
+          카테고리별로 찾아보세요. 궁금한 항목을 사이드바에서 골라 바로 이동할 수 있어요.
         </p>
       </div>
     </section>
@@ -34,12 +43,16 @@
         <nav class="guide-sidebar" aria-label="가이드 목차">
           <a class="guide-sidebar__link" href="#start">시작하기</a>
           <a class="guide-sidebar__link" href="#members">회원 관리</a>
+          <a class="guide-sidebar__link" href="#board">게시판 · 공지</a>
+          <a class="guide-sidebar__link" href="#schedule">일정</a>
+          <a class="guide-sidebar__link" href="#attendance">출석</a>
           <a class="guide-sidebar__link" href="#dues">회비 관리</a>
           <a class="guide-sidebar__link" href="#matches">경기 운영</a>
-          <a class="guide-sidebar__link" href="#records">기록·랭킹</a>
-          <a class="guide-sidebar__link" href="#notices">공지·일정</a>
-          <a class="guide-sidebar__link" href="#photos">사진첩</a>
+          <a class="guide-sidebar__link" href="#records">동호회 기록 · 랭킹</a>
           <a class="guide-sidebar__link" href="#alerts">알림</a>
+          <a class="guide-sidebar__link" href="#personal-records">나의 경기 기록</a>
+          <a class="guide-sidebar__link" href="#lessons">레슨 기록</a>
+          <a class="guide-sidebar__link" href="#health">운동 · 건강 기록</a>
           <a class="guide-sidebar__link" href="#faq">FAQ</a>
         </nav>
 
@@ -50,22 +63,17 @@
               <h2 class="guide-section__title">시작하기</h2>
             </div>
             <p class="guide-section__desc">
-              배콕은 배드민턴 동호회 운영에 필요한 기능을 하나의 앱에 담은
-              플랫폼이에요. 회원 명단은 밴드에, 회비 정산은 엑셀에, 경기
-              소식은 카카오톡에 흩어져 있던 것들을 한 곳에서 관리할 수
-              있어요.
+              배콕은 배드민턴 동호회 운영에 필요한 기능과, 나의 배드민턴 활동을 기록하는
+              기능을 하나의 앱에 담은 플랫폼이에요. 회원 명단은 밴드에, 회비 정산은
+              엑셀에, 경기 소식은 카카오톡에 흩어져 있던 것들을 한 곳에서 관리하고,
+              그 활동이 그대로 나의 배드민턴 기록으로 이어져요.
             </p>
             <p class="guide-section__desc">
-              지금 이 웹사이트에서는 로그인 없이 매칭 기능을 먼저 체험해볼
-              수 있어요.
-            </p>
-            <ol class="guide-steps">
-              <li>참가자 이름(선택적으로 급수·성별)을 입력해요</li>
-              <li>랜덤 매칭을 돌리거나 직접 팀을 구성해요</li>
-              <li>코트별 대진 카드로 결과를 확인해요</li>
-            </ol>
-            <p class="guide-section__desc">
-              <a class="feature-card__link" href="match.html">지금 로그인 없이 체험해보기 →</a>
+              배콕의 기능은 크게 두 축으로 나뉘어요. 동호회 운영에 필요한
+              <strong>동호회 관리</strong>와, 나의 활동과 성장을 남기는
+              <strong>개인의 성장 스토리</strong>예요. 전체 기능은
+              <a class="feature-card__link" href="features.html">기능 소개 페이지</a>에서
+              한눈에 확인할 수 있어요.
             </p>
 
             <div class="guide-compare-wrap">
@@ -81,27 +89,32 @@
                   <tr>
                     <td>회원 명단 관리</td>
                     <td>밴드 게시글·엑셀 파일로 따로 관리</td>
-                    <td class="is-highlight">앱 하나에서 프로필로 관리</td>
+                    <td class="is-highlight">앱 하나에서 명단·운영진 권한 관리</td>
                   </tr>
                   <tr>
                     <td>회비 정산</td>
                     <td>엑셀로 수기 정리, 미납자 확인 어려움</td>
-                    <td class="is-highlight">납부 체크와 미납 알림 자동화</td>
+                    <td class="is-highlight">회비 현황표와 미납 자동 표시</td>
+                  </tr>
+                  <tr>
+                    <td>모임 비용 나누기</td>
+                    <td>계좌를 보내고 입금을 일일이 확인</td>
+                    <td class="is-highlight">정산으로 참가자별 납부 확인</td>
                   </tr>
                   <tr>
                     <td>경기 대진 짜기</td>
                     <td>수기로 순서를 정하거나 즉석에서 결정</td>
-                    <td class="is-highlight">급수 밸런스를 맞춘 자동 매칭</td>
+                    <td class="is-highlight">급수·복식 유형을 맞춘 자동 대진</td>
                   </tr>
                   <tr>
-                    <td>경기 소식·일정 공유</td>
+                    <td>경기 소식 · 일정 공유</td>
                     <td>카카오톡 단체방에 흩어짐</td>
                     <td class="is-highlight">캘린더 + 알림으로 한 곳에 정리</td>
                   </tr>
                   <tr>
-                    <td>사진 모으기</td>
-                    <td>단체방에서 유실되기 쉬움</td>
-                    <td class="is-highlight">이벤트별 앨범으로 보관</td>
+                    <td>개인 활동 기록</td>
+                    <td>기억에만 의존, 기록이 남지 않음</td>
+                    <td class="is-highlight">경기 · 대회 · 레슨 기록으로 남기기</td>
                   </tr>
                 </tbody>
               </table>
@@ -111,105 +124,124 @@
           <section id="members" class="guide-section">
             <div class="guide-section__header">
               <span class="guide-section__icon" aria-hidden="true">👥</span>
-              <h2 class="guide-section__title">회원 관리</h2>
+              <h2 class="guide-section__title">배드민턴 동호회 회원 관리</h2>
             </div>
             <p class="guide-section__desc">
-              회원 명단을 앱 하나로 관리할 수 있어요. 초대 링크로 신규
-              회원을 받고, 이름·급수·연락처 같은 정보를 프로필 카드로
-              확인하며, 운영진 권한을 역할별로 나눠줄 수 있어요.
+              동호회를 만들면 초대 코드가 자동으로 생겨요. 코드나 링크를 카카오톡·문자로 보내면 받은 사람이 바로 가입하고, 검색으로 들어오는 가입 신청은 운영진이 승인할지 정할 수 있어요.
+            </p>
+            <p class="guide-section__desc">
+              프로필과 급수는 회원이 직접 입력해요. 아직 앱을 쓰지 않는 회원만 운영진이 명단에 먼저 등록해둘 수 있어요. 운영진은 회원 활동 현황에서 출석·글·댓글·받은 공감·마지막 참석일을 보고 꾸준한 회원과 쉬고 있는 회원을 확인할 수 있어요.
             </p>
             <ul class="guide-section__list">
-              <li>회원 초대</li>
-              <li>프로필 관리</li>
-              <li>급수 등급 설정</li>
+              <li>회원 초대 (초대 코드 · 링크)</li>
+              <li>가입 승인</li>
+              <li>미가입 회원 등록</li>
               <li>운영진 권한 관리</li>
+              <li>회원 활동 현황 (운영진 전용)</li>
+            </ul>
+          </section>
+
+          <section id="board" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">📣</span>
+              <h2 class="guide-section__title">게시판 · 공지</h2>
+            </div>
+            <p class="guide-section__desc">
+              운영진 공지와 회원들의 글이 동호회 게시판 한 곳에 모여요. 글마다 댓글과 답글, 표정 공감을 남길 수 있고, 그날 찍은 사진도 게시글에 함께 올릴 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>공지 · 게시글</li>
+              <li>댓글 · 공감</li>
+              <li>사진 첨부</li>
+            </ul>
+          </section>
+
+          <section id="schedule" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">📅</span>
+              <h2 class="guide-section__title">일정</h2>
+            </div>
+            <p class="guide-section__desc">
+              정기모임 요일과 시간을 한 번 정해두면 매주 일정이 캘린더에 자동으로 들어가요. 월례대회나 창립기념일 같은 반복 일정도 따로 추가할 수 있어요.
+            </p>
+            <p class="guide-section__desc">
+              하단의 일정 탭에서는 가입한 모든 동호회 일정과 레슨, 정산 마감, 개인 일정까지 캘린더 하나로 모아 동호회별 색으로 보여줘요.
+            </p>
+            <ul class="guide-section__list">
+              <li>정기 일정 자동 등록</li>
+              <li>통합 캘린더</li>
+              <li>개인 일정</li>
+            </ul>
+          </section>
+
+          <section id="attendance" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">✅</span>
+              <h2 class="guide-section__title">배드민턴 동호회 출석 관리</h2>
+            </div>
+            <p class="guide-section__desc">
+              카카오톡 댓글로 참석 여부를 일일이 세던 방식 대신, 경기마다 참석·불참을 투표로 남겨요. 투표 마감 1시간 전에는 알림으로 한 번 더 알려주고, 누가 참석하고 누가 아직 투표하지 않았는지 투표 현황에서 바로 확인할 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>참석 투표</li>
+              <li>투표 현황 확인</li>
             </ul>
           </section>
 
           <section id="dues" class="guide-section">
             <div class="guide-section__header">
               <span class="guide-section__icon" aria-hidden="true">💰</span>
-              <h2 class="guide-section__title">회비 관리</h2>
+              <h2 class="guide-section__title">배드민턴 동호회 회비 관리</h2>
             </div>
             <p class="guide-section__desc">
-              회비 납부 여부를 월별·회차별로 체크하고, 미납 회원에게는
-              알림이 자동으로 나가요. 수입·지출 내역은 장부로 정리되어
-              투명하게 공개되고, 회원도 본인의 납부 이력을 앱에서 바로
-              확인할 수 있어요.
+              회비 현황표에서 회원별·월별 납부 여부를 한 장으로 보고 바로 체크해요. 납부 기록이 없는 달은 자동으로 미납으로 표시돼요.
+            </p>
+            <p class="guide-section__desc">
+              회비 외 수입과 지출은 영수증과 함께 장부에 기록하고, 뒤풀이처럼 따로 걷는 비용은 정산으로 참가자별로 나눠 누가 냈는지 확인해요. 연간 수입·지출 흐름은 통계로, 입금 계좌와 회비 안내는 회원 누구나 동호회 정보 탭에서 볼 수 있어요.
             </p>
             <ul class="guide-section__list">
-              <li>납부 체크</li>
-              <li>미납 자동 알림</li>
-              <li>수입·지출 장부</li>
-              <li>본인 납부 현황 조회</li>
+              <li>회비 현황표</li>
+              <li>미납 자동 표시</li>
+              <li>수입 · 지출 장부</li>
+              <li>모임 정산</li>
+              <li>회비 통계</li>
+              <li>회비 안내 상시 공개</li>
             </ul>
           </section>
 
           <section id="matches" class="guide-section">
             <div class="guide-section__header">
               <span class="guide-section__icon" aria-hidden="true">🏸</span>
-              <h2 class="guide-section__title">경기 운영</h2>
+              <h2 class="guide-section__title">배드민턴 경기 운영</h2>
             </div>
             <p class="guide-section__desc">
-              참가자만 입력하면 급수 밸런스를 맞춰 자동으로 대진을 짜거나,
-              직접 조정할 수 있어요. 대기 순번이 자동으로 정리되고, 경기가
-              끝나면 그 자리에서 바로 결과를 기록해요.
+              참석 투표로 인원이 모이면 그날 상황에 맞는 방식으로 대진을 짜요. 급수와 복식 유형(남복·여복·혼복)을 맞춘 랜덤 대진, 팀을 나눠 겨루는 팀전, 대진표 없이 빈 코트에 바로 배정하는 코트 현황판 중에서 고를 수 있어요.
+            </p>
+            <p class="guide-section__desc">
+              경기가 끝나면 점수를 바로 입력하고 그날의 순위를 확인해요. 동호회가 없어도 매치룸에서 코드 하나로 모여 경기하거나 토너먼트를 열 수 있고, 당번이나 순서를 정할 때 쓰는 랜덤 추첨 도구도 있어요.
             </p>
             <ul class="guide-section__list">
-              <li>자동·수동 매칭</li>
-              <li>경기 순서 관리</li>
-              <li>경기 결과 입력</li>
-              <li>파트너 궁합 통계</li>
+              <li>랜덤 대진</li>
+              <li>팀전</li>
+              <li>코트 현황판</li>
+              <li>결과 입력 · 순위표</li>
+              <li>매치룸</li>
+              <li>랜덤 추첨 도구</li>
             </ul>
           </section>
 
           <section id="records" class="guide-section">
             <div class="guide-section__header">
               <span class="guide-section__icon" aria-hidden="true">🏆</span>
-              <h2 class="guide-section__title">기록·랭킹</h2>
+              <h2 class="guide-section__title">동호회 기록 · 랭킹</h2>
             </div>
             <p class="guide-section__desc">
-              경기 결과가 쌓이면 개인 승패 기록과 승률 랭킹이 자동으로
-              집계돼요. 많이 뛴 만큼 반영되는 경기 수 랭킹도 함께
-              제공돼요.
+              동호회 안에서의 승패와 최근 5경기 흐름, 경기 히스토리를 확인할 수 있어요. 랭킹은 한 해를 한 시즌으로 동호회 안 승률을 비교하고, 클럽 활동 달력에서는 경기가 열린 날의 대진을 다시 볼 수 있어요.
             </p>
             <ul class="guide-section__list">
-              <li>개인 승패 기록</li>
-              <li>승률 랭킹</li>
-              <li>경기 수 랭킹</li>
-            </ul>
-          </section>
-
-          <section id="notices" class="guide-section">
-            <div class="guide-section__header">
-              <span class="guide-section__icon" aria-hidden="true">📅</span>
-              <h2 class="guide-section__title">공지·일정</h2>
-            </div>
-            <p class="guide-section__desc">
-              정모나 경기 일정을 공지로 올리면 캘린더에 바로 반영되고,
-              경기 하루 전과 당일 알림으로 한 번 더 안내해요. 갑자기 잡힌
-              번개 모임도 즉시 알림으로 공유할 수 있어요.
-            </p>
-            <ul class="guide-section__list">
-              <li>공지 작성·조회</li>
-              <li>일정 캘린더</li>
-              <li>경기 알림</li>
-              <li>번개 일정 알림</li>
-            </ul>
-          </section>
-
-          <section id="photos" class="guide-section">
-            <div class="guide-section__header">
-              <span class="guide-section__icon" aria-hidden="true">📷</span>
-              <h2 class="guide-section__title">사진첩</h2>
-            </div>
-            <p class="guide-section__desc">
-              정모·대회마다 앨범을 따로 만들어 사진을 정리할 수 있어요.
-              그날 찍은 사진을 바로 올리고 회원들과 함께 볼 수 있어요.
-            </p>
-            <ul class="guide-section__list">
-              <li>이벤트별 앨범</li>
-              <li>사진 업로드·조회</li>
+              <li>내 기록</li>
+              <li>시즌 승률 랭킹</li>
+              <li>클럽 활동 달력</li>
             </ul>
           </section>
 
@@ -219,13 +251,67 @@
               <h2 class="guide-section__title">알림</h2>
             </div>
             <p class="guide-section__desc">
-              새 공지, 미납 알림, 운영진이 직접 보내는 메시지까지 앱
-              알림으로 놓치지 않고 챙길 수 있어요.
+              새 공지와 글, 경기 생성과 대진표, 경기 하루 전·당일, 회비 납부 안내와 정산 소식까지 앱 알림으로 챙길 수 있어요. 받을 알림은 종류별·동호회별로 직접 고르고, 밤 10시부터 아침 8시 사이의 예약 알림은 아침에 받아요.
             </p>
             <ul class="guide-section__list">
-              <li>공지 푸시 알림</li>
-              <li>미납 알림 예약 발송</li>
-              <li>운영진 커스텀 알림</li>
+              <li>동호회 · 경기 알림</li>
+              <li>회비 · 정산 알림</li>
+              <li>알림 직접 설정</li>
+            </ul>
+          </section>
+
+          <section id="personal-records" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">📊</span>
+              <h2 class="guide-section__title">나의 배드민턴 경기 기록</h2>
+            </div>
+            <p class="guide-section__desc">
+              여러 동호회와 매치룸에서 뛴 경기를 모두 합쳐 나의 전체 기록으로 보여줘요. 경기 궁합에서는 함께하면 잘 이기는 파트너와 나를 자주 이긴 상대를 확인할 수 있어요.
+            </p>
+            <p class="guide-section__desc">
+              동호회 밖에서 나간 대회 결과는 대회 기록에 직접 남기고, 한 시즌의 기록은 시즌 카드로 만들어 이미지로 저장하고 공유할 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>나의 전체 기록</li>
+              <li>경기 궁합</li>
+              <li>대회 기록</li>
+              <li>시즌 카드</li>
+            </ul>
+          </section>
+
+          <section id="lessons" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">📘</span>
+              <h2 class="guide-section__title">배드민턴 레슨 기록</h2>
+            </div>
+            <p class="guide-section__desc">
+              레슨방에서 코치와 레슨생이 수업 요일·시간·인원을 정하고 날짜별로 수업을 신청해요. 마감 전에 빈자리가 생기면 대기 순번대로 자리를 제안받고, 남은 레슨 횟수도 함께 확인할 수 있어요.
+            </p>
+            <p class="guide-section__desc">
+              수업이 끝나면 배운 기술과 스스로 매긴 평가를 레슨 일지로 남기고, 코치가 남긴 노트도 받아봐요. 일지가 쌓이면 기술별 변화를 보고 다음에 연습할 기술을 이유와 함께 추천해요. 코치가 배콕을 쓰지 않아도 개인 레슨방으로 혼자 기록할 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>레슨방</li>
+              <li>수업 신청 · 대기</li>
+              <li>레슨 일지</li>
+              <li>코치 노트</li>
+              <li>다음 레슨 추천</li>
+              <li>개인 레슨방</li>
+            </ul>
+          </section>
+
+          <section id="health" class="guide-section">
+            <div class="guide-section__header">
+              <span class="guide-section__icon" aria-hidden="true">❤️</span>
+              <h2 class="guide-section__title">운동 · 건강 기록</h2>
+            </div>
+            <p class="guide-section__desc">
+              Apple 건강(iPhone)이나 Health Connect(Android)와 연결하면 배드민턴 운동 기록을 자동으로 가져와요. 홈 화면에서 오늘의 운동 시간·칼로리·심박수나 걸음 수를 보고, 월간 운동 캘린더에서 날짜를 누르면 그날의 심박수 변화를 확인할 수 있어요.
+            </p>
+            <ul class="guide-section__list">
+              <li>건강 앱 연동</li>
+              <li>오늘의 활동</li>
+              <li>월간 운동 캘린더</li>
             </ul>
           </section>
 
@@ -236,66 +322,56 @@
             </div>
             <div class="guide-faq">
               <details class="guide-faq__item">
-                <summary>로그인이 꼭 필요한가요?</summary>
+                <summary>배콕은 매칭 앱인가요?</summary>
                 <p class="guide-faq__answer">
-                  아니요. 매칭 체험은 로그인 없이 게스트로 바로 사용할 수
-                  있어요. 로그인은 회원 프로필 자동 연동, 결과 저장·기록·랭킹
-                  반영이 필요할 때 도움이 돼요.
+                  아니요. 경기 매칭은 배콕이 제공하는 여러 기능 중 하나예요. 배콕은
+                  회원·일정·회비·경기 같은 동호회 운영과, 경기 기록·운동 같은 개인
+                  기록을 함께 연결하는 서비스예요.
                 </p>
               </details>
               <details class="guide-faq__item">
-                <summary>매칭 결과가 저장되나요?</summary>
+                <summary>여러 동호회에 가입해도 되나요?</summary>
                 <p class="guide-faq__answer">
-                  아니요. 이 웹사이트에서 체험하는 매칭 결과는 서버에
-                  저장되지 않고, 새로고침하거나 페이지를 벗어나면 사라져요.
-                  참가자 명단, 급수, 성별 같은 입력값도 마찬가지로 저장되지
-                  않아요.
+                  네. 동호회 안의 기록과 랭킹은 동호회별로 따로 보고, 나의 전체 경기 기록은
+                  가입한 모든 동호회를 합쳐서 보여줘요.
                 </p>
               </details>
               <details class="guide-faq__item">
-                <summary>급수나 성별 정보는 어디서 가져오나요?</summary>
+                <summary>동호회가 없어도 쓸 수 있나요?</summary>
                 <p class="guide-faq__answer">
-                  이 웹사이트에서는 참가자를 추가할 때 직접 선택해서
-                  입력해요(모두 선택 사항). 앱에서는 회원 프로필에 저장된
-                  급수·성별 정보를 자동으로 가져와요.
-                </p>
-              </details>
-              <details class="guide-faq__item">
-                <summary>이용 요금이 있나요?</summary>
-                <p class="guide-faq__answer">
-                  아니요. 기능 소개 페이지에 나온 모든 기능은 무료로
-                  제공돼요.
+                  네. 매치룸으로 지인들과 코드 하나로 모여 경기할 수 있고, 대회 기록·레슨
+                  기록·운동 기록은 동호회 없이도 남길 수 있어요.
                 </p>
               </details>
               <details class="guide-faq__item">
                 <summary>어떤 기기에서 쓸 수 있나요?</summary>
                 <p class="guide-faq__answer">
-                  모바일, 태블릿, 데스크톱 어디서든 브라우저로 접속하면 화면
-                  크기에 맞춰 자동으로 레이아웃이 조정돼요.
+                  이 웹사이트는 모바일, 태블릿, 데스크톱 어디서든 브라우저로 접속하면
+                  화면 크기에 맞춰 자동으로 레이아웃이 조정돼요. 배콕 앱은 모바일
+                  기기에서 사용할 수 있어요.
                 </p>
               </details>
               <details class="guide-faq__item">
                 <summary>커뮤니티 게시판이나 블로그도 있나요?</summary>
                 <p class="guide-faq__answer">
-                  아직은 없어요. 방문자가 많지 않은 지금 단계에서는 빈
-                  게시판 문제가 생길 수 있어 제외했고, 앱 출시 이후 상황을
-                  보고 다시 검토할 계획이에요.
+                  아직은 없어요. 방문자가 많지 않은 지금 단계에서는 빈 게시판 문제가
+                  생길 수 있어 제외했고, 앱 출시 이후 상황을 보고 다시 검토할
+                  계획이에요.
                 </p>
               </details>
               <details class="guide-faq__item">
                 <summary>앱은 언제 출시되나요?</summary>
                 <p class="guide-faq__answer">
-                  정식 출시일은 아직 확정되지 않았어요. 출시 준비가 진행
-                  중이며, 일정이 확정되면 이 웹사이트를 통해 안내할
-                  예정이에요.
+                  정식 출시일은 아직 확정되지 않았어요. 출시 준비가 진행 중이며,
+                  <a class="feature-card__link" href="index.html#download" data-launch-alert>출시 알림</a>을
+                  신청하면 앱이 나오는 날 가장 먼저 알려드릴게요.
                 </p>
               </details>
               <details class="guide-faq__item">
-                <summary>회비나 회원 관리도 지금 이 웹사이트에서 해볼 수 있나요?</summary>
+                <summary>회원 관리나 회비 관리를 지금 이 웹사이트에서 해볼 수 있나요?</summary>
                 <p class="guide-faq__answer">
-                  아니요. 이 웹사이트에서 직접 체험할 수 있는 기능은
-                  매칭뿐이에요. 회원 관리, 회비 관리 등 나머지 기능은 곧
-                  출시될 앱에서 제공될 예정이에요.
+                  아니요. 이 웹사이트는 배콕이 어떤 서비스인지 소개하는 공간이에요.
+                  회원 관리, 회비 관리 등 실제 기능은 배콕 앱에서 제공돼요.
                 </p>
               </details>
             </div>
@@ -311,5 +387,6 @@
 
   <script src="js/scroll-top.js" defer></script>
   <script src="js/guide-nav.js" defer></script>
+  <script src="js/launch-alert.js" defer></script>
 </body>
 </html>

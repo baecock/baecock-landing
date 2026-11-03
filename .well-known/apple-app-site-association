@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["Z4S8FM25UD.com.baecock.app"],
+        "components": [
+          { "/": "/invite/*", "comment": "동호회 초대 링크" },
+          { "/": "/posts/*", "comment": "게시글 링크" },
+          { "/": "/lesson/*", "comment": "레슨방 초대 링크" }
+        ]
+      }
+    ]
+  }
+}

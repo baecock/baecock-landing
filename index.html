@@ -3,13 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>배콕 | 동호회 운영을 하나의 앱으로</title>
+  <title>배콕 | 동호회 운영은 더 쉽게, 나의 배드민턴 성장은 기록으로</title>
   <meta
     name="description"
-    content="밴드, 엑셀, 카카오톡, 종이로 흩어진 배드민턴 동호회 운영을 하나의 앱으로. 로그인 없이 매칭을 무료로 체험해보세요."
+    content="배콕은 회원·일정·회비·경기 같은 배드민턴 동호회 운영과, 나의 경기 기록·대회 기록·레슨 같은 개인 기록을 하나의 앱에서 연결하는 서비스입니다."
   />
   <link rel="icon" type="image/png" href="assets/icons/web_logo.png" />
   <link rel="apple-touch-icon" href="assets/icons/web_logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="배콕" />
+  <meta property="og:title" content="배콕 | 동호회 운영은 더 쉽게, 나의 배드민턴 성장은 기록으로" />
+  <meta
+    property="og:description"
+    content="배드민턴 동호회 운영과 나의 배드민턴 활동 기록을 하나의 앱에서. 배콕이 두 가지를 어떻게 연결하는지 확인해보세요."
+  />
+  <meta property="og:url" content="https://baekok.cloud/" />
+  <meta property="og:image" content="https://baekok.cloud/assets/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet" />
@@ -22,15 +34,10 @@
   <main>
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero__bg">
-        <img src="assets/images/main_bg.png" alt="배드민턴 복식 경기를 즐기는 두 사람 일러스트" />
-      </div>
       <div class="container hero__container">
         <div class="hero__inner">
-          <!-- <p class="hero__badge">🎁 정식 출시 시 30일 동안 무료로 체험할 수 있어요</p> -->
+          <p class="hero__badge">🏸 동호회 운영도, 나의 배드민턴 기록도 배콕 하나로</p>
           <h1 class="hero__title">
-            <!-- 밴드, 엑셀, 카카오톡, 종이...<br />
-            흩어진 동호회 운영을 하나로 -->
             동호회 운영부터<br />
             개인의 배드민턴<br />
             성장까지<br />
@@ -39,34 +46,35 @@
           <p class="hero__subtitle">
             회원 명단은 밴드에, 회비 정산은 엑셀에, 경기 소식은 카카오톡에,
             출석 체크는 종이 위에 흩어져 있진 않나요? <br />
-            배콕은 이 모든 걸 하나의 앱에 담고, 참가자만
-            입력하면 급수 밸런스를 맞춘 대진표까지 자동으로 짜드립니다.
+            배콕은 이런 동호회 운영을 하나의 앱으로 모으고, 그 활동이 쌓여
+            나의 배드민턴 기록이 되도록 연결합니다.
           </p>
           <div class="hero__cta-row">
-            <a class="btn-primary" href="match.html">매칭 체험하기</a>
-            <span class="hero__cta-hint">로그인 없이 지금 바로 체험할 수 있어요</span>
-          </div>
-          <div class="store-badges">
-            <span class="store-badge-img" aria-disabled="true">
-              <img src="assets/images/app_store.png" alt="App Store에서 다운로드" />
-            </span>
-            <span class="store-badge-img" aria-disabled="true">
-              <img src="assets/images/google_play.png" alt="Google Play에서 다운로드" />
-            </span>
+            <a class="btn-primary" href="#download" data-launch-alert>출시 알림 받기</a>
+            <a class="btn-outline" href="features.html">주요 기능 보기 →</a>
           </div>
           <div class="chip-group hero__feature-tags">
-            <span class="chip chip--on-dark">회원</span>
-            <span class="chip chip--on-dark">회비</span>
-            <span class="chip chip--on-dark">경기</span>
-            <span class="chip chip--on-dark">기록</span>
-            <span class="chip chip--on-dark">알림</span>
+            <span class="chip">회원</span>
+            <span class="chip">회비</span>
+            <span class="chip">경기</span>
+            <span class="chip">기록</span>
+            <span class="chip">레슨</span>
+            <span class="chip">알림</span>
           </div>
+        </div>
+        <div class="hero__visual">
+          <img
+            src="assets/images/hero_mascot_pair.webp"
+            alt="라켓을 들고 배드민턴을 치는 배콕 캐릭터 두 명"
+            width="1000"
+            height="887"
+          />
         </div>
       </div>
     </section>
 
-    <!-- Problem -> Solution + Core Features Overview 통합 -->
-    <section class="section section--band section--full">
+    <!-- Why We Made Baecock (Problem -> Solution) -->
+    <section class="section section--band section--full" id="why-what-how">
       <div class="container">
         <div class="section-intro reveal" data-reveal>
           <p class="section__eyebrow">이런 고민, 익숙하지 않나요?</p>
@@ -81,137 +89,257 @@
             <span class="flow-arrow" aria-hidden="true">→</span>
             <span class="solution-chip">하나의 앱</span>
           </div>
-          <p class="problem-solution__desc">
-            회원 관리부터 회비, 경기 운영, 기록까지 — 동호회에 필요한 모든 걸 앱 하나로 관리하세요.
-          </p>
         </div>
 
-        <h2 class="section__title section__title--lg feature-grid__heading">배콕 플랫폼의 특별한 기능</h2>
-        <p class="feature-grid__subheading">모임 운영에 필요한 모든 관리 도구를 제공합니다</p>
-        <div class="feature-grid feature-grid--portrait reveal" data-reveal>
-          <article class="feature-card">
-            <span class="feature-card__icon" aria-hidden="true">👥</span>
-            <h3 class="feature-card__title">회원 관리</h3>
-            <p class="feature-card__desc">회원 등록부터 등급 관리까지, 명단 관리를 한 곳에서 끝내세요.</p>
-            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
+        <div class="why-what-how reveal" data-reveal>
+          <article class="why-what-how__card">
+            <span class="why-what-how__label">WHY</span>
+            <h3 class="why-what-how__title">왜 배콕을 만드는가</h3>
+            <p class="why-what-how__desc">
+              동호회 운영은 통합해서 더 쉽게 만들고, 회원 한 명 한 명의 배드민턴 활동은
+              계속 기록으로 남도록 만들기 위해서예요.
+            </p>
           </article>
-          <article class="feature-card">
-            <span class="feature-card__icon" aria-hidden="true">💰</span>
-            <h3 class="feature-card__title">회비 관리</h3>
-            <p class="feature-card__desc">누가 냈고 안 냈는지, 회비 납부 현황이 자동으로 정리돼요.</p>
-            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
+          <article class="why-what-how__card">
+            <span class="why-what-how__label">WHAT</span>
+            <h3 class="why-what-how__title">배콕은 무엇을 하는가</h3>
+            <p class="why-what-how__desc">
+              회원·일정·회비·경기 같은 동호회 운영은 하나의 앱으로 모으고, 경기 기록·대회
+              기록·레슨 같은 개인 활동은 나의 성장 기록으로 쌓아가요.
+            </p>
           </article>
-          <article class="feature-card">
-            <span class="feature-card__icon" aria-hidden="true">🏸</span>
-            <h3 class="feature-card__title">경기 운영</h3>
-            <p class="feature-card__desc">참가자만 입력하면 대진표가 순식간에 완성돼요.</p>
-            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
-          </article>
-          <article class="feature-card">
-            <span class="feature-card__icon" aria-hidden="true">🏆</span>
-            <h3 class="feature-card__title">기록·랭킹</h3>
-            <p class="feature-card__desc">경기 결과가 쌓일수록 랭킹이 저절로 업데이트돼요.</p>
-            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
-          </article>
-          <article class="feature-card">
-            <span class="feature-card__icon" aria-hidden="true">📅</span>
-            <h3 class="feature-card__title">공지·일정</h3>
-            <p class="feature-card__desc">정모 공지와 일정을 앱 하나로 모아서 편하게 공유하세요.</p>
-            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
-          </article>
-          <article class="feature-card">
-            <span class="feature-card__icon" aria-hidden="true">🔔</span>
-            <h3 class="feature-card__title">알림</h3>
-            <p class="feature-card__desc">놓치기 쉬운 공지와 경기 소식을 알림으로 바로 챙겨드려요.</p>
-            <a class="feature-card__link" href="features.html">자세히 보기 →</a>
+          <article class="why-what-how__card">
+            <span class="why-what-how__label">HOW</span>
+            <h3 class="why-what-how__title">배콕은 어떻게 하는가</h3>
+            <p class="why-what-how__desc">
+              동호회에서 뛴 경기가 그대로 나의 경기 기록으로 이어지고, 레슨 일지까지 쌓여
+              내가 얼마나 하고 어떻게 성장했는지 확인할 수 있어요.
+            </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Core Features Detail (스크롤 시 하나씩 등장) -->
-    <section class="section section--band">
+    <!-- 축 1: 동호회 관리 -->
+    <section class="section section--band section--full" id="club">
       <div class="container">
-        <p class="section__eyebrow">하나씩 자세히 살펴보세요</p>
-        <div class="feature-showcase">
-          <article class="feature-showcase__item" data-reveal>
-            <div class="feature-showcase__visual" aria-hidden="true">
-              <img class="feature-showcase__icon" src="assets/images/features/member.png" alt="" />
-            </div>
-            <div class="feature-showcase__text">
-              <h3 class="feature-showcase__title">회원 관리</h3>
-              <p class="feature-showcase__desc">
-                이름, 연락처, 급수까지 — 신규 회원 등록부터 등급 조정까지 앱 안에서 바로 처리해요.
-              </p>
-            </div>
-          </article>
-          <article class="feature-showcase__item" data-reveal>
-            <div class="feature-showcase__visual" aria-hidden="true">
-              <img class="feature-showcase__icon" src="assets/images/features/dues.png" alt="" />
-            </div>
-            <div class="feature-showcase__text">
-              <h3 class="feature-showcase__title">회비 관리</h3>
-              <p class="feature-showcase__desc">
-                이번 달 낸 사람, 안 낸 사람이 한눈에 보여요. 미납 회원에게는 알림도 자동으로 나가요.
-              </p>
+        <div class="feature-grid__heading-row">
+          <div>
+            <p class="section__eyebrow">🏸 동호회 관리</p>
+            <h2 class="section__title section__title--lg feature-grid__heading">
+              동호회 운영을 한 곳에서
+            </h2>
+            <p class="feature-grid__subheading">
+              회원 관리부터 일정, 회비, 경기 운영까지 — 여러 도구에 나눠서 하던 일을
+              배콕 하나로 모아서 처리하세요.
+            </p>
+          </div>
+          <a class="feature-card__link" href="features.html#club">동호회 관리 기능 더 보기 →</a>
+        </div>
+        <div class="feature-subgrid feature-subgrid--overview reveal" data-reveal>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">👥</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">회원 관리</h3>
+              <p class="feature-subcard__desc">초대 코드로 회원을 받고, 운영진 권한과 회원 활동 현황까지 한 곳에서 관리해요.</p>
             </div>
           </article>
-          <article class="feature-showcase__item" data-reveal>
-            <div class="feature-showcase__visual" aria-hidden="true">
-              <img class="feature-showcase__icon" src="assets/images/features/match.png" alt="" />
-            </div>
-            <div class="feature-showcase__text">
-              <h3 class="feature-showcase__title">경기 운영</h3>
-              <p class="feature-showcase__desc">
-                참가자만 입력하면 급수 밸런스를 맞춰 대진을 짜드려요. 필요할 땐 직접 수동으로 조정할 수도 있어요.
-              </p>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">📅</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">일정 · 게시판</h3>
+              <p class="feature-subcard__desc">정기 일정은 캘린더에 자동으로 들어가고, 공지와 소식은 게시판에 모여요.</p>
             </div>
           </article>
-          <article class="feature-showcase__item" data-reveal>
-            <div class="feature-showcase__visual" aria-hidden="true">
-              <img class="feature-showcase__icon" src="assets/images/features/ranking.png" alt="" />
-            </div>
-            <div class="feature-showcase__text">
-              <h3 class="feature-showcase__title">기록·랭킹</h3>
-              <p class="feature-showcase__desc">
-                경기가 끝나면 승패가 자동으로 기록되고, 승률·경기 수 기준 랭킹이 바로 업데이트돼요.
-              </p>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">💰</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">회비 · 정산</h3>
+              <p class="feature-subcard__desc">회비 현황표로 납부 여부를 한눈에 보고, 장부와 모임 정산까지 정리해요.</p>
             </div>
           </article>
-          <article class="feature-showcase__item" data-reveal>
-            <div class="feature-showcase__visual" aria-hidden="true">
-              <img class="feature-showcase__icon" src="assets/images/features/notice.png" alt="" />
-            </div>
-            <div class="feature-showcase__text">
-              <h3 class="feature-showcase__title">공지·일정</h3>
-              <p class="feature-showcase__desc">
-                정모 공지를 올리면 캘린더에 바로 반영되고, 경기 하루 전엔 알림으로 한 번 더 알려드려요.
-              </p>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">🏸</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">경기 운영</h3>
+              <p class="feature-subcard__desc">참석 투표로 인원이 모이면 급수와 복식 유형을 맞춰 대진을 바로 짜요.</p>
             </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <!-- 축 2: 개인의 성장 스토리 -->
+    <section class="section section--band section--full">
+      <div class="container">
+        <div class="feature-grid__heading-row">
+          <div>
+            <p class="section__eyebrow">📈 개인의 성장 스토리</p>
+            <h2 class="section__title section__title--lg feature-grid__heading">
+              나의 배드민턴 활동을 기록으로
+            </h2>
+            <p class="feature-grid__subheading">
+              배콕은 동호회 운영 도구에 머무르지 않아요. 내가 얼마나 활동했고 어떻게
+              성장하고 있는지, 나만의 배드민턴 기록으로 남겨요.
+            </p>
+          </div>
+          <a class="feature-card__link" href="features.html#personal">개인 성장 기능 더 보기 →</a>
+        </div>
+        <div class="feature-subgrid feature-subgrid--overview reveal" data-reveal>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">📊</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">경기 기록</h3>
+              <p class="feature-subcard__desc">여러 동호회에서 뛴 경기를 모두 합쳐 보고, 잘 맞는 파트너도 확인해요.</p>
+            </div>
+          </article>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">🏅</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">대회 기록</h3>
+              <p class="feature-subcard__desc">동호회 밖에서 나간 대회 결과까지 직접 기록해 한곳에 모아요.</p>
+            </div>
+          </article>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">📘</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">레슨</h3>
+              <p class="feature-subcard__desc">레슨방에서 수업을 신청하고, 일지가 쌓이면 다음에 연습할 기술을 추천받아요.</p>
+            </div>
+          </article>
+          <article class="feature-subcard">
+            <span class="feature-subcard__icon" aria-hidden="true">❤️</span>
+            <div class="feature-subcard__body">
+              <h3 class="feature-subcard__title">운동 · 건강 기록</h3>
+              <p class="feature-subcard__desc">Apple 건강, Health Connect와 연동해 배드민턴 운동 기록을 자동으로 가져와요.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 실제 앱 화면 미리 보기 -->
+    <section class="section section--band" id="screens">
+      <div class="container">
+        <div class="section-intro">
+          <p class="section__eyebrow">📱 앱 화면 미리 보기</p>
+          <h2 class="section__title section__title--lg">실제 앱 화면으로 확인해보세요</h2>
+          <p class="feature-grid__subheading">
+            동호회 운영부터 나의 기록까지, 지금 만들고 있는 배콕 앱의 화면이에요.
+          </p>
+        </div>
+        <div class="screen-showcase">
+          <article class="screen-showcase__item reveal" data-reveal>
+            <div class="screen-showcase__media">
+              <div class="phone-frame">
+                <img src="assets/images/screens/home.webp" alt="배콕 앱 홈 화면: 오늘의 활동, 내 레슨, 내 동호회, 배드민턴 뉴스" width="600" height="1299" loading="lazy" />
+              </div>
+            </div>
+            <div class="screen-showcase__text">
+              <p class="section__eyebrow">📱 배콕 홈</p>
+              <h3 class="screen-showcase__title">홈</h3>
+              <p class="screen-showcase__lead">오늘 할 일과 내 동호회를 한눈에</p>
+              <p class="screen-showcase__desc">앱을 열면 오늘의 운동과 이번 달 레슨 횟수, 가입한 동호회, 배드민턴 소식이 한 화면에 모여 있어요.</p>
+            </div>
+          </article>
+          <article class="screen-showcase__item screen-showcase__item--reverse reveal" data-reveal>
+            <div class="screen-showcase__media">
+              <div class="phone-frame">
+                <img src="assets/images/screens/club-home.webp" alt="배콕 앱 동호회 메인 화면" width="600" height="1299" loading="lazy" />
+              </div>
+            </div>
+            <div class="screen-showcase__text">
+              <p class="section__eyebrow">🏸 동호회 관리</p>
+              <h3 class="screen-showcase__title">동호회 메인</h3>
+              <p class="screen-showcase__lead">우리 동호회가 한 화면에</p>
+              <p class="screen-showcase__desc">동호회에 들어오면 소개와 정기 일정이 위에 보이고, 게시글·회원·경기·기록·정보 탭으로 필요한 곳에 바로 이동해요.</p>
+            </div>
+          </article>
+          <article class="screen-showcase__item reveal" data-reveal>
+            <div class="screen-showcase__media">
+              <div class="phone-frame">
+                <img src="assets/images/screens/fee-status.webp" alt="배콕 앱 회비 현황 화면" width="600" height="1299" loading="lazy" />
+              </div>
+            </div>
+            <div class="screen-showcase__text">
+              <p class="section__eyebrow">🏸 동호회 관리</p>
+              <h3 class="screen-showcase__title">회비 현황</h3>
+              <p class="screen-showcase__lead">누가 냈는지 표 한 장으로</p>
+              <p class="screen-showcase__desc">회원별·월별 납부 여부를 표로 보고 바로 체크해요. 기록이 없는 달은 미납으로 표시돼 따로 정리하지 않아도 돼요.</p>
+            </div>
+          </article>
+          <article class="screen-showcase__item screen-showcase__item--reverse reveal" data-reveal>
+            <div class="screen-showcase__media">
+              <div class="phone-frame">
+                <img src="assets/images/screens/match-board.webp" alt="배콕 앱 대진표 화면" width="600" height="1299" loading="lazy" />
+              </div>
+            </div>
+            <div class="screen-showcase__text">
+              <p class="section__eyebrow">🏸 동호회 관리</p>
+              <h3 class="screen-showcase__title">대진표</h3>
+              <p class="screen-showcase__lead">참석 인원이 모이면 대진 완성</p>
+              <p class="screen-showcase__desc">참석 투표로 모인 인원으로 급수와 복식 유형을 맞춰 대진을 짜요. 경기가 끝나면 점수를 바로 입력해요.</p>
+            </div>
+          </article>
+          <article class="screen-showcase__item reveal" data-reveal>
+            <div class="screen-showcase__media">
+              <div class="phone-frame">
+                <img src="assets/images/screens/records.webp" alt="배콕 앱 기록 탭 화면: 경기 기록, 토너먼트 기록, 대회 기록" width="600" height="1299" loading="lazy" />
+              </div>
+            </div>
+            <div class="screen-showcase__text">
+              <p class="section__eyebrow">📈 개인의 성장 스토리</p>
+              <h3 class="screen-showcase__title">기록</h3>
+              <p class="screen-showcase__lead">경기·토너먼트·대회 기록을 한곳에</p>
+              <p class="screen-showcase__desc">동호회에서 뛴 경기, 매치룸에서 연 토너먼트, 직접 나간 대회 결과까지 기록 탭 한곳에서 확인해요. 승률과 입상 횟수도 한눈에 보여요.</p>
+            </div>
+          </article>
+          <article class="screen-showcase__item screen-showcase__item--reverse reveal" data-reveal>
+            <div class="screen-showcase__media">
+              <div class="phone-frame">
+                <img src="assets/images/screens/lesson-room.webp" alt="배콕 앱 레슨방 화면: 날짜별 신청 인원이 보이는 레슨 달력" width="600" height="1299" loading="lazy" />
+              </div>
+            </div>
+            <div class="screen-showcase__text">
+              <p class="section__eyebrow">📈 개인의 성장 스토리</p>
+              <h3 class="screen-showcase__title">레슨방</h3>
+              <p class="screen-showcase__lead">레슨 일정과 신청을 달력으로</p>
+              <p class="screen-showcase__desc">코치가 연 수업 날짜를 달력에서 보고 바로 신청해요. 날짜마다 신청 인원과 남은 자리가 보이고, 내가 신청한 날은 따로 표시돼요.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-cta">
+      <div class="container">
         <p class="feature-section__footer">
           <a href="features.html">더 많은 기능이 궁금하다면 기능 소개 페이지에서 확인해보세요 →</a>
         </p>
       </div>
     </section>
 
-    <!-- 앱 다운로드 액션 + Footer를 한 화면에 -->
-    <section class="section section--full closing-section">
+    <!-- 출시 알림 + Footer를 한 화면에 -->
+    <section class="section section--full closing-section" id="download">
       <div class="container closing-section__content reveal" data-reveal>
-        <p class="section__eyebrow">지금 바로 시작하세요</p>
-        <h2 class="section__title section__title--lg">배콕을 다운로드하고 더 편하게 운영하세요</h2>
+        <p class="section__eyebrow">출시 알림 받기</p>
+        <h2 class="section__title section__title--lg">
+          동호회 운영은 더 쉽게,<br />나의 배드민턴 성장은 기록으로
+        </h2>
         <p class="problem-solution__desc">
-          다음 정모부터, 밴드와 엑셀을 오가지 않고도 대진표까지 자동으로 짜서 운영할 수 있어요.
+          배콕은 출시를 준비하고 있어요. 출시 알림을 신청하면 앱이 나오는 날 가장
+          먼저 알려드릴게요.
         </p>
+        <a class="btn-primary btn-primary--lg" href="#download" data-launch-alert>출시 알림 받기</a>
         <div class="store-badges">
           <span class="store-badge-img" aria-disabled="true">
-            <img src="assets/images/app_store.png" alt="App Store에서 다운로드" />
+            <img src="assets/images/app_store.png" alt="App Store 출시 준비 중" />
           </span>
           <span class="store-badge-img" aria-disabled="true">
-            <img src="assets/images/google_play.png" alt="Google Play에서 다운로드" />
+            <img src="assets/images/google_play.png" alt="Google Play 출시 준비 중" />
           </span>
         </div>
+        <p class="store-badges__note">App Store · Google Play 출시 준비 중이에요</p>
       </div>
 
       <script src="js/site-footer.js"></script>
@@ -223,5 +351,6 @@
   <script src="js/reveal.js" defer></script>
   <script src="js/scroll-top.js" defer></script>
   <script src="js/header-scroll.js" defer></script>
+  <script src="js/launch-alert.js" defer></script>
 </body>
 </html>
