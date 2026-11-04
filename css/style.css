@@ -1020,6 +1020,13 @@ p {
   margin-bottom: var(--space-3);
 }
 
+.legal-content__article h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
 .legal-content__article p,
 .legal-content__article li {
   margin-bottom: var(--space-2);

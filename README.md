@@ -20,6 +20,7 @@
 | `guide.html` | 배드민턴 동호회 관리 가이드 (카테고리별 상세 안내 + FAQ) |
 | `terms.html` | 이용약관 |
 | `privacy.html` | 개인정보처리방침 |
+| `delete-account/` | 계정 삭제(회원탈퇴) 안내 — Google Play "계정 삭제 URL"로 등록할 페이지 |
 | `invite/`, `posts/`, `lesson/` | 앱 공유 링크(동호회 초대·게시글·레슨방 초대)가 앱으로 바로 열리지 않을 때 보이는 안내 페이지 (앱 TASK-202) |
 
 ## 폴더 구조
@@ -67,6 +68,9 @@ npx serve .
 - 홍보 문구에 "무료", "AI 추천" 같은 표현을 쓰지 않습니다.
 
 ## 출시 후 할 일
+
+- 개인정보처리방침·이용약관·계정 삭제 안내의 "서비스 출시일부터 시행"을 실제 날짜(예: 2026년 12월 1일)로 바꾸고, 이후 개정하면 이전 버전을 남겨 둡니다.
+- Google Play Console → 앱 콘텐츠 → 데이터 보안의 계정 삭제 URL에 `https://baekok.cloud/delete-account/`를 넣습니다.
 
 - `data-launch-alert`가 붙은 "출시 알림 받기" 버튼(헤더, 홈 히어로·마지막 섹션, 기능 소개 CTA, 가이드 FAQ)을 지우거나 스토어 링크로 바꾸고, `js/launch-alert.js`와 각 페이지의 script 태그를 지웁니다.
 - 홈 마지막 섹션의 스토어 배지를 실제 App Store / Google Play 링크로 연결합니다.
