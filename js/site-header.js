@@ -20,7 +20,7 @@
     '<header class="site-header">' +
       '<div class="container site-header__inner">' +
         '<a class="site-logo" href="index.html">' +
-          '<img class="site-logo__icon" src="assets/icons/web_logo.png" alt="" />' +
+          '<img class="site-logo__icon" src="assets/icons/favicon-192.png" alt="" />' +
           "배콕" +
         "</a>" +
         '<nav class="site-nav" aria-label="주요 메뉴">' + navHtml + "</nav>" +
