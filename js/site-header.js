@@ -21,7 +21,7 @@
       '<div class="container site-header__inner">' +
         '<a class="site-logo" href="index.html">' +
           '<img class="site-logo__icon" src="assets/icons/favicon-192.png" alt="" />' +
-          "배콕" +
+          "배콕(BaeKOK)" +
         "</a>" +
         '<nav class="site-nav" aria-label="주요 메뉴">' + navHtml + "</nav>" +
         '<div class="site-header__actions">' +
