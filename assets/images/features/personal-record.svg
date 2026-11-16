@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 880" width="480" height="880" role="img" aria-label="배콕 나의 경기 기록 화면">
+  <defs>
+    <clipPath id="screenClip-personal-record">
+      <rect x="38" y="38" width="404" height="804" rx="32" />
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="480" height="880" fill="#eef1f8" />
+  <rect x="14" y="14" width="452" height="852" rx="54" fill="#c7cede" />
+  <rect x="22" y="22" width="436" height="836" rx="46" fill="#334155" />
+  <rect x="38" y="38" width="404" height="804" rx="32" fill="#ffffff" />
+
+  <g clip-path="url(#screenClip-personal-record)">
+    <rect x="38" y="38" width="404" height="70" fill="#dfe6f2" />
+    <text x="240" y="92" text-anchor="middle" font-family="-apple-system, 'Noto Sans KR', sans-serif" font-size="26" font-weight="700" fill="#1e293b">나의 기록</text>
+
+    <!-- 전체 통합 요약 (여러 동호회 합산) -->
+    <rect x="62" y="128" width="356" height="96" rx="18" fill="#eaf0fd" />
+    <rect x="86" y="150" width="120" height="14" rx="7" fill="#94a3b8" />
+    <rect x="86" y="176" width="90" height="24" rx="12" fill="#2563eb" />
+    <rect x="210" y="150" width="120" height="14" rx="7" fill="#94a3b8" />
+    <rect x="210" y="176" width="90" height="24" rx="12" fill="#334155" />
+
+    <rect x="62" y="250" width="130" height="14" rx="7" fill="#94a3b8" />
+
+    <!-- 경기 타임라인 리스트 -->
+    <g>
+      <circle cx="76" cy="300" r="9" fill="#2563eb" />
+      <line x1="76" y1="309" x2="76" y2="380" stroke="#e2e8f0" stroke-width="3" />
+      <rect x="104" y="290" width="180" height="14" rx="7" fill="#334155" />
+      <rect x="104" y="312" width="220" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="104" y="332" width="70" height="22" rx="11" fill="#eaf0fd" />
+      <rect x="184" y="332" width="70" height="22" rx="11" fill="#f1f5f9" />
+    </g>
+    <g>
+      <circle cx="76" cy="400" r="9" fill="#94a3b8" />
+      <line x1="76" y1="409" x2="76" y2="480" stroke="#e2e8f0" stroke-width="3" />
+      <rect x="104" y="390" width="200" height="14" rx="7" fill="#334155" />
+      <rect x="104" y="412" width="190" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="104" y="432" width="70" height="22" rx="11" fill="#f1f5f9" />
+      <rect x="184" y="432" width="70" height="22" rx="11" fill="#eaf0fd" />
+    </g>
+    <g>
+      <circle cx="76" cy="500" r="9" fill="#2563eb" />
+      <line x1="76" y1="509" x2="76" y2="580" stroke="#e2e8f0" stroke-width="3" />
+      <rect x="104" y="490" width="160" height="14" rx="7" fill="#334155" />
+      <rect x="104" y="512" width="230" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="104" y="532" width="70" height="22" rx="11" fill="#eaf0fd" />
+      <rect x="184" y="532" width="70" height="22" rx="11" fill="#f1f5f9" />
+    </g>
+    <g>
+      <circle cx="76" cy="600" r="9" fill="#94a3b8" />
+      <line x1="76" y1="609" x2="76" y2="680" stroke="#e2e8f0" stroke-width="3" />
+      <rect x="104" y="590" width="190" height="14" rx="7" fill="#334155" />
+      <rect x="104" y="612" width="150" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="104" y="632" width="70" height="22" rx="11" fill="#f1f5f9" />
+      <rect x="184" y="632" width="70" height="22" rx="11" fill="#eaf0fd" />
+    </g>
+    <g>
+      <circle cx="76" cy="700" r="9" fill="#2563eb" />
+      <rect x="104" y="690" width="170" height="14" rx="7" fill="#334155" />
+      <rect x="104" y="712" width="200" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="104" y="732" width="70" height="22" rx="11" fill="#eaf0fd" />
+      <rect x="184" y="732" width="70" height="22" rx="11" fill="#f1f5f9" />
+    </g>
+  </g>
+
+  <rect x="200" y="46" width="80" height="22" rx="11" fill="#1e293b" />
+  <circle cx="292" cy="57" r="4" fill="#0f172a" />
+  <rect x="180" y="852" width="120" height="5" rx="2.5" fill="#1e293b" />
+</svg>

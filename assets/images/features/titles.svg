@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 880" width="480" height="880" role="img" aria-label="배콕 타이틀 배지 화면">
+  <defs>
+    <clipPath id="screenClip-titles">
+      <rect x="38" y="38" width="404" height="804" rx="32" />
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="480" height="880" fill="#eef1f8" />
+  <rect x="14" y="14" width="452" height="852" rx="54" fill="#c7cede" />
+  <rect x="22" y="22" width="436" height="836" rx="46" fill="#334155" />
+  <rect x="38" y="38" width="404" height="804" rx="32" fill="#ffffff" />
+
+  <g clip-path="url(#screenClip-titles)">
+    <rect x="38" y="38" width="404" height="70" fill="#dfe6f2" />
+    <text x="240" y="92" text-anchor="middle" font-family="-apple-system, 'Noto Sans KR', sans-serif" font-size="26" font-weight="700" fill="#1e293b">타이틀 · 배지</text>
+
+    <!-- 대표 타이틀 메달 -->
+    <circle cx="240" cy="200" r="56" fill="#2563eb" />
+    <circle cx="240" cy="200" r="56" fill="none" stroke="#eaf0fd" stroke-width="6" />
+    <path d="M240 168 l10 22 24 3 -18 16 5 24 -21 -12 -21 12 5 -24 -18 -16 24 -3 z" fill="#ffffff" />
+    <rect x="180" y="272" width="120" height="16" rx="8" fill="#334155" />
+    <rect x="204" y="296" width="72" height="12" rx="6" fill="#94a3b8" />
+
+    <line x1="62" y1="336" x2="418" y2="336" stroke="#e2e8f0" stroke-width="2" />
+    <rect x="62" y="356" width="140" height="14" rx="7" fill="#94a3b8" />
+
+    <!-- 뱃지 컬렉션 그리드 -->
+    <g>
+      <circle cx="100" cy="430" r="34" fill="#2563eb" />
+      <circle cx="200" cy="430" r="34" fill="#2563eb" />
+      <circle cx="300" cy="430" r="34" fill="#eaf0fd" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4" />
+      <circle cx="380" cy="430" r="34" fill="#eaf0fd" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4" />
+    </g>
+    <g>
+      <circle cx="100" cy="520" r="34" fill="#2563eb" />
+      <circle cx="200" cy="520" r="34" fill="#eaf0fd" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4" />
+      <circle cx="300" cy="520" r="34" fill="#eaf0fd" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4" />
+      <circle cx="380" cy="520" r="34" fill="#eaf0fd" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4" />
+    </g>
+
+    <rect x="62" y="580" width="356" height="1" fill="#f1f5f9" />
+    <rect x="62" y="600" width="356" height="90" rx="16" fill="#f8fafc" />
+    <rect x="86" y="622" width="200" height="14" rx="7" fill="#334155" />
+    <rect x="86" y="646" width="260" height="12" rx="6" fill="#cbd5e1" />
+  </g>
+
+  <rect x="200" y="46" width="80" height="22" rx="11" fill="#1e293b" />
+  <circle cx="292" cy="57" r="4" fill="#0f172a" />
+  <rect x="180" y="852" width="120" height="5" rx="2.5" fill="#1e293b" />
+</svg>

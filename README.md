@@ -42,7 +42,6 @@
 │   └── style.css
 └── js/
     ├── site-header.js
-    ├── site-footer.js
     ├── header-scroll.js
     ├── guide-nav.js
     ├── reveal.js

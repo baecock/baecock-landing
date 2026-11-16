@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 880" width="480" height="880" role="img" aria-label="배콕 운동 기록 화면">
+  <defs>
+    <clipPath id="screenClip-health">
+      <rect x="38" y="38" width="404" height="804" rx="32" />
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="480" height="880" fill="#eef1f8" />
+  <rect x="14" y="14" width="452" height="852" rx="54" fill="#c7cede" />
+  <rect x="22" y="22" width="436" height="836" rx="46" fill="#334155" />
+  <rect x="38" y="38" width="404" height="804" rx="32" fill="#ffffff" />
+
+  <g clip-path="url(#screenClip-health)">
+    <rect x="38" y="38" width="404" height="70" fill="#dfe6f2" />
+    <text x="240" y="92" text-anchor="middle" font-family="-apple-system, 'Noto Sans KR', sans-serif" font-size="26" font-weight="700" fill="#1e293b">운동 기록</text>
+
+    <!-- 오늘의 활동 요약 카드 -->
+    <rect x="62" y="132" width="356" height="150" rx="20" fill="#eaf0fd" />
+    <rect x="86" y="160" width="140" height="16" rx="8" fill="#94a3b8" />
+    <rect x="86" y="188" width="220" height="24" rx="12" fill="#334155" />
+    <rect x="86" y="240" width="130" height="26" rx="13" fill="#2563eb" />
+
+    <!-- 주간 활동 막대 그래프 -->
+    <rect x="62" y="312" width="140" height="16" rx="8" fill="#94a3b8" />
+    <g fill="#2563eb">
+      <rect x="62" y="400" width="34" height="70" rx="8" opacity="0.35" />
+      <rect x="110" y="370" width="34" height="100" rx="8" opacity="0.5" />
+      <rect x="158" y="410" width="34" height="60" rx="8" opacity="0.35" />
+      <rect x="206" y="350" width="34" height="120" rx="8" />
+      <rect x="254" y="390" width="34" height="80" rx="8" opacity="0.5" />
+      <rect x="302" y="420" width="34" height="50" rx="8" opacity="0.35" />
+      <rect x="350" y="360" width="34" height="110" rx="8" opacity="0.7" />
+    </g>
+    <line x1="62" y1="480" x2="418" y2="480" stroke="#e2e8f0" stroke-width="2" />
+
+    <!-- 최근 활동 리스트 -->
+    <g>
+      <circle cx="84" cy="540" r="20" fill="#eaf0fd" />
+      <path d="M76 540 l6 6 12 -14" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="118" y="528" width="160" height="14" rx="7" fill="#334155" />
+      <rect x="118" y="550" width="110" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="330" y="533" width="60" height="22" rx="11" fill="#f1f5f9" />
+    </g>
+    <line x1="62" y1="588" x2="418" y2="588" stroke="#f1f5f9" stroke-width="2" />
+    <g>
+      <circle cx="84" cy="620" r="20" fill="#eaf0fd" />
+      <path d="M76 620 l6 6 12 -14" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="118" y="608" width="180" height="14" rx="7" fill="#334155" />
+      <rect x="118" y="630" width="100" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="330" y="613" width="60" height="22" rx="11" fill="#f1f5f9" />
+    </g>
+    <line x1="62" y1="668" x2="418" y2="668" stroke="#f1f5f9" stroke-width="2" />
+    <g>
+      <circle cx="84" cy="700" r="20" fill="#eaf0fd" />
+      <path d="M76 700 l6 6 12 -14" stroke="#2563eb" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <rect x="118" y="688" width="150" height="14" rx="7" fill="#334155" />
+      <rect x="118" y="710" width="120" height="12" rx="6" fill="#cbd5e1" />
+      <rect x="330" y="693" width="60" height="22" rx="11" fill="#f1f5f9" />
+    </g>
+  </g>
+
+  <rect x="200" y="46" width="80" height="22" rx="11" fill="#1e293b" />
+  <circle cx="292" cy="57" r="4" fill="#0f172a" />
+  <rect x="180" y="852" width="120" height="5" rx="2.5" fill="#1e293b" />
+</svg>
