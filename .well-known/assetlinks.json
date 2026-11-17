@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.baecock.app",
       "sha256_cert_fingerprints": [
-        "E9:56:88:48:3A:FD:F5:4E:3E:C0:1D:F9:F0:05:17:33:F9:60:2D:81:E6:5F:72:BD:21:AE:32:96:7F:FE:42:04"
+        "E9:56:88:48:3A:FD:F5:4E:3E:C0:1D:F9:F0:05:17:33:F9:60:2D:81:E6:5F:72:BD:21:AE:32:96:7F:FE:42:04",
+        "32:56:3E:6F:A1:86:36:6A:18:B0:6A:04:29:23:0D:C1:D7:06:7A:7C:B8:6D:52:9B:E7:3B:43:DF:C0:10:E4:B8"
       ]
     }
   }

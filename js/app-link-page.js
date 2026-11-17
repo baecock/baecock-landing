@@ -9,12 +9,17 @@
   var body = document.body;
   var kind = body.getAttribute("data-link-kind");
   var param = body.getAttribute("data-link-param");
-  var value = (new URLSearchParams(window.location.search).get(param) || "").trim();
+  var query = new URLSearchParams(window.location.search);
+  var value = (query.get(param) || "").trim();
+  // 초대 링크에는 링크를 공유한 회원(by)이 함께 담겨 있다. "앱에서 열기"로 넘길 때 빠뜨리면 가입한 사람의
+  // 가입정보에 "○○님의 초대로 가입"이 남지 않는다. (2026-11-17)
+  var inviter = kind === "invite" ? (query.get("by") || "").trim() : "";
 
   var openButton = document.querySelector("[data-open-app]");
   if (openButton) {
     openButton.href = value
-      ? "baekok://open/" + kind + "/?" + param + "=" + encodeURIComponent(value)
+      ? "baekok://open/" + kind + "/?" + param + "=" + encodeURIComponent(value) +
+        (inviter ? "&by=" + encodeURIComponent(inviter) : "")
       : "baekok://open/";
   }
 
