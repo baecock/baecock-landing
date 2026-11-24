@@ -1,24 +1,40 @@
-/* Web fonts */
+/* Web fonts — 앱과 같은 Pretendard 굵기를 로컬 파일에서 불러온다. */
 @font-face {
-  font-family: "NEXON Lv1 Gothic";
-  src: url("../assets/fonts/NEXONLv1GothicLight.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "NEXON Lv1 Gothic";
-  src: url("../assets/fonts/NEXONLv1GothicRegular.ttf") format("truetype");
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "NEXON Lv1 Gothic";
-  src: url("../assets/fonts/NEXONLv1GothicBold.ttf") format("truetype");
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Bold.otf") format("opentype");
   font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-ExtraBold.otf") format("opentype");
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
@@ -195,6 +211,7 @@ p {
 }
 
 .site-header__inner {
+  position: relative;
   max-width: 1300px;
   margin: 0 auto;
   display: flex;
@@ -221,9 +238,93 @@ p {
 }
 
 .site-nav {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  right: 0;
+  z-index: 1;
   display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-dialog);
+}
+
+.site-header.is-menu-open .site-nav {
+  display: flex;
+}
+
+.site-nav a {
+  padding: var(--space-3) 0;
+}
+
+.site-nav .site-nav__cta {
+  display: block;
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-surface);
+  font-size: 14px;
+  text-align: center;
+}
+
+.site-header__actions {
+  display: none;
+}
+
+.site-header__menu-toggle {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-6);
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  color: var(--color-secondary);
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.site-header__menu-toggle span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.site-header.is-menu-open .site-header__menu-toggle span:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.site-header.is-menu-open .site-header__menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.is-menu-open .site-header__menu-toggle span:last-child {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.site-header__menu-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.has-photo-hero .site-header.is-menu-open {
+  background: var(--color-surface);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  box-shadow: var(--shadow-dialog);
+}
+
+.has-photo-hero .site-header.is-menu-open .site-logo,
+.has-photo-hero .site-header.is-menu-open .site-header__menu-toggle {
+  color: var(--color-secondary);
 }
 
 .site-nav a {
@@ -1480,6 +1581,34 @@ p {
 /* Desktop (>= 1024px) */
 @media (min-width: 1024px) {
   .site-nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .site-nav a {
+    padding: 0;
+  }
+
+  .site-nav .site-nav__cta {
+    display: none;
+  }
+
+  .site-header__menu-toggle {
+    display: none;
+  }
+
+  .site-header__actions {
+    display: block;
+  }
+
+  .site-header.is-menu-open .site-nav {
     display: flex;
   }
 
@@ -1592,5 +1721,160 @@ p {
     transition: none;
     opacity: 1;
     transform: none;
+  }
+}
+
+
+/* Typography refinement: keep guide and feature details readable while tightening shared copy. */
+.site-logo {
+  font-size: 23px;
+}
+
+.site-nav a {
+  font-size: 18px;
+}
+
+.btn-primary {
+  font-size: 13px;
+}
+
+.btn-primary--lg {
+  font-size: 16px;
+}
+
+.btn-secondary {
+  font-size: 15px;
+}
+
+body:not(.page-features):not(.page-guide) {
+  font-size: 15px;
+}
+
+body:not(.page-features):not(.page-guide) .hero__title {
+  font-size: 28px;
+}
+
+body:not(.page-features):not(.page-guide) .hero__subtitle {
+  font-size: 15px;
+}
+
+body:not(.page-features):not(.page-guide) .section__eyebrow {
+  font-size: 12px;
+}
+
+body:not(.page-features):not(.page-guide) .section__title {
+  font-size: 22px;
+}
+
+body:not(.page-features):not(.page-guide) .section__title--lg {
+  font-size: 26px;
+}
+
+/* 앱 화면 미리보기의 화면 이름과 설명은 기존 크기를 유지한다. */
+.screen-showcase__title {
+  font-size: 28px;
+}
+
+.screen-showcase__lead {
+  font-size: 18px;
+}
+
+.screen-showcase__desc {
+  font-size: 16px;
+}
+
+/* 기능 페이지는 상단 소개와 섹션 제목만 조금 줄인다. */
+.page-features .features-hero__eyebrow {
+  font-size: 13px;
+}
+
+.page-features .features-hero__title {
+  font-size: 28px;
+}
+
+.page-features .features-hero__subtitle {
+  font-size: 15px;
+}
+
+.page-features .features-hero__stat-value {
+  font-size: 30px;
+}
+
+.page-features .features-hero__stat-label {
+  font-size: 12px;
+}
+
+.page-features .section-intro .section__eyebrow {
+  font-size: 12px;
+}
+
+.page-features .section-intro .section__title {
+  font-size: 22px;
+}
+
+.page-features .section-intro .section__title--lg {
+  font-size: 26px;
+}
+
+.page-features .section-intro .feature-grid__subheading {
+  font-size: 15px;
+}
+
+.page-features .feature-category__title {
+  font-size: 17px;
+}
+
+@media (min-width: 600px) {
+  body:not(.page-features):not(.page-guide) .hero__title {
+    font-size: 36px;
+  }
+
+  body:not(.page-features):not(.page-guide) .hero__subtitle {
+    font-size: 18px;
+  }
+
+  body:not(.page-features):not(.page-guide) .section__title--lg {
+    font-size: 36px;
+  }
+
+  .page-features .features-hero__title {
+    font-size: 40px;
+  }
+
+  .page-features .features-hero__subtitle {
+    font-size: 17px;
+  }
+
+  .page-features .features-hero__stat-value {
+    font-size: 36px;
+  }
+
+  .page-features .section-intro .section__title--lg {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body:not(.page-features):not(.page-guide) .hero__title {
+    font-size: 50px;
+  }
+
+  body:not(.page-features):not(.page-guide) .section__title--lg {
+    font-size: 46px;
+  }
+
+  .page-features .features-hero__title {
+    font-size: 50px;
+  }
+
+  .page-features .section-intro .section__title--lg {
+    font-size: 46px;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .screen-showcase__title {
+    font-size: 34px;
   }
 }
