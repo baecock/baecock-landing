@@ -4,15 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <!--
-    짧은 초대 링크(https://baekok.cloud/i/{토큰}) 페이지 템플릿. (2026-11-24)
-    - Cloudflare Worker(앱 저장소 infra/cloudflare/invite-link-worker)가 이 파일을 받아, 토큰으로 찾은
-      동호회 이름·대표 사진·초대 코드와 OG 메타태그를 서버에서 채워 첫 HTML 응답으로 돌려준다.
-      카카오톡 미리보기는 이 첫 응답의 og:title·og:description·og:image를 읽는다(JS로 바꾸지 않는다).
-    - Worker가 바꾸는 곳: <title>, meta description/og:*, body[data-invite-state],
-      [data-invite-club-name], img[data-invite-club-image], [data-invite-code], a[data-open-app].
-      이 속성 이름을 바꾸면 Worker도 같이 바꿔야 한다.
-    - 이 파일을 그대로 열면(/i/) "초대 링크를 열 수 없어요" 상태로 보인다.
-    - Worker 응답에는 CSP(script/style은 같은 사이트 파일만)가 붙으므로 인라인 script·style 속성을 쓰지 않는다.
+    짧은 초대 링크(https://baekok.cloud/i/?t={토큰}) 페이지. (2026-11-24, 2026-11-26 정적 방식으로 변경)
+    - 기본(현재): 서버 없이 GitHub Pages만 쓴다. js/invite-link-page.js가 주소의 t 값으로 Supabase
+      RPC get_club_invite_link를 불러 동호회 이름·사진·초대 코드를 채운다. 그래서 카카오톡 미리보기 카드는
+      모든 동호회가 아래 공통 OG 태그(배콕 동호회 초대장 + 배콕 아이콘)로 나온다.
+    - 나중에 카드까지 동호회별로 만들 때: Cloudflare Worker(앱 저장소 infra/cloudflare/invite-link-worker)가
+      이 파일을 받아 body[data-invite-state]를 ready/missing/error로 미리 채우고 OG 태그를 서버에서 바꾼다.
+      state가 loading이 아니면 스크립트는 다시 조회하지 않는다.
+    - Worker가 바꾸는 곳(속성 이름을 바꾸면 Worker도 같이): <title>, meta description/og:*,
+      body[data-invite-state], [data-invite-club-name], img[data-invite-club-image], [data-invite-code],
+      a[data-open-app].
+    - og:url은 일부러 넣지 않는다. 카카오는 og:url이 긁은 주소(?t= 포함)와 다르면 미리보기를 만들지 않는다.
   -->
   <base href="/" />
   <meta name="referrer" content="no-referrer" />
@@ -28,8 +30,7 @@
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:title" content="배콕 동호회 초대장" />
   <meta property="og:description" content="배콕(BaeKOK) 앱에서 동호회 소개를 보고 바로 가입할 수 있어요. 링크를 열어 초대 코드를 확인하세요." />
-  <meta property="og:url" content="https://baekok.cloud/i/" />
-  <meta property="og:image" content="https://baekok.cloud/assets/images/og-invite.png" />
+    <meta property="og:image" content="https://baekok.cloud/assets/images/og-invite.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="600" />
   <meta property="og:image:height" content="600" />
@@ -38,7 +39,7 @@
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="invite-page" data-invite-state="missing">
+<body class="invite-page" data-invite-state="loading">
   <header class="invite-bar">
     <a class="invite-bar__logo" href="index.html">
       <img src="assets/icons/favicon-192.png" alt="" width="28" height="28" />
@@ -47,6 +48,19 @@
   </header>
 
   <main class="invite">
+    <!-- 동호회 정보를 불러오는 중(정적 방식의 기본 상태) -->
+    <article class="invite-card invite-card--notice" data-invite-show="loading" aria-busy="true">
+      <div class="invite-card__body">
+        <img class="invite-card__avatar invite-card__avatar--plain" src="assets/images/og-invite.png" alt="" width="104" height="104" />
+        <p class="invite-card__eyebrow">동호회 초대장</p>
+        <h1 class="invite-card__title">초대장을 불러오고 있어요</h1>
+        <p class="invite-card__lead">잠시만 기다려 주세요.</p>
+        <noscript>
+          <p class="invite-card__lead">JavaScript를 켜면 초대 정보가 보여요. 배콕 앱 홈 → 동호회 가입에서 초대 코드를 입력해도 가입할 수 있어요.</p>
+        </noscript>
+      </div>
+    </article>
+
     <!-- 유효한 초대 -->
     <article class="invite-card" data-invite-show="ready" aria-labelledby="invite-title">
       <div class="invite-card__cover" aria-hidden="true"></div>

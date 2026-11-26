@@ -1,11 +1,95 @@
 /*
-  짧은 초대 링크 페이지(/i/{토큰}) 스크립트. (2026-11-24)
-  동호회 이름·초대 코드·"앱에서 열기" 주소는 Cloudflare Worker가 HTML에 미리 채워 두고, 이 스크립트는
-  화면 동작만 맡는다.
+  짧은 초대 링크 페이지(/i/?t={토큰}) 스크립트. (2026-11-24, 2026-11-26 브라우저 조회 방식 추가)
+  - 조회: 주소의 t 값으로 Supabase RPC get_club_invite_link를 불러 동호회 이름·사진·초대 코드를 채운다
+    (서버 없이 GitHub Pages만 쓰는 현재 방식). 앱과 같은 공개 키(publishable)만 쓰며 서버 비밀 키는 없다.
+    Cloudflare Worker가 이미 채워 준 경우(body[data-invite-state]가 loading이 아님)에는 다시 조회하지 않는다.
   - 코드 복사: 클립보드 API가 막힌 인앱 브라우저를 위해 선택 복사로 한 번 더 시도한다.
   - 앱에서 열기: 눌렀는데 잠시 뒤에도 페이지가 그대로 보이면(앱 미설치·열기 실패) 코드 입력 안내를 보여 준다.
   - 동호회 사진을 못 불러오면 배콕 아이콘으로 바꾼다.
+  운영 서버를 따로 만들면 아래 SUPABASE_URL·SUPABASE_PUBLISHABLE_KEY를 그 값으로 바꾼다.
 */
+(function () {
+  var SUPABASE_URL = "https://kwtphdchnikoitzfejzh.supabase.co";
+  var SUPABASE_PUBLISHABLE_KEY = "sb_publishable_mz2KTY17tIcOSql48yFafQ_QftZ9_nh";
+  var TOKEN_PATTERN = /^[A-Za-z0-9]{6,32}$/;
+
+  // 짧은 링크 토큰: ?t={토큰}. 나중에 서버가 /i/{토큰} 주소를 처리하게 되면 그 형식도 읽는다.
+  function readToken() {
+    var fromQuery = (new URLSearchParams(window.location.search).get("t") || "").trim();
+    if (TOKEN_PATTERN.test(fromQuery)) return fromQuery;
+    var match = /^\/i\/([^/]+)\/?$/.exec(window.location.pathname);
+    return match && TOKEN_PATTERN.test(match[1]) ? match[1] : "";
+  }
+
+  var token = readToken();
+
+  function setState(state) {
+    document.body.setAttribute("data-invite-state", state);
+  }
+
+  // 앱에서 열기 주소: 토큰이 있으면 앱이 같은 초대를 열고, 없으면 앱만 연다.
+  document.querySelectorAll("[data-open-app]").forEach(function (link) {
+    link.setAttribute("href", token ? "baekok://open/i/?t=" + encodeURIComponent(token) : "baekok://open/");
+  });
+
+  function storageImageUrl(path) {
+    var clean = String(path || "")
+      .split("/")
+      .filter(function (part) { return part && part !== "." && part !== ".."; })
+      .map(encodeURIComponent)
+      .join("/");
+    return clean ? SUPABASE_URL + "/storage/v1/object/public/club-images/" + clean : "";
+  }
+
+  function showInvite(row) {
+    var name = String(row.club_name || "").replace(/\s+/g, " ").trim() || "배콕 동호회";
+    var clubName = document.querySelector("[data-invite-club-name]");
+    var codeText = document.querySelector("[data-invite-code]");
+    var image = document.querySelector("[data-invite-club-image]");
+    if (clubName) clubName.textContent = name;
+    if (codeText) codeText.textContent = String(row.invite_code || "").trim();
+    if (image) {
+      var photo = storageImageUrl(row.club_image_path);
+      if (photo) image.setAttribute("src", photo);
+      image.setAttribute("alt", "'" + name + "' 동호회 대표 사진");
+    }
+    document.title = "'" + name + "' 동호회 초대장 | 배콕(BaeKOK)";
+    setState("ready");
+  }
+
+  function loadInvite() {
+    if (!token) {
+      setState("missing");
+      return;
+    }
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 8000);
+    var headers = { apikey: SUPABASE_PUBLISHABLE_KEY, "Content-Type": "application/json", Accept: "application/json" };
+    if (SUPABASE_PUBLISHABLE_KEY.indexOf("eyJ") === 0) headers.Authorization = "Bearer " + SUPABASE_PUBLISHABLE_KEY;
+    fetch(SUPABASE_URL + "/rest/v1/rpc/get_club_invite_link", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ p_token: token }),
+      signal: controller.signal,
+      referrerPolicy: "no-referrer",
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (rows) {
+        var row = Array.isArray(rows) ? rows[0] : null;
+        if (row && String(row.invite_code || "").trim()) showInvite(row);
+        else setState("missing");
+      })
+      .catch(function () { setState("error"); })
+      .then(function () { clearTimeout(timer); });
+  }
+
+  // Worker가 이미 채워 준 페이지(ready·missing·error)는 그대로 둔다.
+  if (document.body.getAttribute("data-invite-state") === "loading") loadInvite();
+})();
+
 (function () {
   var FALLBACK_IMAGE = "assets/images/og-invite.png";
 

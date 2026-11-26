@@ -1879,9 +1879,9 @@ body:not(.page-features):not(.page-guide) .section__title--lg {
   }
 }
 
-/* Invite Link Page (/i/{토큰} 짧은 초대 링크, 2026-11-24)
-   동호회 이름·사진·초대 코드는 Cloudflare Worker가 서버에서 채우고, body[data-invite-state]
-   (ready | missing | error)에 맞는 블록만 보인다. 정적 파일 기본값은 missing. */
+/* Invite Link Page (/i/?t={토큰} 짧은 초대 링크, 2026-11-24)
+   동호회 이름·사진·초대 코드는 js/invite-link-page.js가 채우고(나중에는 Worker가 서버에서 채울 수도 있다), body[data-invite-state]
+   (loading | ready | missing | error)에 맞는 블록만 보인다. 정적 파일 기본값은 loading. */
 .invite-page {
   background:
     radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--color-primary) 14%, transparent) 0%, transparent 60%),
@@ -1892,6 +1892,7 @@ body:not(.page-features):not(.page-guide) .section__title--lg {
   display: none;
 }
 
+.invite-page[data-invite-state="loading"] [data-invite-show="loading"],
 .invite-page[data-invite-state="ready"] [data-invite-show="ready"],
 .invite-page[data-invite-state="missing"] [data-invite-show="missing"],
 .invite-page[data-invite-state="error"] [data-invite-show="error"] {
