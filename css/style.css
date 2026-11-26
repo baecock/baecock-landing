@@ -1878,3 +1878,317 @@ body:not(.page-features):not(.page-guide) .section__title--lg {
     font-size: 34px;
   }
 }
+
+/* Invite Link Page (/i/{토큰} 짧은 초대 링크, 2026-11-24)
+   동호회 이름·사진·초대 코드는 Cloudflare Worker가 서버에서 채우고, body[data-invite-state]
+   (ready | missing | error)에 맞는 블록만 보인다. 정적 파일 기본값은 missing. */
+.invite-page {
+  background:
+    radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--color-primary) 14%, transparent) 0%, transparent 60%),
+    var(--color-background);
+}
+
+.invite-page [data-invite-show] {
+  display: none;
+}
+
+.invite-page[data-invite-state="ready"] [data-invite-show="ready"],
+.invite-page[data-invite-state="missing"] [data-invite-show="missing"],
+.invite-page[data-invite-state="error"] [data-invite-show="error"] {
+  display: block;
+}
+
+.invite-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: env(safe-area-inset-top) var(--space-4) 0;
+}
+
+.invite-bar__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-secondary);
+}
+
+.invite-bar__logo img {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.invite {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4) var(--space-7);
+}
+
+.invite-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+  text-align: center;
+}
+
+.invite-card__cover {
+  height: 112px;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.22) 0%, transparent 42%),
+    radial-gradient(circle at 85% 90%, rgba(255, 255, 255, 0.16) 0%, transparent 45%),
+    linear-gradient(135deg, #3083ff 0%, var(--color-primary) 60%, #1d4ed8 100%);
+}
+
+.invite-card__body {
+  padding: 0 var(--space-5) var(--space-6);
+}
+
+.invite-card--notice .invite-card__body {
+  padding-top: var(--space-7);
+}
+
+.invite-card__avatar {
+  width: 104px;
+  height: 104px;
+  margin: -52px auto var(--space-4);
+  object-fit: cover;
+  border: 4px solid var(--color-surface);
+  border-radius: 30px;
+  background: var(--color-background);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+}
+
+.invite-card__avatar--plain {
+  width: 88px;
+  height: 88px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 24px;
+}
+
+.invite-card__eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  padding: 4px 12px;
+  border-radius: var(--radius-chip);
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.invite-card__title {
+  margin-bottom: var(--space-2);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--color-secondary);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.invite-card__lead {
+  margin-bottom: var(--space-5);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+/* 휴대폰: 코드를 가운데 크게, 복사 버튼은 아래. 400px 이상에서 한 줄로 놓는다. */
+.invite-code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px dashed color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+}
+
+.invite-code__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.invite-code__label {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.invite-code__value {
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: 3px;
+  color: var(--color-secondary);
+  overflow-wrap: anywhere;
+  -webkit-user-select: all;
+  user-select: all;
+}
+
+.invite-code__copy {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-chip);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-button);
+}
+
+.invite-code__copy:active {
+  transform: scale(0.97);
+}
+
+.invite-code__copy:focus-visible,
+.invite-card__button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.invite-code__status {
+  min-height: 20px;
+  margin: var(--space-2) 0 var(--space-3);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.invite-code__clipboard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.invite-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.invite-card__button {
+  display: block;
+  width: 100%;
+  margin-top: 0;
+  text-align: center;
+}
+
+.invite-card__actions .btn-primary--lg {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.invite-card__actions .btn-outline {
+  padding: calc(var(--space-4) - 1px) var(--space-6);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.invite-card__fallback {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-warning) 14%, var(--color-surface));
+  color: var(--color-secondary);
+  font-size: 14px;
+  text-align: left;
+}
+
+.invite-steps {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+  scroll-margin-top: var(--space-4);
+}
+
+.invite-steps__title {
+  margin-bottom: var(--space-4);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-secondary);
+}
+
+.invite-steps__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: invite-step;
+}
+
+.invite-steps__list li {
+  position: relative;
+  padding-left: 40px;
+  counter-increment: invite-step;
+}
+
+.invite-steps__list li::before {
+  content: counter(invite-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.invite-steps__list strong {
+  display: block;
+  font-size: 15px;
+  color: var(--color-secondary);
+}
+
+.invite-steps__list span {
+  display: block;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 400px) {
+  .invite-code {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: var(--space-5);
+  }
+
+  .invite-code__text {
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 600px) {
+  .invite {
+    padding-top: var(--space-6);
+  }
+
+  .invite-card__title {
+    font-size: 28px;
+  }
+}

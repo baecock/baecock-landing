@@ -22,6 +22,7 @@
 | `privacy.html` | 개인정보처리방침 |
 | `delete-account/` | 계정 삭제(회원탈퇴) 안내 — Google Play "계정 삭제 URL"로 등록할 페이지 |
 | `invite/`, `posts/`, `lesson/` | 앱 공유 링크(동호회 초대·게시글·레슨방 초대)가 앱으로 바로 열리지 않을 때 보이는 안내 페이지 (앱 TASK-202) |
+| `i/index.html` | 짧은 초대 링크 `/i/{토큰}` 페이지의 **템플릿**. Cloudflare Worker(앱 저장소 `infra/cloudflare/invite-link-worker`)가 동호회 이름·사진·초대 코드·OG 태그를 서버에서 채운다. 이 파일만 열면 "초대 링크를 열 수 없어요" 상태 (2026-11-24) |
 
 ## 폴더 구조
 
@@ -36,6 +37,7 @@
 ├── .nojekyll        # .well-known 폴더를 GitHub Pages가 그대로 올리도록
 ├── .well-known/     # 앱 링크 인증 파일 (iOS apple-app-site-association, Android assetlinks.json)
 ├── invite/ posts/ lesson/   # 공유 링크 안내 페이지
+├── i/index.html     # 짧은 초대 링크 템플릿(Worker가 채움, 2026-11-24)
 ├── assets/images/screens/   # 홈 "앱 화면 미리 보기" 6장 (webp, Figma XhTz 파일 섹션 563:10355에서 3배 내보내기 → 600폭)
 ├── css/
 │   ├── tokens.css   # 색상/간격/반경 등 디자인 토큰
@@ -47,7 +49,8 @@
     ├── reveal.js
     ├── scroll-top.js
     ├── launch-alert.js  # 출시 알림 구글폼 주소 (출시 전용)
-    └── app-link-page.js # 공유 링크 안내 페이지의 "앱에서 열기"·코드 표시
+    ├── app-link-page.js # 공유 링크 안내 페이지의 "앱에서 열기"·코드 표시
+    └── invite-link-page.js # 짧은 초대 링크 페이지의 코드 복사·앱 열기 실패 안내
 ```
 
 ## 실행 방법
@@ -62,6 +65,7 @@ npx serve .
 
 - 이 사이트는 앱의 웹 버전이 아닙니다. 회원 관리, 회비 관리 등 실제 앱 기능은 배콕(BaeKOK) 앱에서 제공됩니다.
 - 커뮤니티 탭, 블로그 등은 스코프 밖입니다.
+- 예외: `/i/*` 짧은 초대 링크는 GitHub Pages 앞에 둔 Cloudflare Worker가 응답한다(동호회별 카카오톡 미리보기는 정적 파일로 만들 수 없기 때문). 나머지 주소는 지금처럼 정적 파일이다. `i/index.html`의 `data-invite-*`·`data-open-app` 속성과 `og:*` 태그는 Worker가 찾아 바꾸는 자리이므로 이름을 바꿀 때 Worker도 같이 바꾼다. 구조·배포: 앱 저장소 `docs/operations/short-invite-link.md`.
 - 실제 App Store / Google Play 링크가 확정되기 전까지 다운로드 배지는 비활성 상태(출시 준비 중)로 표시합니다.
 - 기능 설명은 앱에 실제로 들어간 기능만 적습니다. 출시 후로 미룬 기능(사진첩, 칭호·배지, 포인트·리워드 등)은 넣지 않습니다.
 - 홍보 문구에 "무료", "AI 추천" 같은 표현을 쓰지 않습니다.
@@ -74,4 +78,5 @@ npx serve .
 - `data-launch-alert`가 붙은 "출시 알림 받기" 버튼(헤더, 홈 히어로·마지막 섹션, 기능 소개 CTA, 가이드 FAQ)을 지우거나 스토어 링크로 바꾸고, `js/launch-alert.js`와 각 페이지의 script 태그를 지웁니다.
 - 홈 마지막 섹션의 스토어 배지를 실제 App Store / Google Play 링크로 연결합니다.
 - `invite/`, `posts/`, `lesson/` 안내 페이지의 "출시 알림 받기"를 스토어 버튼으로 바꿉니다.
+- `i/index.html`의 "앱 출시 알림 받기"와 가입 방법 1단계("아직 앱이 없다면 출시 알림…")를 스토어 버튼·설치 안내로 바꿉니다.
 - Play Console 앱 서명을 켜면 업로드 키·앱 서명 키의 SHA-256을 `.well-known/assetlinks.json`에 추가합니다(지금은 개발용 debug 키만 있음).
