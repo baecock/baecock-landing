@@ -2,7 +2,7 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["Z4S8FM25UD.com.baecock.app"],
+        "appIDs": ["6CLK7AH3LH.com.baecock.app"],
         "components": [
           { "/": "/i/*", "comment": "짧은 동호회 초대 링크 (2026-11-24)" },
           { "/": "/invite/*", "comment": "동호회 초대 링크" },
